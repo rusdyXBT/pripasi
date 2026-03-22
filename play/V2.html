@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maapkan rusdy 😔</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: url('https://i.imgur.com/3ZQ3Z4D.jpg') no-repeat center center;
+  background-size: cover;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* overlay */
+body::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1;
+}
+
+/* bubble animasi */
+body::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.08) 10%, transparent 10%);
+  background-size: 80px 80px;
+  animation: moveBg 20s linear infinite;
+  z-index: 0;
+}
+
+@keyframes moveBg {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(-200px,-200px); }
+}
+
+.card {
+  width: 320px;
+  padding: 20px;
+  border-radius: 20px;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 25px rgba(255,255,255,0.2);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: auto;
+  background: url('https://i.imgur.com/6qK0Q6C.png') center/cover;
+  border: 3px solid white;
+}
+
+.text {
+  margin-top: 15px;
+  font-size: 16px;
+  min-height: 90px;
+}
+
+.buttons {
+  margin-top: 20px;
+  position: relative;
+  height: 80px;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  margin: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#yes {
+  background: white;
+  color: black;
+}
+
+#no {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  position: absolute;
+  left: 120px;
+  top: 10px;
+  transition: all 0.15s linear;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+  <div class="avatar"></div>
+  <div id="text" class="text"></div>
+
+  <div class="buttons">
+    <button id="yes">Iyah di maapkan</button>
+    <button id="no">Emoh</button>
+  </div>
+</div>
+
+<script>
+/* 🎵 MUSIK */
+const music = new Audio("https://raw.githubusercontent.com/rusdyXBT/pripasi/main/play/2.mp3");
+music.loop = true;
+music.volume = 0.5;
+
+document.body.addEventListener("click", () => {
+  music.play().catch(() => {});
+}, { once: true });
+
+/* 💬 TEXT HALUS */
+const messages = [
+"Upps! 😢 Hari raya ini harus saling maaf-maafan yaa 👀🤝",
+"Minall 'Aidin Walfaizin ✨ mohon maaf lahir dan batin 🙏",
+"Sebenernya rusdy cuma bercanda kok... 😭",
+"Tapi kalau keterlaluan aku minta maaf ya...",
+"Tolong maapkan rusdy 🗿"
+];
+
+let i = 0;
+const textEl = document.getElementById("text");
+
+function typeTextSmooth(text, speed = 30) {
+  let index = 0;
+  textEl.innerHTML = "";
+
+  const interval = setInterval(() => {
+    textEl.innerHTML += text[index];
+    index++;
+    if (index >= text.length) clearInterval(interval);
+  }, speed);
+}
+
+typeTextSmooth(messages[i]);
+
+/* ✅ MAU */
+document.getElementById("yes").onclick = () => {
+  i++;
+  if (i < messages.length) {
+    typeTextSmooth(messages[i]);
+  } else {
+    typeTextSmooth("Makasih ya udah maafin rusdy 😭❤️");
+    document.querySelector(".buttons").style.display = "none";
+  }
+};
+
+/* ❌ IMPOSSIBLE MODE 😈 */
+const noBtn = document.getElementById("no");
+const container = document.querySelector(".buttons");
+
+function moveSmart(e) {
+  const rect = container.getBoundingClientRect();
+  const btnRect = noBtn.getBoundingClientRect();
+
+  const mouseX = e.clientX;
+  const mouseY = e.clientY;
+
+  const btnX = btnRect.left + btnRect.width / 2;
+  const btnY = btnRect.top + btnRect.height / 2;
+
+  let dx = btnX - mouseX;
+  let dy = btnY - mouseY;
+
+  const distance = Math.sqrt(dx * dx + dy * dy) || 1;
+  dx /= distance;
+  dy /= distance;
+
+  const speed = 120;
+
+  let newX = btnRect.left + dx * speed - rect.left;
+  let newY = btnRect.top + dy * speed - rect.top;
+
+  newX = Math.max(0, Math.min(newX, rect.width - btnRect.width));
+  newY = Math.max(0, Math.min(newY, rect.height - btnRect.height));
+
+  noBtn.style.left = newX + "px";
+  noBtn.style.top = newY + "px";
+}
+
+/* kabur dari kursor */
+document.addEventListener("mousemove", moveSmart);
+
+/* fallback kalau masih kena klik */
+noBtn.addEventListener("click", () => {
+  moveSmart({
+    clientX: Math.random() * window.innerWidth,
+    clientY: Math.random() * window.innerHeight
+  });
+});
+</script>
+
+</body>
+</html>
