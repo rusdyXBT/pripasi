@@ -29,16 +29,22 @@
             z-index: 1;
         }
 
-        /* Efek Getar Pas Marah */
-        @keyframes shake {
+        /* ANIMASI GETAR RUSDY GALAK (Ganti GIF Marah) */
+        @keyframes shakyGalak {
             0% { transform: translate(1px, 1px) rotate(0deg); }
-            20% { transform: translate(-3px, 0px) rotate(1deg); }
-            40% { transform: translate(3px, 2px) rotate(0deg); }
-            60% { transform: translate(-1px, 2px) rotate(-1deg); }
-            100% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-3px, -2px) rotate(-2deg); }
+            20% { transform: translate(3px, 0px) rotate(2deg); }
+            30% { transform: translate(-3px, 2px) rotate(-2deg); }
+            40% { transform: translate(3px, -1px) rotate(2deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(1px, -2px) rotate(1deg); }
+            70% { transform: translate(-3px, 1px) rotate(-1deg); }
+            80% { transform: translate(3px, 2px) rotate(1deg); }
+            90% { transform: translate(-1px, -2px) rotate(1deg); }
+            100% { transform: translate(1px, 2px) rotate(0deg); }
         }
 
-        .shaking { animation: shake 0.3s infinite; border: 2px solid #ff4d4d !important; }
+        .shaking { animation: shakyGalak 0.3s; animation-iteration-count: infinite; border: 2px solid #ff1111 !important; }
 
         .card {
             position: relative;
@@ -51,15 +57,16 @@
             padding: 30px 15px;
             text-align: center;
             box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
         }
 
         .avatar {
-            width: 130px;
-            height: 130px;
+            width: 140px;
+            height: 140px;
             margin: 0 auto 20px;
             border-radius: 20px;
             border: 3px solid white;
-            /* GIF AWAL */
+            /* GIF AWAL: SEDIH (RUSDI MINTA MAAF) */
             background: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3R4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA8AU/giphy.gif') center/cover;
             transition: 0.3s;
         }
@@ -72,10 +79,9 @@
             font-weight: bold;
         }
 
-        /* FIX SATU BARIS (ONE LINE) */
         .btn-wrapper {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Pasti bagi dua */
+            grid-template-columns: 1fr 1fr;
             gap: 10px;
             width: 100%;
         }
@@ -88,14 +94,16 @@
             border-radius: 12px;
             border: none;
             cursor: pointer;
-            white-space: nowrap; /* Teks gak bakal turun */
+            white-space: nowrap;
             touch-action: none;
+            transition: transform 0.1s;
         }
 
         #yes { background: white; color: black; }
-        #no { background: #ff4d4d; color: white; position: relative; z-index: 100; }
+        #yes:active { transform: translateY(3px); }
 
-        /* Salju Melayang */
+        #no { background: #ff4d4d; color: white; position: relative; z-index: 100; transition: all 0.1s ease; }
+
         .snow { position: absolute; background: white; border-radius: 50%; pointer-events: none; z-index: 0; opacity: 0.5; }
     </style>
 </head>
@@ -111,10 +119,12 @@
 </div>
 
 <script>
+    /* 🎵 MUSIK */
     const music = new Audio("https://raw.githubusercontent.com/rusdyXBT/pripasi/main/play/2.mp3");
     music.loop = true;
     document.body.onclick = () => { music.play().catch(() => {}); };
 
+    /* 💬 TEKS */
     const messages = [
         "Upps! 😢 Harus saling maaf-maafan yaa 👀🤝",
         "Minal 'Aidin Walfaizin ✨ Maaf lahir batin 🙏",
@@ -149,27 +159,41 @@
         step++;
         if (step < messages.length) {
             typeWriter(messages[step]);
+            // Balik ke sedih pas ganti pesan
             catGifEl.style.backgroundImage = "url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3R4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA8AU/giphy.gif')";
+            textEl.style.color = "white";
         } else {
+            // GIF KUCING SENYUM
             catGifEl.style.backgroundImage = "url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/ICOgUNoMPvG24/giphy.gif')";
             typeWriter("Makasih! ❤️ Rusdy janji nggak nakal lagi!");
+            textEl.style.color = "#aaffaa";
             document.getElementById("btnGroup").style.display = "none";
         }
     };
 
-    /* ENGGAK -> KABUR & MARAH */
+    /* ENGGAK -> KABUR + GIF CONY & BROWN MARAH */
     function lariDanMarah(e) {
         if(e) e.preventDefault();
-        catGifEl.style.backgroundImage = "url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3R4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/mlvseq9yvZhba/giphy.gif')";
+        
+        // GANTI GIF JADI CONY & BROWN MARAH (Sesuai Link Anda)
+        catGifEl.style.backgroundImage = "url('https://c.tenor.com/24231135/cony-and-brown-angry.gif')";
+        
+        // EFEK GETAR KENCANG
         cardEl.classList.add("shaking");
-        textEl.innerHTML = "KOK TEKAN ENGGAK?! 😡";
+        
+        // TEKS JADI MERAH & GALAK
+        textEl.innerHTML = "JANGAN DITEKAN! 😡 <br> Rusdy ngambek nih!";
         textEl.style.color = "#ff8888";
 
         noBtn.style.position = "fixed";
         noBtn.style.width = "100px"; 
+        noBtn.style.zIndex = "999";
 
-        const x = Math.random() * (window.innerWidth - 100 - 40) + 20;
-        const y = Math.random() * (window.innerHeight - 50 - 40) + 20;
+        // LOGIKA KABUR
+        const p = 50;
+        const x = Math.random() * (window.innerWidth - 100 - p) + p/2;
+        const y = Math.random() * (window.innerHeight - 50 - p) + p/2;
+
         noBtn.style.left = x + "px";
         noBtn.style.top = y + "px";
     }
@@ -184,9 +208,10 @@
         snow.style.left = Math.random() * 100 + "vw";
         snow.style.width = snow.style.height = Math.random() * 5 + 2 + "px";
         document.body.appendChild(snow);
-        snow.animate([{ transform: 'translateY(-10px)' }, { transform: 'translateY(100vh)' }], { duration: 5000 });
-        setTimeout(() => snow.remove(), 5000);
-    }, 300);
+        snow.animate([{ transform: 'translateY(-10px)' }, { transform: 'translateY(100vh)' }], { duration: Math.random() * 3000 + 3000 });
+        setTimeout(() => snow.remove(), 6000);
+    }, 200);
 </script>
+
 </body>
 </html>
