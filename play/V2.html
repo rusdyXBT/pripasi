@@ -5,16 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Maapkan rusdy 😔</title>
     <style>
-        /* RESET DASAR */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* GANTI BACKGROUND UTAMA DI SINI */
+            font-family: sans-serif;
             background: url('https://i.imgur.com/3ZQ3Z4D.jpg') no-repeat center center;
             background-size: cover;
             color: white;
@@ -24,254 +18,174 @@
             min-height: 100vh;
             overflow: hidden;
             position: relative;
-            padding: 20px; /* Padding agar card tidak nempel pinggir di HP kecil */
         }
 
-        /* Overlay Gelap & Blur */
         body::after {
             content: "";
             position: absolute;
             inset: 0;
             background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px); /* Untuk Safari */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             z-index: 1;
         }
 
-        /* CARD UTAMA: RESPONSIVE DEFAULT (PORTRAIT/HP TEGAK) */
         .card {
-            display: flex;
-            flex-direction: column; /* Ke bawah default untuk HP */
-            align-items: center;
-            width: 100%;
-            max-width: 400px; /* Lebar maksimal di HP tegak */
-            padding: 25px;
-            border-radius: 25px;
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            max-width: 350px;
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-            z-index: 2;
-            gap: 20px;
+            padding: 30px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        /* Bagian Visual (GIF/Avatar) */
-        .visual-container {
-            flex-shrink: 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .avatar {
-            width: 120px; /* Ukuran HP tegak */
-            height: 120px;
-            border-radius: 50%; /* Bulat sempurna */
-            /* GANTI GIF DI SINI */
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 15px;
+            border: 3px solid white;
             background: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3R4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA8AU/giphy.gif') center/cover;
-            border: 4px solid white;
-            box-shadow: 0 0 15px rgba(255,255,255,0.3);
-        }
-
-        /* Bagian Konten Teks & Tombol */
-        .content-container {
-            width: 100%;
         }
 
         .text {
-            font-size: 16px; /* Ukuran HP tegak */
+            font-size: 17px;
+            min-height: 60px;
+            margin-bottom: 30px;
             line-height: 1.4;
-            min-height: 70px; /* Menjaga tinggi agar tombol tidak lompat */
-            margin-bottom: 20px;
-            font-weight: 500;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         }
 
-        /* AREA TOMBOL: DITATA ULANG AGAR RAPI */
-        .buttons {
+        .btn-wrapper {
             display: flex;
             justify-content: center;
-            gap: 15px; /* Jarak antar tombol */
-            position: relative; /* Penting untuk tombol No kabur */
-            width: 100%;
-            height: 60px; /* Tinggi area main tombol */
+            align-items: center;
+            gap: 15px;
+            height: 60px;
+            position: relative;
         }
 
         button {
             padding: 12px 20px;
-            border-radius: 12px;
+            border-radius: 10px;
             border: none;
             font-weight: bold;
-            font-size: 14px;
             cursor: pointer;
-            transition: transform 0.2s, background 0.2s, left 0.2s ease-out, top 0.2s ease-out;
-            white-space: nowrap; /* Teks tombol tidak turun */
+            font-size: 14px;
+            touch-action: none; /* Penting: mencegah scroll saat tap tombol */
         }
 
-        /* Tombol Iyah */
         #yes {
-            background: #ffffff;
-            color: #000;
-            position: relative; /* Tidak ikut kabur */
-            z-index: 3;
+            background: white;
+            color: black;
         }
 
-        #yes:hover {
-            transform: scale(1.05);
-            background: #e0e0e0;
-        }
-
-        /* Tombol Emoh (Nakau) */
         #no {
-            background: rgba(255, 77, 77, 0.8);
+            background: #ff4d4d;
             color: white;
-            border: 1px solid rgba(255,255,255,0.3);
-            position: absolute; /* Untuk fitur kabur */
-            /* Posisi awal relative terhadap .buttons */
-            right: 20px; 
-            top: 5px;
-            z-index: 2;
-        }
-
-        /* =========================================
-           MEDIA QUERY: KHUSUS MODE LANDSCAPE (HP MIRING/TABLET/PC)
-           Code ini akan aktif JIKA layar lebar.
-           ========================================= */
-        @media (min-width: 600px) and (orientation: landscape) {
-            .card {
-                flex-direction: row; /* Berjajar ke samping */
-                max-width: 750px; /* Lebih lebar */
-                text-align: left;
-                padding: 30px;
-            }
-
-            .avatar {
-                width: 180px; /* Lebih besar di landscape */
-                height: 180px;
-                border-radius: 20px; /* Kotak tumpul di landscape */
-            }
-
-            .text {
-                font-size: 19px;
-                margin-bottom: 25px;
-            }
-
-            .buttons {
-                justify-content: flex-start;
-                height: 80px; /* Area kabur lebih luas */
-            }
-
-            button {
-                font-size: 16px;
-                padding: 14px 25px;
-            }
-            
-            #no {
-                right: auto; /* Reset posisi portrait */
-                left: 170px; /* Posisi awal landscape */
-                top: 5px;
-            }
+            position: relative; /* Posisi awal rapi */
+            z-index: 999;
+            transition: all 0.1s ease; /* Transisi sangat cepat agar responsif */
         }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <div class="visual-container">
-        <div class="avatar"></div>
-    </div>
-    
-    <div class="content-container">
-        <div id="text" class="text"></div>
-        <div class="buttons" id="btnArea">
-            <button id="yes">Iyah di maapkan 😊</button>
-            <button id="no">Emoh! 😋</button>
-        </div>
+    <div class="avatar"></div>
+    <div id="text" class="text"></div>
+    <div class="btn-wrapper">
+        <button id="yes">Iyah dimaapkan</button>
+        <button id="no">Enggak!</button>
     </div>
 </div>
 
 <script>
-/* 🎵 MUSIK - Ganti link mp3 di sini */
-const music = new Audio("https://raw.githubusercontent.com/rusdyXBT/pripasi/main/play/2.mp3");
-music.loop = true;
-music.volume = 0.5;
+    const music = new Audio("https://raw.githubusercontent.com/rusdyXBT/pripasi/main/play/2.mp3");
+    music.loop = true;
 
-document.body.addEventListener("click", () => {
-    music.play().catch(() => {});
-}, { once: true });
+    document.body.addEventListener("click", () => {
+        music.play().catch(() => {});
+    }, { once: true });
 
-/* 💬 PESAN */
-const messages = [
-"Upps! 😢 Hari raya ini harus saling maaf-maafan yaa 👀🤝",
-"Minall 'Aidin Walfaizin ✨ mohon maaf lahir dan batin 🙏",
-"Sebenernya rusdy cuma bercanda kok... 😭",
-"Tapi kalau keterlaluan aku minta maaf ya...",
-"Tolong maapkan rusdy 🗿"
-];
+    const messages = [
+        "Upps! 😢 Hari raya ini harus saling maaf-maafan yaa 👀🤝",
+        "Minall 'Aidin Walfaizin ✨ mohon maaf lahir dan batin 🙏",
+        "Sebenernya rusdy cuma bercanda kok... 😭",
+        "Tolong maapkan rusdy 🗿"
+    ];
 
-let i = 0;
-const textEl = document.getElementById("text");
+    let i = 0;
+    const textEl = document.getElementById("text");
 
-// Fungsi Mengetik
-function typeTextSmooth(text) {
-  let index = 0;
-  textEl.innerHTML = "";
-  const interval = setInterval(() => {
-    textEl.innerHTML += text[index];
-    index++;
-    if (index >= text.length) clearInterval(interval);
-  }, 40);
-}
+    function typeText(text) {
+        let index = 0;
+        textEl.innerHTML = "";
+        const interval = setInterval(() => {
+            textEl.innerHTML += text[index];
+            index++;
+            if (index >= text.length) clearInterval(interval);
+        }, 40);
+    }
 
-// Mulai pesan pertama
-typeTextSmooth(messages[i]);
+    typeText(messages[i]);
 
-/* ✅ TOMBOL IYAH */
-document.getElementById("yes").onclick = () => {
-  i++;
-  if (i < messages.length) {
-    typeTextSmooth(messages[i]);
-  } else {
-    typeTextSmooth("Makasih ya udah maafin rusdy 😭❤️. Kamu emang terbaik!");
-    document.getElementById("btnArea").style.display = "none";
-  }
-};
+    document.getElementById("yes").onclick = () => {
+        i++;
+        if (i < messages.length) {
+            typeText(messages[i]);
+        } else {
+            typeText("Makasih ya udah dimaafin! ❤️😭");
+            document.getElementById("no").style.display = "none";
+            document.getElementById("yes").style.display = "none";
+        }
+    };
 
-/* ❌ TOMBOL EMOH (KABUR) */
-const noBtn = document.getElementById("no");
-const btnArea = document.getElementById("btnArea");
+    /* FITUR KABUR YANG DIPERBAIKI TOTAL */
+    const noBtn = document.getElementById("no");
+    
+    function moveButton(e) {
+        // Jika kursor/jari menyentuh, langsung ubah ke fixed
+        if (noBtn.style.position !== "fixed") {
+            noBtn.style.position = "fixed";
+        }
 
-// Deteksi Device (Touch atau Mouse)
-const isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
+        // Ambil ukuran layar asli
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
 
-if (isTouch) {
-    // Di HP: Kabur saat di-tap
-    noBtn.addEventListener("touchstart", moveButton);
-} else {
-    // Di PC: Kabur saat kursor mendekat
+        // Hitung batas aman (agar tidak keluar layar)
+        const padding = 20;
+        const btnWidth = noBtn.offsetWidth;
+        const btnHeight = noBtn.offsetHeight;
+
+        // Koordinat acak
+        const randomX = Math.floor(Math.random() * (screenWidth - btnWidth - (padding * 2))) + padding;
+        const randomY = Math.floor(Math.random() * (screenHeight - btnHeight - (padding * 2))) + padding;
+
+        // Terapkan posisi
+        noBtn.style.left = randomX + "px";
+        noBtn.style.top = randomY + "px";
+        
+        // Mencegah event klik sebenarnya terjadi (agar tidak bisa ditekan)
+        if(e) e.preventDefault();
+    }
+
+    // Untuk PC (Kursor mendekat)
     noBtn.addEventListener("mouseover", moveButton);
-}
+    
+    // Untuk HP (Disentuh jari)
+    noBtn.addEventListener("touchstart", moveButton);
 
-// Fallback klik (jika user sangat cepat menekan)
-noBtn.addEventListener("click", moveButton);
-
-function moveButton(e) {
-    // Agar tidak reload atau trigger event default
-    if(e && e.type === 'click') e.preventDefault();
-
-    const padding = 10;
-    // Hitung area batas dalam kotak .buttons
-    const maxX = btnArea.clientWidth - noBtn.clientWidth - padding;
-    const maxY = btnArea.clientHeight - noBtn.clientHeight - padding;
-
-    // Angka acak posisi baru
-    let randomX = Math.floor(Math.random() * maxX);
-    let randomY = Math.floor(Math.random() * maxY);
-
-    // Terapkan posisi baru
-    noBtn.style.left = randomX + "px";
-    noBtn.style.top = randomY + "px";
-}
+    // Mencegah klik paksa
+    noBtn.addEventListener("click", (e) => {
+        moveButton(e);
+    });
 </script>
 
 </body>
