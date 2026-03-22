@@ -25,26 +25,18 @@
             inset: 0;
             background: rgba(0, 0, 0, 0.4); 
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             z-index: 1;
         }
 
-        /* ANIMASI GETAR RUSDY GALAK (Ganti GIF Marah) */
-        @keyframes shakyGalak {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            10% { transform: translate(-3px, -2px) rotate(-2deg); }
-            20% { transform: translate(3px, 0px) rotate(2deg); }
-            30% { transform: translate(-3px, 2px) rotate(-2deg); }
-            40% { transform: translate(3px, -1px) rotate(2deg); }
-            50% { transform: translate(-1px, 2px) rotate(-1deg); }
-            60% { transform: translate(1px, -2px) rotate(1deg); }
-            70% { transform: translate(-3px, 1px) rotate(-1deg); }
-            80% { transform: translate(3px, 2px) rotate(1deg); }
-            90% { transform: translate(-1px, -2px) rotate(1deg); }
-            100% { transform: translate(1px, 2px) rotate(0deg); }
+        @keyframes shake {
+            0% { transform: translate(1px, 1px); }
+            20% { transform: translate(-3px, 0px); }
+            40% { transform: translate(3px, 2px); }
+            60% { transform: translate(-1px, -1px); }
+            100% { transform: translate(1px, 1px); }
         }
 
-        .shaking { animation: shakyGalak 0.3s; animation-iteration-count: infinite; border: 2px solid #ff1111 !important; }
+        .shaking { animation: shake 0.2s infinite; border: 2px solid #ff4d4d !important; }
 
         .card {
             position: relative;
@@ -57,18 +49,17 @@
             padding: 30px 15px;
             text-align: center;
             box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
         }
 
         .avatar {
-            width: 140px;
-            height: 140px;
+            width: 130px;
+            height: 130px;
             margin: 0 auto 20px;
             border-radius: 20px;
             border: 3px solid white;
-            /* GIF AWAL: SEDIH (RUSDI MINTA MAAF) */
-            background: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3R4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA8AU/giphy.gif') center/cover;
-            transition: 0.3s;
+            background-image: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3R4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA8AU/giphy.gif');
+            background-position: center;
+            background-size: cover;
         }
 
         .text {
@@ -87,24 +78,24 @@
         }
 
         button {
-            width: 100%;
             padding: 12px 5px;
             font-size: 13px;
             font-weight: bold;
             border-radius: 12px;
             border: none;
             cursor: pointer;
-            white-space: nowrap;
             touch-action: none;
-            transition: transform 0.1s;
         }
 
         #yes { background: white; color: black; }
-        #yes:active { transform: translateY(3px); }
-
-        #no { background: #ff4d4d; color: white; position: relative; z-index: 100; transition: all 0.1s ease; }
-
-        .snow { position: absolute; background: white; border-radius: 50%; pointer-events: none; z-index: 0; opacity: 0.5; }
+        
+        #no { 
+            background: #ff4d4d; 
+            color: white; 
+            position: relative; 
+            z-index: 1000;
+            transition: left 0.2s ease, top 0.2s ease; /* Gerakan lebih smooth */
+        }
     </style>
 </head>
 <body>
@@ -119,99 +110,59 @@
 </div>
 
 <script>
-    /* 🎵 MUSIK */
     const music = new Audio("https://raw.githubusercontent.com/rusdyXBT/pripasi/main/play/2.mp3");
     music.loop = true;
     document.body.onclick = () => { music.play().catch(() => {}); };
 
-    /* 💬 TEKS */
-    const messages = [
-        "Upps! 😢 Harus saling maaf-maafan yaa 👀🤝",
-        "Minal 'Aidin Walfaizin ✨ Maaf lahir batin 🙏",
-        "Sebenernya Rusdy cuma bercanda kok... 😭",
-        "Maapkan Rusdy yaa? 👉👈"
-    ];
-
+    const messages = ["Upps! 😢 Harus saling maaf-maafan yaa 👀🤝", "Minal 'Aidin Walfaizin ✨ Maaf lahir batin 🙏", "Maapkan Rusdy yaa? 👉👈"];
     let step = 0;
     const textEl = document.getElementById("text");
     const catGifEl = document.getElementById("catGif");
     const cardEl = document.getElementById("mainCard");
     const noBtn = document.getElementById("no");
 
-    function typeWriter(txt) {
-        let i = 0;
-        textEl.innerHTML = "";
-        function type() {
-            if (i < txt.length) {
-                textEl.innerHTML += txt.charAt(i);
-                i++;
-                setTimeout(type, 40);
-            }
-        }
-        type();
-    }
+    textEl.innerHTML = messages[step];
 
-    typeWriter(messages[step]);
-
-    /* IYAH -> SENANG */
     document.getElementById("yes").onclick = () => {
         cardEl.classList.remove("shaking");
         step++;
         if (step < messages.length) {
-            typeWriter(messages[step]);
-            // Balik ke sedih pas ganti pesan
+            textEl.innerHTML = messages[step];
             catGifEl.style.backgroundImage = "url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3R4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA8AU/giphy.gif')";
-            textEl.style.color = "white";
         } else {
-            // GIF KUCING SENYUM
-            catGifEl.style.backgroundImage = "url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/ICOgUNoMPvG24/giphy.gif')";
-            typeWriter("Makasih! ❤️ Rusdy janji nggak nakal lagi!");
-            textEl.style.color = "#aaffaa";
+            catGifEl.style.backgroundImage = "url('https://media.giphy.com/media/ICOgUNoMPvG24/giphy.gif')";
+            textEl.innerHTML = "Makasih! ❤️ Sayang kamu!";
             document.getElementById("btnGroup").style.display = "none";
         }
     };
 
-    /* ENGGAK -> KABUR + GIF CONY & BROWN MARAH */
-    function lariDanMarah(e) {
+    function lari(e) {
         if(e) e.preventDefault();
         
-        // GANTI GIF JADI CONY & BROWN MARAH (Sesuai Link Anda)
-        catGifEl.style.backgroundImage = "url('https://c.tenor.com/24231135/cony-and-brown-angry.gif')";
-        
-        // EFEK GETAR KENCANG
+        // Ganti GIF Cony Brown Marah
+        catGifEl.style.backgroundImage = "url('https://media1.tenor.com/m/Xo7F7x7uD7kAAAAC/cony-and-brown-angry.gif')";
         cardEl.classList.add("shaking");
-        
-        // TEKS JADI MERAH & GALAK
-        textEl.innerHTML = "JANGAN DITEKAN! 😡 <br> Rusdy ngambek nih!";
-        textEl.style.color = "#ff8888";
+        textEl.innerHTML = "JANGAN DITEKAN! 😡";
 
         noBtn.style.position = "fixed";
-        noBtn.style.width = "100px"; 
-        noBtn.style.zIndex = "999";
+        noBtn.style.width = "100px";
 
-        // LOGIKA KABUR
-        const p = 50;
-        const x = Math.random() * (window.innerWidth - 100 - p) + p/2;
-        const y = Math.random() * (window.innerHeight - 50 - p) + p/2;
+        // AREA AMAN (Safe Zone)
+        // Agar tombol tidak keluar layar atau jatuh ke bawah tak terlihat
+        const margin = 50;
+        const maxX = window.innerWidth - 110;
+        const maxY = window.innerHeight - 60;
 
-        noBtn.style.left = x + "px";
-        noBtn.style.top = y + "px";
+        // Random posisi tapi tetap di area pandangan mata
+        const randomX = Math.max(margin, Math.floor(Math.random() * maxX));
+        const randomY = Math.max(margin, Math.floor(Math.random() * maxY));
+
+        noBtn.style.left = randomX + "px";
+        noBtn.style.top = randomY + "px";
     }
 
-    noBtn.addEventListener("touchstart", lariDanMarah);
-    noBtn.addEventListener("mouseover", lariDanMarah);
-
-    /* SALJU */
-    setInterval(() => {
-        const snow = document.createElement("div");
-        snow.classList.add("snow");
-        snow.style.left = Math.random() * 100 + "vw";
-        snow.style.width = snow.style.height = Math.random() * 5 + 2 + "px";
-        document.body.appendChild(snow);
-        snow.animate([{ transform: 'translateY(-10px)' }, { transform: 'translateY(100vh)' }], { duration: Math.random() * 3000 + 3000 });
-        setTimeout(() => snow.remove(), 6000);
-    }, 200);
+    noBtn.addEventListener("touchstart", lari);
+    noBtn.addEventListener("mouseover", lari);
 </script>
-
 </body>
 </html>
