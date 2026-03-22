@@ -2,23 +2,29 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Permintaan Maaf Rusdy 😔</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Maapkan rusdy 😔</title>
     <style>
-        body {
+        /* RESET DASAR */
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             /* GANTI BACKGROUND UTAMA DI SINI */
-            background: url('https://images.unsplash.com/photo-1516550893923-42d28e5677af?q=80&w=2072') no-repeat center center;
+            background: url('https://i.imgur.com/3ZQ3Z4D.jpg') no-repeat center center;
             background-size: cover;
             color: white;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             overflow: hidden;
             position: relative;
+            padding: 20px; /* Padding agar card tidak nempel pinggir di HP kecil */
         }
 
         /* Overlay Gelap & Blur */
@@ -28,109 +34,143 @@
             inset: 0;
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px); /* Untuk Safari */
             z-index: 1;
         }
 
-        /* Card Khusus Landscape */
+        /* CARD UTAMA: RESPONSIVE DEFAULT (PORTRAIT/HP TEGAK) */
         .card {
             display: flex;
-            flex-direction: row; /* Elemen berjajar ke samping */
+            flex-direction: column; /* Ke bawah default untuk HP */
             align-items: center;
-            width: 80%;
-            max-width: 800px;
-            padding: 30px;
+            width: 100%;
+            max-width: 400px; /* Lebar maksimal di HP tegak */
+            padding: 25px;
             border-radius: 25px;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(15px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             z-index: 2;
-            gap: 30px;
+            gap: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
         }
 
-        /* Bagian Kiri: GIF/Avatar */
+        /* Bagian Visual (GIF/Avatar) */
         .visual-container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
+            flex-shrink: 0;
         }
 
         .avatar {
-            width: 200px;
-            height: 200px;
-            border-radius: 20px;
+            width: 120px; /* Ukuran HP tegak */
+            height: 120px;
+            border-radius: 50%; /* Bulat sempurna */
             /* GANTI GIF DI SINI */
             background: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3R4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA8AU/giphy.gif') center/cover;
             border: 4px solid white;
-            box-shadow: 0 0 20px rgba(255,255,255,0.3);
+            box-shadow: 0 0 15px rgba(255,255,255,0.3);
         }
 
-        /* Bagian Kanan: Teks & Tombol */
+        /* Bagian Konten Teks & Tombol */
         .content-container {
-            flex: 1.5;
-            text-align: left;
-        }
-
-        .text {
-            font-size: 20px;
-            line-height: 1.5;
-            min-height: 80px;
-            margin-bottom: 20px;
-            font-weight: 500;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .buttons {
-            position: relative;
-            height: 100px;
             width: 100%;
         }
 
+        .text {
+            font-size: 16px; /* Ukuran HP tegak */
+            line-height: 1.4;
+            min-height: 70px; /* Menjaga tinggi agar tombol tidak lompat */
+            margin-bottom: 20px;
+            font-weight: 500;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        /* AREA TOMBOL: DITATA ULANG AGAR RAPI */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Jarak antar tombol */
+            position: relative; /* Penting untuk tombol No kabur */
+            width: 100%;
+            height: 60px; /* Tinggi area main tombol */
+        }
+
         button {
-            padding: 12px 25px;
+            padding: 12px 20px;
             border-radius: 12px;
             border: none;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.2s, background 0.2s, left 0.2s ease-out, top 0.2s ease-out;
+            white-space: nowrap; /* Teks tombol tidak turun */
         }
 
+        /* Tombol Iyah */
         #yes {
             background: #ffffff;
             color: #000;
-            margin-right: 15px;
+            position: relative; /* Tidak ikut kabur */
+            z-index: 3;
         }
 
         #yes:hover {
-            transform: scale(1.1);
-            background: #00ff88;
+            transform: scale(1.05);
+            background: #e0e0e0;
         }
 
-        /* Tombol 'No' yang nakal */
+        /* Tombol Emoh (Nakau) */
         #no {
-            background: #ff4d4d;
+            background: rgba(255, 77, 77, 0.8);
             color: white;
-            position: absolute;
-            left: 160px;
-            top: 0;
-            transition: all 0.2s ease-out;
-            white-space: nowrap;
+            border: 1px solid rgba(255,255,255,0.3);
+            position: absolute; /* Untuk fitur kabur */
+            /* Posisi awal relative terhadap .buttons */
+            right: 20px; 
+            top: 5px;
+            z-index: 2;
         }
 
-        /* Animasi Background Sederhana */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        .card { animation: float 4s ease-in-out infinite; }
+        /* =========================================
+           MEDIA QUERY: KHUSUS MODE LANDSCAPE (HP MIRING/TABLET/PC)
+           Code ini akan aktif JIKA layar lebar.
+           ========================================= */
+        @media (min-width: 600px) and (orientation: landscape) {
+            .card {
+                flex-direction: row; /* Berjajar ke samping */
+                max-width: 750px; /* Lebih lebar */
+                text-align: left;
+                padding: 30px;
+            }
 
-        /* Responsif jika layar dipaksa tegak */
-        @media (orientation: portrait) {
-            .card { flex-direction: column; text-align: center; }
-            .content-container { text-align: center; }
-            #no { left: 50%; transform: translateX(-50%); }
+            .avatar {
+                width: 180px; /* Lebih besar di landscape */
+                height: 180px;
+                border-radius: 20px; /* Kotak tumpul di landscape */
+            }
+
+            .text {
+                font-size: 19px;
+                margin-bottom: 25px;
+            }
+
+            .buttons {
+                justify-content: flex-start;
+                height: 80px; /* Area kabur lebih luas */
+            }
+
+            button {
+                font-size: 16px;
+                padding: 14px 25px;
+            }
+            
+            #no {
+                right: auto; /* Reset posisi portrait */
+                left: 170px; /* Posisi awal landscape */
+                top: 5px;
+            }
         }
     </style>
 </head>
@@ -144,16 +184,17 @@
     <div class="content-container">
         <div id="text" class="text"></div>
         <div class="buttons" id="btnArea">
-            <button id="yes">Iyah, dimaafin kok 😊</button>
-            <button id="no">Enggak! 😋</button>
+            <button id="yes">Iyah di maapkan 😊</button>
+            <button id="no">Emoh! 😋</button>
         </div>
     </div>
 </div>
 
 <script>
 /* 🎵 MUSIK - Ganti link mp3 di sini */
-const music = new Audio("https://www.bensound.com/bensound-music/bensound-tenderness.mp3");
+const music = new Audio("https://raw.githubusercontent.com/rusdyXBT/pripasi/main/play/2.mp3");
 music.loop = true;
+music.volume = 0.5;
 
 document.body.addEventListener("click", () => {
     music.play().catch(() => {});
@@ -161,57 +202,73 @@ document.body.addEventListener("click", () => {
 
 /* 💬 PESAN */
 const messages = [
-    "Halo... Rusdy mau ngomong sesuatu 🥺",
-    "Maafin Rusdy ya kalau ada salah kata atau perbuatan...",
-    "Namanya juga manusia, kadang Rusdy suka khilaf 🙏",
-    "Minal 'Aidin Walfaizin, Mohon Maaf Lahir dan Batin ✨",
-    "Jadi... dimaafin gak nih? 👉👈"
+"Upps! 😢 Hari raya ini harus saling maaf-maafan yaa 👀🤝",
+"Minall 'Aidin Walfaizin ✨ mohon maaf lahir dan batin 🙏",
+"Sebenernya rusdy cuma bercanda kok... 😭",
+"Tapi kalau keterlaluan aku minta maaf ya...",
+"Tolong maapkan rusdy 🗿"
 ];
 
 let i = 0;
 const textEl = document.getElementById("text");
 
-function typeText(text) {
-    let index = 0;
-    textEl.innerHTML = "";
-    const timer = setInterval(() => {
-        textEl.innerHTML += text[index];
-        index++;
-        if (index >= text.length) clearInterval(timer);
-    }, 40;
+// Fungsi Mengetik
+function typeTextSmooth(text) {
+  let index = 0;
+  textEl.innerHTML = "";
+  const interval = setInterval(() => {
+    textEl.innerHTML += text[index];
+    index++;
+    if (index >= text.length) clearInterval(interval);
+  }, 40);
 }
 
-// Start pertama kali
-typeText(messages[i]);
+// Mulai pesan pertama
+typeTextSmooth(messages[i]);
 
-/* TOMBOL YES */
+/* ✅ TOMBOL IYAH */
 document.getElementById("yes").onclick = () => {
-    i++;
-    if (i < messages.length) {
-        typeText(messages[i]);
-    } else {
-        typeText("Yeeayy! Makasih ya! Kamu emang yang terbaik! ❤️✨");
-        document.getElementById("no").style.display = "none";
-        document.getElementById("yes").style.display = "none";
-    }
+  i++;
+  if (i < messages.length) {
+    typeTextSmooth(messages[i]);
+  } else {
+    typeTextSmooth("Makasih ya udah maafin rusdy 😭❤️. Kamu emang terbaik!");
+    document.getElementById("btnArea").style.display = "none";
+  }
 };
 
-/* TOMBOL NO (KABUR) */
+/* ❌ TOMBOL EMOH (KABUR) */
 const noBtn = document.getElementById("no");
 const btnArea = document.getElementById("btnArea");
 
-noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("click", moveButton); // Untuk touch screen
+// Deteksi Device (Touch atau Mouse)
+const isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
 
-function moveButton() {
-    const padding = 20;
+if (isTouch) {
+    // Di HP: Kabur saat di-tap
+    noBtn.addEventListener("touchstart", moveButton);
+} else {
+    // Di PC: Kabur saat kursor mendekat
+    noBtn.addEventListener("mouseover", moveButton);
+}
+
+// Fallback klik (jika user sangat cepat menekan)
+noBtn.addEventListener("click", moveButton);
+
+function moveButton(e) {
+    // Agar tidak reload atau trigger event default
+    if(e && e.type === 'click') e.preventDefault();
+
+    const padding = 10;
+    // Hitung area batas dalam kotak .buttons
     const maxX = btnArea.clientWidth - noBtn.clientWidth - padding;
     const maxY = btnArea.clientHeight - noBtn.clientHeight - padding;
 
-    // Posisi acak di dalam area tombol
-    const randomX = Math.floor(Math.random() * maxX);
-    const randomY = Math.floor(Math.random() * maxY);
+    // Angka acak posisi baru
+    let randomX = Math.floor(Math.random() * maxX);
+    let randomY = Math.floor(Math.random() * maxY);
 
+    // Terapkan posisi baru
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
 }
