@@ -9,7 +9,8 @@
         
         body {
             font-family: 'Segoe UI', sans-serif;
-            background: url('https://i.imgur.com/3ZQ3Z4D.jpg') no-repeat center center fixed;
+            /* BACKGROUND AESTHETIC */
+            background: url('https://w0.peakpx.com/wallpaper/424/399/HD-wallpaper-view-sky-aesthetic-thumbnail.jpg') no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
             display: flex;
@@ -23,9 +24,9 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.5); 
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             z-index: 1;
         }
 
@@ -34,36 +35,41 @@
             z-index: 2;
             width: 85%;
             max-width: 320px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 30px 20px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease;
         }
 
         .avatar {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             margin: 0 auto 20px;
-            border-radius: 15px;
-            border: 2px solid white;
-            /* Ganti GIF/Foto di sini */
-            background: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3R4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA8AU/giphy.gif') center/cover;
+            border-radius: 20px;
+            border: 3px solid white;
+            /* GIF AWAL: SEDIH */
+            background: url('https://media.tenor.com/ZAt_p_9C9p8AAAAC/cat-sad.gif') center/cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: background-image 0.1s ease-in-out;
         }
 
         .text {
-            font-size: 15px;
-            min-height: 50px;
+            font-size: 16px;
+            min-height: 55px;
             margin-bottom: 25px;
-            line-height: 1.4;
+            line-height: 1.5;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            transition: color 0.1s ease;
         }
 
-        /* SISTEM SATU BARIS (ONE LINE) */
         .btn-wrapper {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Membagi dua sama rata */
-            gap: 12px;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
             width: 100%;
         }
 
@@ -71,31 +77,34 @@
             padding: 12px 0;
             font-size: 14px;
             font-weight: bold;
-            border-radius: 10px;
+            border-radius: 12px;
             border: none;
             cursor: pointer;
             white-space: nowrap;
-            touch-action: none; /* Penting untuk HP */
+            touch-action: none;
+            transition: transform 0.1s;
         }
 
         #yes {
-            background: white;
-            color: black;
+            background: #ffffff;
+            color: #333;
+            box-shadow: 0 4px 10px rgba(255,255,255,0.2);
         }
 
         #no {
-            background: #ff4d4d;
+            background: #ff5e5e;
             color: white;
-            position: relative; /* Tetap di grid sampai disentuh */
+            position: relative;
             z-index: 100;
-            transition: all 0.1s ease;
+            box-shadow: 0 4px 10px rgba(255,94,94,0.3);
+            transition: all 0.1s ease; /* Super cepat */
         }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <div class="avatar"></div>
+    <div class="avatar" id="catGif"></div>
     <div id="text" class="text"></div>
     <div class="btn-wrapper">
         <button id="yes">Iyah</button>
@@ -117,11 +126,13 @@
         "Upps! 😢 Hari raya ini harus saling maaf-maafan yaa 👀🤝",
         "Minall 'Aidin Walfaizin ✨ mohon maaf lahir dan batin 🙏",
         "Sebenernya rusdy cuma bercanda kok... 😭",
-        "Tolong maapkan rusdy 🗿"
+        "Tolong maapkan rusdy yaa 🗿"
     ];
 
     let step = 0;
     const textEl = document.getElementById("text");
+    const catGifEl = document.getElementById("catGif");
+    const noBtn = document.getElementById("no");
 
     function typeEffect(txt) {
         let i = 0;
@@ -144,20 +155,29 @@
         if (step < messages.length) {
             typeEffect(messages[step]);
         } else {
-            typeEffect("Makasih ya udah dimaafin! ❤️😭");
-            document.querySelector(".btn-wrapper").style.visibility = "hidden";
+            // GIF GANTI JADI KUCING SENANG/TERHARU
+            catGifEl.style.backgroundImage = "url('https://media.tenor.com/7966A0D7p88AAAAC/cat-smile.gif')";
+            textEl.style.color = "#aaffaa"; // Teks jadi hijau terang
+            typeEffect("Makasih ya! ❤️ Kamu emang yang terbaik! 😭😭😭");
+            document.querySelector(".btn-wrapper").style.display = "none";
         }
     };
 
-    /* ❌ TOMBOL KABUR (FIXED UNTUK HP) */
-    const noBtn = document.getElementById("no");
-
-    function lari(e) {
+    /* ❌ TOMBOL MARAH (FIXED UNTUK HP) */
+    function kaburDanMarah(e) {
         if(e) e.preventDefault();
         
-        // Ubah jadi melayang agar tidak merusak baris tombol Iyah
+        // 1. GANTI GIF JADI KUCING MARAH
+        catGifEl.style.backgroundImage = "url('https://media.tenor.com/7H_4zI1L_EAAAAAC/cat-angry.gif')";
+        textEl.style.color = "#ff8888"; // Teks jadi merah
+        
+        // GANTI TEKS JADI GALAK
+        textEl.innerHTML = "JANGAN DITEKAN! 😡 Rusdy ngambek nih!";
+
+        // 2. LOGIKA KABUR
         noBtn.style.position = "fixed";
-        noBtn.style.width = "100px"; // Ukuran tetap pas melayang
+        noBtn.style.width = "100px"; 
+        noBtn.style.zIndex = "999";
 
         const padding = 60;
         const maxX = window.innerWidth - 100 - padding;
@@ -170,9 +190,9 @@
         noBtn.style.top = randomY + "px";
     }
 
-    noBtn.addEventListener("touchstart", lari);
-    noBtn.addEventListener("mouseover", lari);
-    noBtn.addEventListener("click", lari);
+    noBtn.addEventListener("touchstart", kaburDanMarah);
+    noBtn.addEventListener("mouseover", kaburDanMarah);
+    noBtn.addEventListener("click", kaburDanMarah);
 </script>
 
 </body>
