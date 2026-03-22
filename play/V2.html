@@ -25,18 +25,19 @@
             inset: 0;
             background: rgba(0, 0, 0, 0.4); 
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             z-index: 1;
         }
 
-        @keyframes shake {
-            0% { transform: translate(1px, 1px); }
-            20% { transform: translate(-3px, 0px); }
-            40% { transform: translate(3px, 2px); }
-            60% { transform: translate(-1px, -1px); }
-            100% { transform: translate(1px, 1px); }
+        @keyframes shakyGalak {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-2px, -1px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, 1px) rotate(0deg); }
         }
 
-        .shaking { animation: shake 0.2s infinite; border: 2px solid #ff4d4d !important; }
+        .shaking { animation: shakyGalak 0.3s infinite; border: 2px solid #ff1111 !important; }
 
         .card {
             position: relative;
@@ -52,14 +53,16 @@
         }
 
         .avatar {
-            width: 130px;
-            height: 130px;
+            width: 140px;
+            height: 140px;
             margin: 0 auto 20px;
             border-radius: 20px;
             border: 3px solid white;
+            /* GIF AWAL: KUCING SEDIH */
             background-image: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3R4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA8AU/giphy.gif');
             background-position: center;
             background-size: cover;
+            transition: 0.2s;
         }
 
         .text {
@@ -78,24 +81,21 @@
         }
 
         button {
+            width: 100%;
             padding: 12px 5px;
             font-size: 13px;
             font-weight: bold;
             border-radius: 12px;
             border: none;
             cursor: pointer;
+            white-space: nowrap;
             touch-action: none;
         }
 
         #yes { background: white; color: black; }
-        
-        #no { 
-            background: #ff4d4d; 
-            color: white; 
-            position: relative; 
-            z-index: 1000;
-            transition: left 0.2s ease, top 0.2s ease; /* Gerakan lebih smooth */
-        }
+        #no { background: #ff4d4d; color: white; position: relative; z-index: 100; transition: all 0.1s ease; }
+
+        .snow { position: absolute; background: white; border-radius: 50%; pointer-events: none; z-index: 0; opacity: 0.5; }
     </style>
 </head>
 <body>
@@ -114,55 +114,85 @@
     music.loop = true;
     document.body.onclick = () => { music.play().catch(() => {}); };
 
-    const messages = ["Upps! 😢 Harus saling maaf-maafan yaa 👀🤝", "Minal 'Aidin Walfaizin ✨ Maaf lahir batin 🙏", "Maapkan Rusdy yaa? 👉👈"];
+    const messages = [
+        "Upps! 😢 Harus saling maaf-maafan yaa 👀🤝",
+        "Minal 'Aidin Walfaizin ✨ Maaf lahir batin 🙏",
+        "Sebenernya Rusdy cuma bercanda kok... 😭",
+        "Maapkan Rusdy yaa? 👉👈"
+    ];
+
     let step = 0;
     const textEl = document.getElementById("text");
     const catGifEl = document.getElementById("catGif");
     const cardEl = document.getElementById("mainCard");
     const noBtn = document.getElementById("no");
 
-    textEl.innerHTML = messages[step];
+    function typeWriter(txt) {
+        let i = 0;
+        textEl.innerHTML = "";
+        function type() {
+            if (i < txt.length) {
+                textEl.innerHTML += txt.charAt(i);
+                i++;
+                setTimeout(type, 40);
+            }
+        }
+        type();
+    }
+
+    typeWriter(messages[step]);
 
     document.getElementById("yes").onclick = () => {
         cardEl.classList.remove("shaking");
         step++;
         if (step < messages.length) {
-            textEl.innerHTML = messages[step];
+            typeWriter(messages[step]);
+            // Balik ke sedih
             catGifEl.style.backgroundImage = "url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3R4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA8AU/giphy.gif')";
         } else {
+            // KUCING SENANG
             catGifEl.style.backgroundImage = "url('https://media.giphy.com/media/ICOgUNoMPvG24/giphy.gif')";
-            textEl.innerHTML = "Makasih! ❤️ Sayang kamu!";
+            typeWriter("Makasih! ❤️ Sayang kamu!");
             document.getElementById("btnGroup").style.display = "none";
         }
     };
 
-    function lari(e) {
+    function lariDanMarah(e) {
         if(e) e.preventDefault();
         
-        // Ganti GIF Cony Brown Marah
-        catGifEl.style.backgroundImage = "url('https://media1.tenor.com/m/Xo7F7x7uD7kAAAAC/cony-and-brown-angry.gif')";
+        // PAKAI LINK DIRECT BIAR PASTI MUNCUL (CONY BROWN MARAH)
+        catGifEl.style.backgroundImage = "url('https://media.tenor.com/7H_4zI1L_EAAAAAC/cat-angry.gif')";
+        
         cardEl.classList.add("shaking");
-        textEl.innerHTML = "JANGAN DITEKAN! 😡";
+        textEl.innerHTML = "JANGAN DITEKAN! 😡 <br> Rusdy ngambek nih!";
+        textEl.style.color = "#ff8888";
 
         noBtn.style.position = "fixed";
-        noBtn.style.width = "100px";
+        noBtn.style.width = "100px"; 
+        noBtn.style.zIndex = "999";
 
-        // AREA AMAN (Safe Zone)
-        // Agar tombol tidak keluar layar atau jatuh ke bawah tak terlihat
-        const margin = 50;
-        const maxX = window.innerWidth - 110;
-        const maxY = window.innerHeight - 60;
+        const p = 50;
+        const x = Math.random() * (window.innerWidth - 100 - p) + p/2;
+        const y = Math.random() * (window.innerHeight - 50 - p) + p/2;
 
-        // Random posisi tapi tetap di area pandangan mata
-        const randomX = Math.max(margin, Math.floor(Math.random() * maxX));
-        const randomY = Math.max(margin, Math.floor(Math.random() * maxY));
-
-        noBtn.style.left = randomX + "px";
-        noBtn.style.top = randomY + "px";
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
     }
 
-    noBtn.addEventListener("touchstart", lari);
-    noBtn.addEventListener("mouseover", lari);
+    noBtn.addEventListener("touchstart", lariDanMarah);
+    noBtn.addEventListener("mouseover", lariDanMarah);
+
+    // Animasi Salju
+    setInterval(() => {
+        const snow = document.createElement("div");
+        snow.classList.add("snow");
+        snow.style.left = Math.random() * 100 + "vw";
+        snow.style.width = snow.style.height = Math.random() * 5 + 2 + "px";
+        document.body.appendChild(snow);
+        snow.animate([{ transform: 'translateY(-10px)' }, { transform: 'translateY(100vh)' }], { duration: 5000 });
+        setTimeout(() => snow.remove(), 5000);
+    }, 200);
 </script>
+
 </body>
 </html>
