@@ -3,28 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Maapkan rusdy 😔</title>
+    <title>Maapkan Rusdy 😔</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
+        
         body {
-            font-family: sans-serif;
-            background: url('https://i.imgur.com/3ZQ3Z4D.jpg') no-repeat center center;
+            font-family: 'Segoe UI', sans-serif;
+            background: url('https://i.imgur.com/3ZQ3Z4D.jpg') no-repeat center center fixed;
             background-size: cover;
-            color: white;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             overflow: hidden;
-            position: relative;
+            color: white;
         }
 
         body::after {
             content: "";
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             z-index: 1;
@@ -33,51 +32,50 @@
         .card {
             position: relative;
             z-index: 2;
-            width: 90%;
-            max-width: 350px;
+            width: 85%;
+            max-width: 320px;
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 30px 20px;
-            border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .avatar {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             margin: 0 auto 20px;
             border-radius: 15px;
-            border: 3px solid white;
+            border: 2px solid white;
+            /* Ganti GIF/Foto di sini */
             background: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3R4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA8AU/giphy.gif') center/cover;
         }
 
         .text {
-            font-size: 17px;
-            min-height: 60px;
-            margin-bottom: 30px;
+            font-size: 15px;
+            min-height: 50px;
+            margin-bottom: 25px;
             line-height: 1.4;
         }
 
+        /* SISTEM SATU BARIS (ONE LINE) */
         .btn-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            height: 60px;
-            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Membagi dua sama rata */
+            gap: 12px;
+            width: 100%;
         }
 
         button {
-            padding: 12px 20px;
+            padding: 12px 0;
+            font-size: 14px;
+            font-weight: bold;
             border-radius: 10px;
             border: none;
-            font-weight: bold;
             cursor: pointer;
-            font-size: 14px;
-            touch-action: none; /* Penting: mencegah scroll saat tap tombol */
+            white-space: nowrap;
+            touch-action: none; /* Penting untuk HP */
         }
 
         #yes {
@@ -88,9 +86,9 @@
         #no {
             background: #ff4d4d;
             color: white;
-            position: relative; /* Posisi awal rapi */
-            z-index: 999;
-            transition: all 0.1s ease; /* Transisi sangat cepat agar responsif */
+            position: relative; /* Tetap di grid sampai disentuh */
+            z-index: 100;
+            transition: all 0.1s ease;
         }
     </style>
 </head>
@@ -100,12 +98,13 @@
     <div class="avatar"></div>
     <div id="text" class="text"></div>
     <div class="btn-wrapper">
-        <button id="yes">Iyah dimaapkan</button>
-        <button id="no">Enggak!</button>
+        <button id="yes">Iyah</button>
+        <button id="no">Enggak</button>
     </div>
 </div>
 
 <script>
+    /* 🎵 MUSIK */
     const music = new Audio("https://raw.githubusercontent.com/rusdyXBT/pripasi/main/play/2.mp3");
     music.loop = true;
 
@@ -113,6 +112,7 @@
         music.play().catch(() => {});
     }, { once: true });
 
+    /* 💬 TEKS */
     const messages = [
         "Upps! 😢 Hari raya ini harus saling maaf-maafan yaa 👀🤝",
         "Minall 'Aidin Walfaizin ✨ mohon maaf lahir dan batin 🙏",
@@ -120,72 +120,59 @@
         "Tolong maapkan rusdy 🗿"
     ];
 
-    let i = 0;
+    let step = 0;
     const textEl = document.getElementById("text");
 
-    function typeText(text) {
-        let index = 0;
+    function typeEffect(txt) {
+        let i = 0;
         textEl.innerHTML = "";
-        const interval = setInterval(() => {
-            textEl.innerHTML += text[index];
-            index++;
-            if (index >= text.length) clearInterval(interval);
-        }, 40);
+        function type() {
+            if (i < txt.length) {
+                textEl.innerHTML += txt.charAt(i);
+                i++;
+                setTimeout(type, 40);
+            }
+        }
+        type();
     }
 
-    typeText(messages[i]);
+    typeEffect(messages[step]);
 
+    /* ✅ TOMBOL IYAH */
     document.getElementById("yes").onclick = () => {
-        i++;
-        if (i < messages.length) {
-            typeText(messages[i]);
+        step++;
+        if (step < messages.length) {
+            typeEffect(messages[step]);
         } else {
-            typeText("Makasih ya udah dimaafin! ❤️😭");
-            document.getElementById("no").style.display = "none";
-            document.getElementById("yes").style.display = "none";
+            typeEffect("Makasih ya udah dimaafin! ❤️😭");
+            document.querySelector(".btn-wrapper").style.visibility = "hidden";
         }
     };
 
-    /* FITUR KABUR YANG DIPERBAIKI TOTAL */
+    /* ❌ TOMBOL KABUR (FIXED UNTUK HP) */
     const noBtn = document.getElementById("no");
-    
-    function moveButton(e) {
-        // Jika kursor/jari menyentuh, langsung ubah ke fixed
-        if (noBtn.style.position !== "fixed") {
-            noBtn.style.position = "fixed";
-        }
 
-        // Ambil ukuran layar asli
-        const screenWidth = window.innerWidth;
-        const screenHeight = window.innerHeight;
+    function lari(e) {
+        if(e) e.preventDefault();
+        
+        // Ubah jadi melayang agar tidak merusak baris tombol Iyah
+        noBtn.style.position = "fixed";
+        noBtn.style.width = "100px"; // Ukuran tetap pas melayang
 
-        // Hitung batas aman (agar tidak keluar layar)
-        const padding = 20;
-        const btnWidth = noBtn.offsetWidth;
-        const btnHeight = noBtn.offsetHeight;
+        const padding = 60;
+        const maxX = window.innerWidth - 100 - padding;
+        const maxY = window.innerHeight - 50 - padding;
 
-        // Koordinat acak
-        const randomX = Math.floor(Math.random() * (screenWidth - btnWidth - (padding * 2))) + padding;
-        const randomY = Math.floor(Math.random() * (screenHeight - btnHeight - (padding * 2))) + padding;
+        const randomX = Math.floor(Math.random() * maxX) + (padding/2);
+        const randomY = Math.floor(Math.random() * maxY) + (padding/2);
 
-        // Terapkan posisi
         noBtn.style.left = randomX + "px";
         noBtn.style.top = randomY + "px";
-        
-        // Mencegah event klik sebenarnya terjadi (agar tidak bisa ditekan)
-        if(e) e.preventDefault();
     }
 
-    // Untuk PC (Kursor mendekat)
-    noBtn.addEventListener("mouseover", moveButton);
-    
-    // Untuk HP (Disentuh jari)
-    noBtn.addEventListener("touchstart", moveButton);
-
-    // Mencegah klik paksa
-    noBtn.addEventListener("click", (e) => {
-        moveButton(e);
-    });
+    noBtn.addEventListener("touchstart", lari);
+    noBtn.addEventListener("mouseover", lari);
+    noBtn.addEventListener("click", lari);
 </script>
 
 </body>
