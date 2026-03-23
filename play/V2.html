@@ -15,7 +15,7 @@
             height: 100vh;
             display: flex; justify-content: center; align-items: center;
             overflow: hidden; color: white;
-            perspective: 1000px; /* Penting untuk efek getar */
+            perspective: 1000px;
         }
 
         body::after {
@@ -23,7 +23,7 @@
             background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(8px); z-index: 1;
         }
 
-        /* --- PASUKAN 4 KUCING (SESUAI REQUEST) --- */
+        /* --- PASUKAN 4 KUCING --- */
         .walker-area {
             width: 100%;
             position: absolute;
@@ -38,7 +38,7 @@
             display: inline-block;
             width: 60px; height: 60px;
             background: url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/soft-meme.gif') center/cover no-repeat;
-            animation: lariKiri 8s linear infinite; /* Sedikit diperlambat biar santai */
+            animation: lariKiri 8s linear infinite;
             transform: translateX(100vw);
         }
 
@@ -47,7 +47,7 @@
             100% { transform: translateX(-100vw); }
         }
 
-        /* --- KARTU UTAMA DENGAN EFEK GETAR --- */
+        /* --- KARTU UTAMA --- */
         .card {
             position: relative; z-index: 2;
             width: 92%; max-width: 350px;
@@ -56,22 +56,18 @@
             border-radius: 30px; padding: 25px 20px;
             text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             margin-top: -50px;
-            transition: transform 0.1s ease-in-out; /* Smooth vibration */
+            transition: transform 0.1s ease-in-out;
         }
 
-        /* Animasi Getar Kartu */
         @keyframes vibrate {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            20% { transform: translate(-5px, 5px) rotate(-1deg); }
-            40% { transform: translate(-5px, -5px) rotate(1deg); }
-            60% { transform: translate(5px, 5px) rotate(-1deg); }
-            80% { transform: translate(5px, -5px) rotate(1deg); }
-            100% { transform: translate(0, 0) rotate(0deg); }
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(-4px, 4px); }
+            50% { transform: translate(4px, -4px); }
+            75% { transform: translate(-4px, -4px); }
+            100% { transform: translate(0, 0); }
         }
 
-        .card.vibrate-mode {
-            animation: vibrate 0.3s linear infinite;
-        }
+        .vibrate-mode { animation: vibrate 0.2s linear infinite; }
 
         .avatar {
             width: 130px; height: 130px; margin: 10px auto 15px;
@@ -79,7 +75,7 @@
             background-position: center; background-size: cover;
             background-color: rgba(255,255,255,0.2);
             transition: 0.3s;
-            background-image: url('https://media.tenor.com/8m_l17VId8MAAAAC/cat-sad.gif'); /* INTRO GIF LANGSUNG MUNCUL */
+            background-image: url('https://media.tenor.com/8m_l17VId8MAAAAC/cat-sad.gif'); /* Intro */
         }
 
         .text { 
@@ -91,29 +87,18 @@
             text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
         }
 
-        /* --- TOMBOL RESTORED & STABLE --- */
         .btn-wrapper { 
             display: grid; grid-template-columns: 1fr 1fr; gap: 12px; 
-            opacity: 0; /* Mulai dari transparan, muncul setelah ngetik selesai */
-            transition: opacity 0.5s;
-            position: relative; /* Penting untuk tombol No */
+            opacity: 0; transition: opacity 0.5s;
         }
 
         button {
             padding: 12px 5px; font-size: 14px; font-weight: bold;
             border-radius: 15px; border: none; cursor: pointer;
-            transition: transform 0.1s, box-shadow 0.1s;
         }
-
-        button:active { transform: scale(0.95); }
 
         #yes { background: white; color: #ff4d6d; }
-        
-        #no { 
-            background: #ff4d4d; color: white; 
-            position: relative; z-index: 10; 
-            /* Tombol No tidak boleh pindah-pindah fixed lagi agar getar terasa di kartu */
-        }
+        #no { background: #ff4d4d; color: white; position: relative; }
 
         .heart {
             position: absolute; color: #ff4d6d; font-size: 25px;
@@ -153,6 +138,7 @@
     const mainCard = document.getElementById("mainCard");
 
     let step = 0;
+    let angryIdx = 0;
 
     const texts = [
         "Minal aidin walpaidin mon maap lahir batin 🙏🙏",
@@ -160,115 +146,91 @@
         "tetapi ntu semuwa memang hoby 🗿🗿"
     ];
 
-    const gifs = [
-        "https://media.tenor.com/8m_l17VId8MAAAAC/cat-sad.gif", // Intro
+    const normalGifs = [
+        "https://media.tenor.com/8m_l17VId8MAAAAC/cat-sad.gif",
         "https://media.tenor.com/GfV6S6I_h9AAAAAC/cat-cute.gif",
         "https://media.tenor.com/7966A0D7p88AAAAC/cat-smile.gif"
     ];
 
+    // --- 4 GIF MARAH (Gonta-ganti sesuai request) ---
     const angryGifs = [
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-rTRYbFx38K.gif",
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-YNbTiWGdcr.gif"
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-YNbTiWGdcr.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-xKnUJBPzZf.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-QCaiGlMeJg.gif"
     ];
 
-    // --- TYPING SANTAI (REQUEST) ---
     function typeWriter(text, element, callback) {
         let i = 0;
         element.innerHTML = "";
-        btnGroup.style.opacity = "0"; // Sembunyikan tombol saat ngetik
-        
+        btnGroup.style.opacity = "0";
         function type() {
             if (i < text.length) {
                 element.innerHTML += text.charAt(i);
                 i++;
-                // Kecepatan diubah dari 100ms ke 150ms biar lebih santai
-                setTimeout(type, 150); 
+                setTimeout(type, 150); // Santai
             } else if (callback) {
-                // Beri jeda sedikit setelah selesai ngetik sebelum tombol muncul
                 setTimeout(callback, 500);
             }
         }
         type();
     }
 
-    // --- FUNGSI CONFETTI & HEARTS ---
-    function launchConfetti() {
-        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-    }
-
-    function createHeart() {
-        const h = document.createElement("div");
-        h.innerHTML = "❤️"; h.className = "heart";
-        h.style.left = Math.random() * 80 + 10 + "%";
-        h.style.top = "50%";
-        document.body.appendChild(h);
-        setTimeout(() => h.remove(), 2000);
-    }
-
-    // --- INISIALISASI ---
     window.onload = () => {
-        // GIF Intro sudah diset di CSS
-        typeWriter(texts[0], textEl, () => {
-            btnGroup.style.opacity = "1";
-        });
+        typeWriter(texts[0], textEl, () => { btnGroup.style.opacity = "1"; });
     };
 
-    // --- LOGIKA TOMBOL "IYAH" ---
     document.getElementById("yes").onclick = () => {
-        // Matikan efek getar jika ada
         mainCard.classList.remove("vibrate-mode");
-        
         step++;
-        createHeart();
-        launchConfetti();
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
         
         if (step === 1) {
             typeWriter(texts[1], textEl, () => { btnGroup.style.opacity = "1"; });
-            catGifEl.style.backgroundImage = `url('${gifs[1]}')`;
+            catGifEl.style.backgroundImage = `url('${normalGifs[1]}')`;
         } else if (step === 2) {
             typeWriter(texts[2], textEl, () => { btnGroup.style.opacity = "1"; });
-            catGifEl.style.backgroundImage = `url('${gifs[2]}')`;
+            catGifEl.style.backgroundImage = `url('${normalGifs[2]}')`;
         } else {
-            textEl.innerHTML = "Janji nggak nakal lagi! 🐱💕 (Atau nunggu hobi kambuh 🗿)";
+            textEl.innerHTML = "Janji nggak nakal lagi! 🐱💕";
             catGifEl.style.backgroundImage = "url('https://media.tenor.com/vFKqnCdLPNOKcAAAAC/kiss-cat.gif')";
             btnGroup.style.display = "none";
-            setInterval(createHeart, 300);
-            setInterval(launchConfetti, 1500); 
+            setInterval(() => {
+                const h = document.createElement("div");
+                h.innerHTML = "❤️"; h.className = "heart";
+                h.style.left = Math.random() * 80 + 10 + "%";
+                h.style.top = "50%";
+                document.body.appendChild(h);
+                setTimeout(() => h.remove(), 2000);
+            }, 300);
         }
     };
 
-    // --- LOGIKA TOMBOL "ENGGAK" -> WAJIB GETER (REQUEST) ---
-    function triggerVibration() {
-        // 1. Geter fisik di HP (Vibration API)
-        if (navigator.vibrate) {
-            navigator.vibrate([200, 100, 200]); // Geter-jeda-geter
-        }
-
-        // 2. Geter visual di Kartu (CSS Animation)
+    // --- LOGIKA TOMBOL ENGGAK: GETAR & GONTA-GANTI 4 GIF ---
+    function triggerNo() {
+        // Geter HP
+        if (navigator.vibrate) navigator.vibrate(200);
+        
+        // Geter Kartu
         mainCard.classList.add("vibrate-mode");
+
+        // Gonta-ganti GIF Marah (Berurutan 1-4)
+        catGifEl.style.backgroundImage = `url('${angryGifs[angryIdx]}')`;
+        angryIdx = (angryIdx + 1) % angryGifs.length; // Balik ke awal kalau sudah 4
+
+        textEl.innerHTML = "Dibilangin JANGAN PENCET ENGGAK!!! 😡💢";
         
-        // Ubah teks dan GIF jadi marah
-        let randomAngry = angryGifs[Math.floor(Math.random() * angryGifs.length)];
-        catGifEl.style.backgroundImage = `url('${randomAngry}')`;
-        textEl.innerHTML = "JANGAN PENCET ENGGAK!!! KARTUNYA JADI MARAH KAN! 😡🔥";
+        // Sembunyikan 'No' bentar biar kapok
+        noBtn.style.pointerEvents = "none";
+        noBtn.style.opacity = "0.5";
         
-        // Sembunyikan tombol 'No' sementara biar kapok
-        noBtn.style.display = "none";
-        
-        // Kembalikan tombol 'No' setelah 3 detik
         setTimeout(() => {
-            noBtn.style.display = "inline-block";
-        }, 3000);
+            noBtn.style.pointerEvents = "auto";
+            noBtn.style.opacity = "1";
+        }, 1000);
     }
 
-    // Pakai 'click' atau 'touchstart' biar getar terasa langsung pas ditekan
-    noBtn.addEventListener("click", triggerVibration);
-    noBtn.addEventListener("touchstart", (e) => { 
-        e.preventDefault(); // Cegah double tap
-        triggerVibration(); 
-    });
-
-    // Musik Jalan pas interaksi pertama
+    noBtn.addEventListener("click", triggerNo);
     document.body.onclick = () => { music.play().catch(() => {}); };
 </script>
 </body>
