@@ -9,7 +9,7 @@
         
         body {
             font-family: 'Segoe UI', sans-serif;
-            background: url('https://w0.peakpx.com/wallpaper/424/399/HD-wallpaper-view-sky-aesthetic-thumbnail.jpg') no-repeat center center fixed;
+            background: url('https://w0.peakpx.com/wallpaper/492/653/HD-wallpaper-view-aesthetic-sky-thumbnail.jpg') no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
             display: flex; justify-content: center; align-items: center;
@@ -18,63 +18,90 @@
 
         body::after {
             content: ""; position: absolute; inset: 0;
-            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); z-index: 1;
+            background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(8px); z-index: 1;
         }
 
-        @keyframes shake {
-            0% { transform: translate(1px, 1px); }
-            20% { transform: translate(-3px, 0px); }
-            40% { transform: translate(3px, 2px); }
-            100% { transform: translate(1px, 1px); }
+        /* --- BARISAN KUCING LARI DI ATAS --- */
+        .walker-area {
+            width: 100%;
+            position: absolute;
+            top: -65px; /* Jarak aman di atas foto */
+            left: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            pointer-events: none; /* Biar nggak ganggu klik */
         }
-        .shaking { animation: shake 0.2s infinite; border: 2px solid #ff4d4d !important; }
+
+        .cat-walker {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            /* PAKAI LINK TENOR YG KAMU KASIH */
+            background: url('https://media.tenor.com/XpA9mE98jLIAAAAC/cat-run.gif') center/cover no-repeat;
+            animation: jalan 5s linear infinite;
+        }
+
+        @keyframes jalan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(600%); }
+        }
 
         .card {
             position: relative; z-index: 2;
             width: 90%; max-width: 320px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 25px; padding: 30px 15px;
-            text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 30px; padding: 30px 15px;
+            text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            margin-top: 60px;
         }
+
+        .avatar-container { position: relative; display: inline-block; }
 
         .avatar {
-            width: 140px; height: 140px; margin: 0 auto 20px;
-            border-radius: 20px; border: 3px solid white;
+            width: 150px; height: 150px; margin: 0 auto 20px;
+            border-radius: 25px; border: 4px solid white;
             background-position: center; background-size: cover;
-            transition: background-image 0.3s ease;
+            background-color: rgba(255,255,255,0.1);
         }
 
-        .text { font-size: 15px; min-height: 50px; margin-bottom: 25px; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
-
-        .btn-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+        .text { font-size: 16px; min-height: 55px; margin-bottom: 25px; font-weight: bold; }
+        .btn-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
         button {
-            padding: 12px 5px; font-size: 13px; font-weight: bold;
-            border-radius: 12px; border: none; cursor: pointer; touch-action: none;
+            padding: 14px 5px; font-size: 14px; font-weight: bold;
+            border-radius: 15px; border: none; cursor: pointer; touch-action: none;
         }
 
-        #yes { background: white; color: black; position: relative; z-index: 3; transition: 0.2s; }
-        #no { 
-            background: #ff4d4d; color: white; position: relative; z-index: 1000;
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        #yes { background: white; color: #ff4d6d; z-index: 3; }
+        #no { background: #ff4d4d; color: white; position: relative; z-index: 1000; transition: 0.2s; }
+
+        @keyframes shake {
+            0% { transform: translate(1px, 1px); }
+            20% { transform: translate(-3px, 0px); }
+            100% { transform: translate(1px, 1px); }
         }
+        .shaking { animation: shake 0.2s infinite; border: 2px solid #ff4d4d !important; }
 
         .heart {
-            position: absolute; color: #ff4d4d; font-size: 25px;
-            pointer-events: none; animation: fly 2s linear forwards; z-index: 10;
+            position: absolute; color: #ff4d6d; font-size: 25px;
+            pointer-events: none; animation: fly 2s linear forwards;
         }
-        @keyframes fly {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-150px) scale(2) rotate(25deg); opacity: 0; }
-        }
+        @keyframes fly { 0% { opacity: 1; } 100% { transform: translateY(-200px); opacity: 0; } }
     </style>
 </head>
 <body>
 
 <div class="card" id="mainCard">
-    <div class="avatar" id="catGif"></div>
+    <div class="avatar-container">
+        <div class="walker-area">
+            <div class="cat-walker"></div>
+            <div class="cat-walker" style="animation-delay: 1.5s;"></div>
+            <div class="cat-walker" style="animation-delay: 3s;"></div>
+        </div>
+        <div class="avatar" id="catGif"></div>
+    </div>
+
     <div id="text" class="text">Halo? Maafin Rusdy ya... 👉👈</div>
     <div class="btn-wrapper" id="btnGroup">
         <button id="yes">Iyah dimaafin</button>
@@ -95,69 +122,55 @@
     let yesStep = 0;
     let noStep = 0;
 
-    // --- DATA KONTEN (SUDAH PAKAI GIF GITHUB KAMU) ---
     const content = {
-        awal: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3R4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA8AU/giphy.gif",
-        
+        awal: "https://media.tenor.com/8m_l17VId8MAAAAC/cat-sad.gif",
         no: [
             { t: "Kok ditekan sih? Sedih tau.. 🥺", g: "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-rTRYbFx38K.gif" },
             { t: "JANGAN DITEKAN TERUS! 😡", g: "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-YNbTiWGdcr.gif" },
             { t: "AAAAAAHHH!!! JAHAT! 😱", g: "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-xKnUJBPzZf.gif" },
             { t: "RUSDY NGAMBEK BENERAN!!! 😤", g: "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-QCaiGlMeJg.gif" }
         ],
-
         yes: [
-            { t: "Beneran dimaafin? 🥺", g: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3R4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA8AU/giphy.gif" },
-            { t: "Hehe, makasih yaaa ✨", g: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/ICOgUNoMPvG24/giphy.gif" },
-            { t: "Rusdy janji nggak nakal lagi! 💖", g: "https://media.tenor.com/7966A0D7p88AAAAC/cat-smile.gif" },
-            { t: "SAYANG KAMU BANYAK-BANYAK! ❤️", g: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGJ4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/ICOgUNoMPvG24/giphy.gif" }
+            { t: "Beneran dimaafin nih? ✨", g: "https://media.tenor.com/GfV6S6I_h9AAAAAC/cat-cute.gif" },
+            { t: "Hehe, makasih banyak yaaa! 🥰", g: "https://media.tenor.com/7966A0D7p88AAAAC/cat-smile.gif" },
+            { t: "Sayang kamu banyak-banyak! ❤️", g: "https://media.tenor.com/9789369e80e1ec074697753e144a9918/tenor.gif" },
+            { t: "Mwah! Janji nggak nakal lagi! 🐱💕", g: "https://media.tenor.com/vFKqnCdLPNOKcAAAAC/kiss-cat.gif" }
         ]
     };
 
     catGifEl.style.backgroundImage = `url('${content.awal}')`;
 
-    // --- KLIK IYAH ---
     document.getElementById("yes").onclick = () => {
         cardEl.classList.remove("shaking");
-        textEl.style.color = "white";
-
         if (yesStep < content.yes.length) {
             textEl.innerHTML = content.yes[yesStep].t;
             catGifEl.style.backgroundImage = `url('${content.yes[yesStep].g}')`;
             yesStep++;
             createHeart();
         }
-
         if (yesStep === content.yes.length) {
             document.getElementById("btnGroup").style.display = "none";
-            startFinalEffect();
+            setInterval(createHeart, 200);
+            cardEl.style.background = "rgba(255, 77, 109, 0.4)";
         }
     };
 
-    // --- KLIK ENGGAK (KABUR + GANTI GIF GITHUB) ---
-    function lari(e) {
-        if(e) e.preventDefault();
-        
+    function lari() {
         let idx = Math.min(noStep, content.no.length - 1);
         textEl.innerHTML = content.no[idx].t;
         catGifEl.style.backgroundImage = `url('${content.no[idx].g}')`;
         cardEl.classList.add("shaking");
-        textEl.style.color = "#ff8888";
         noStep++;
 
         noBtn.style.position = "fixed";
-        noBtn.style.width = "100px";
         const margin = 60;
-        const maxX = window.innerWidth - 100 - margin;
-        const maxY = window.innerHeight * 0.6; 
-        const randomX = Math.floor(Math.random() * (maxX - margin)) + margin;
-        const randomY = Math.floor(Math.random() * (maxY - 100)) + 100;
-
+        const randomX = Math.floor(Math.random() * (window.innerWidth - 120)) + margin;
+        const randomY = Math.floor(Math.random() * (window.innerHeight * 0.5)) + 100;
         noBtn.style.left = randomX + "px";
         noBtn.style.top = randomY + "px";
     }
 
-    noBtn.addEventListener("touchstart", lari);
+    noBtn.addEventListener("touchstart", (e) => { e.preventDefault(); lari(); });
     noBtn.addEventListener("mouseover", lari);
 
     function createHeart() {
@@ -167,14 +180,6 @@
         h.style.top = "50%";
         document.body.appendChild(h);
         setTimeout(() => h.remove(), 2000);
-    }
-
-    function startFinalEffect() {
-        textEl.style.color = "#aaffaa";
-        setInterval(createHeart, 250);
-        cardEl.style.transform = "scale(1.1)";
-        cardEl.style.background = "rgba(255, 100, 100, 0.4)";
-        cardEl.style.border = "2px solid #ff4d4d";
     }
 </script>
 </body>
