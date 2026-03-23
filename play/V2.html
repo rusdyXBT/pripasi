@@ -38,9 +38,7 @@
             width: 60px;
             height: 60px;
             background: url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/soft-meme.gif') center/cover no-repeat;
-            /* Kita kasih durasi 6 detik biar nggak terlalu ngebut */
             animation: lariKiri 6s linear infinite;
-            /* Awalnya kita sembunyikan dulu di luar layar kanan */
             transform: translateX(100vw);
         }
 
@@ -51,26 +49,35 @@
 
         .card {
             position: relative; z-index: 2;
-            width: 90%; max-width: 320px;
+            width: 92%; max-width: 340px;
             background: rgba(255, 255, 255, 0.25);
             border: 2px solid rgba(255, 255, 255, 0.4);
-            border-radius: 30px; padding: 30px 15px;
+            border-radius: 30px; padding: 25px 20px;
             text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            margin-top: 60px;
+            /* DIGESER KE ATAS */
+            margin-top: -30px; 
         }
 
         .avatar {
-            width: 150px; height: 150px; margin: 15px auto 20px;
-            border-radius: 25px; border: 4px solid white;
+            width: 130px; height: 130px; margin: 10px auto 15px;
+            border-radius: 20px; border: 4px solid white;
             background-position: center; background-size: cover;
             background-color: rgba(255,255,255,0.2);
         }
 
-        .text { font-size: 16px; min-height: 55px; margin-bottom: 25px; font-weight: bold; }
+        .text { 
+            font-size: 15px; 
+            line-height: 1.5;
+            min-height: 80px; 
+            margin-bottom: 20px; 
+            font-weight: bold; 
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
         .btn-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
         button {
-            padding: 14px 5px; font-size: 14px; font-weight: bold;
+            padding: 12px 5px; font-size: 14px; font-weight: bold;
             border-radius: 15px; border: none; cursor: pointer;
         }
 
@@ -102,7 +109,11 @@
 
     <div class="avatar" id="catGif"></div>
 
-    <div id="text" class="text">Maafin Rusdy ya... 👉👈</div>
+    <div id="text" class="text">
+        Minal aidin walpaidin mon maap lahir batin 🙏🙏<br><br>
+        Maapkan Rusdy kalaw ada salah memang Rusdy suka memaki dan membuli
+    </div>
+    
     <div class="btn-wrapper" id="btnGroup">
         <button id="yes">Iyah dimaafin</button>
         <button id="no">Enggak!</button>
@@ -127,13 +138,12 @@
         no: [
             { t: "Kok ditekan sih? Sedih tau.. 🥺", g: "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-rTRYbFx38K.gif" },
             { t: "JANGAN DITEKAN TERUS! 😡", g: "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-YNbTiWGdcr.gif" },
-            { t: "AAAAAAHHH!!! JAHAT! 😱", g: "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-xKnUJBPzZf.gif" },
             { t: "RUSDY NGAMBEK BENERAN!!! 😤", g: "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-QCaiGlMeJg.gif" }
         ],
         yes: [
             { t: "Beneran dimaafin nih? ✨", g: "https://media.tenor.com/GfV6S6I_h9AAAAAC/cat-cute.gif" },
             { t: "Hehe, makasih banyak yaaa! 🥰", g: "https://media.tenor.com/7966A0D7p88AAAAC/cat-smile.gif" },
-            { t: "Mwah! Janji nggak nakal lagi! 🐱💕", g: "https://media.tenor.com/vFKqnCdLPNOKcAAAAC/kiss-cat.gif" }
+            { t: "tetapi ntu semuwa memang hoby🗿🗿", g: "https://media.tenor.com/vFKqnCdLPNOKcAAAAC/kiss-cat.gif" }
         ]
     };
 
