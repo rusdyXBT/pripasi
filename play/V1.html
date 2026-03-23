@@ -177,7 +177,7 @@
             typeWriter(texts[step], textEl, () => { btnGroup.style.opacity = "1"; });
         } else {
             btnGroup.style.display = "none";
-            textEl.textContent = "MAKASIH YA SUDAH DIMAAFIN! 🥰🙏";
+            textEl.textContent = "MAKASIH YA SUDAH DIMAAPKAN! 🥰🙏";
             setInterval(createHeart, 250);
             let fIdx = 0;
             setInterval(() => {
@@ -195,7 +195,7 @@
         catGifEl.style.backgroundImage = `url('${angryGifs[angryIdx]}')`;
         angryIdx = (angryIdx + 1) % angryGifs.length; // Biar muter terus urutannya
         
-        textEl.textContent = "Dibilangin JANGAN PENCET ENGGAK!!! 😡💢";
+        textEl.textContent = "PARAH ANY ENGGAK!!! 😡💢";
         noBtn.style.position = "absolute";
         const maxX = mainCard.clientWidth - noBtn.clientWidth - 20;
         const maxY = mainCard.clientHeight - noBtn.clientHeight - 20;
