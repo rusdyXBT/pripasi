@@ -107,6 +107,7 @@
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187b55ee.jpeg"
     ];
 
+    // SEMUA KATA-KATA DISINI AKAN MUNCUL BERURUTAN
     const texts = [
         "MINAL AIDIN WALPAIDIN MON MAAP LAHIR BATIN 🙏",
         "MAAPKAN RUSDY KALAW ADA SALAH 🤗",
@@ -117,7 +118,16 @@
         "MOHON MAAF SEKALI LAGI, JIKA LAHIRMU DITAKDIRKAN UNTUKU, MAKA BATINKU SIAP SELAMANYA MENJADI MILIKMU. SLEBEEW.🤤",
     ];
 
-    // INI LHO 6 GIF NYA, SUDAH LENGKAP JIR!
+    // VARIASI KATA SAAT KLIK ENGGAK
+    const angryTexts = [
+        "PARAH ANY ENGGAK!!! 😡💢",
+        "DIBILANGIN JANGAN PENCET ITU! 😤",
+        "MAAFIN NAPA JANGAN PELIT! 😫",
+        "KLIK IYAH AJA KENAPA SIH? 👊",
+        "GAK BOLEH JAHAT SAMA RUSDY! 🥺",
+        "DOSA WOI GAK MAAFIN ORANG! 😡🔥"
+    ];
+
     const angryGifs = [
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-rTRYbFx38K.gif",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-YNbTiWGdcr.gif",
@@ -128,7 +138,7 @@
     ];
 
     let step = 0;
-    let angryIdx = 0; // Index buat ganti-ganti GIF marah
+    let angryIdx = 0;
     let isTyping = false;
 
     function mulai() {
@@ -170,13 +180,16 @@
         mainCard.classList.remove("vibrate-mode");
         noBtn.style.position = "relative"; noBtn.style.left = "0"; noBtn.style.top = "0";
         step++;
+        
         for(let i=0; i<10; i++) setTimeout(createHeart, i * 150);
         
-        if (step < 4) {
+        // Sekarang step membandingkan dengan panjang array texts (biar semua muncul)
+        if (step < texts.length) {
             document.body.style.backgroundImage = `url('${backgroundList[step % backgroundList.length]}')`;
             catGifEl.style.backgroundImage = `url('${normalGifs[step % normalGifs.length]}')`;
             typeWriter(texts[step], textEl, () => { btnGroup.style.opacity = "1"; });
         } else {
+            // Bagian Terakhir
             btnGroup.style.display = "none";
             textEl.textContent = "MAKASIH YA SUDAH DIMAAPKAN! 🥰🙏";
             setInterval(createHeart, 250);
@@ -192,11 +205,14 @@
         if (navigator.vibrate) navigator.vibrate([150, 50, 150]);
         mainCard.classList.add("vibrate-mode");
         
-        // GANTI GIF MARAH SETIAP KALI DIPENCET (1-6)
-        catGifEl.style.backgroundImage = `url('${angryGifs[angryIdx]}')`;
-        angryIdx = (angryIdx + 1) % angryGifs.length; // Biar muter terus urutannya
+        // Ganti GIF marah
+        catGifEl.style.backgroundImage = `url('${angryGifs[angryIdx % angryGifs.length]}')`;
         
-        textEl.textContent = "PARAH ANY ENGGAK!!! 😡💢";
+        // Ganti KATA-KATA marah (sesuai permintaanmu)
+        textEl.textContent = angryTexts[angryIdx % angryTexts.length];
+        
+        angryIdx++; // Tambah index tiap kali diklik
+        
         noBtn.style.position = "absolute";
         const maxX = mainCard.clientWidth - noBtn.clientWidth - 20;
         const maxY = mainCard.clientHeight - noBtn.clientHeight - 20;
