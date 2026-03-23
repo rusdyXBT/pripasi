@@ -21,7 +21,7 @@
             background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(8px); z-index: 1;
         }
 
-        /* --- PASUKAN 10 KUCING LARI KE KIRI --- */
+        /* --- PASUKAN 10 KUCING LARI BERURUTAN --- */
         .walker-area {
             width: 100%;
             position: absolute;
@@ -38,13 +38,15 @@
             width: 60px;
             height: 60px;
             background: url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/soft-meme.gif') center/cover no-repeat;
-            /* Lari dari Kanan (100%) ke Kiri (-100%) */
-            animation: lariKiri 5s linear infinite;
+            /* Kita kasih durasi 6 detik biar nggak terlalu ngebut */
+            animation: lariKiri 6s linear infinite;
+            /* Awalnya kita sembunyikan dulu di luar layar kanan */
+            transform: translateX(100vw);
         }
 
         @keyframes lariKiri {
-            0% { transform: translateX(500%); }
-            100% { transform: translateX(-200%); }
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100vw); }
         }
 
         .card {
@@ -86,16 +88,16 @@
 
 <div class="card" id="mainCard">
     <div class="walker-area">
-        <div class="cat-walker"></div>
-        <div class="cat-walker" style="animation-delay: 0.5s;"></div>
-        <div class="cat-walker" style="animation-delay: 1.0s;"></div>
-        <div class="cat-walker" style="animation-delay: 1.5s;"></div>
-        <div class="cat-walker" style="animation-delay: 2.0s;"></div>
-        <div class="cat-walker" style="animation-delay: 2.5s;"></div>
-        <div class="cat-walker" style="animation-delay: 3.0s;"></div>
-        <div class="cat-walker" style="animation-delay: 3.5s;"></div>
-        <div class="cat-walker" style="animation-delay: 4.0s;"></div>
-        <div class="cat-walker" style="animation-delay: 4.5s;"></div>
+        <div class="cat-walker" style="animation-delay: 0s;"></div>
+        <div class="cat-walker" style="animation-delay: 1.2s;"></div>
+        <div class="cat-walker" style="animation-delay: 2.4s;"></div>
+        <div class="cat-walker" style="animation-delay: 3.6s;"></div>
+        <div class="cat-walker" style="animation-delay: 4.8s;"></div>
+        <div class="cat-walker" style="animation-delay: 6s;"></div>
+        <div class="cat-walker" style="animation-delay: 7.2s;"></div>
+        <div class="cat-walker" style="animation-delay: 8.4s;"></div>
+        <div class="cat-walker" style="animation-delay: 9.6s;"></div>
+        <div class="cat-walker" style="animation-delay: 10.8s;"></div>
     </div>
 
     <div class="avatar" id="catGif"></div>
