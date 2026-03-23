@@ -4,43 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>aset negara🙏</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap" rel="stylesheet">
-    
     <style>
-        /* Tambahkan font cadangan (sans-serif) agar jika Nunito gagal, teks tidak berantakan */
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-            -webkit-tap-highlight-color: transparent; 
-            font-family: 'Nunito', sans-serif, Arial; 
-        }
-        
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; font-family: 'Nunito', sans-serif, Arial; }
         body {
-            background: #222 url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg') no-repeat center center fixed;
-            background-size: cover; 
-            height: 100vh;
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            overflow: hidden; 
-            color: white; 
-            transition: background 1s ease;
+            background: url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg') no-repeat center center fixed;
+            background-size: cover; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden; color: white; transition: background 1s ease;
         }
-
-        /* Overlay gelap agar teks lebih kontras dan terbaca */
-        body::after { 
-            content: ""; 
-            position: absolute; 
-            inset: 0; 
-            background: rgba(0, 0, 0, 0.4); 
-            backdrop-filter: blur(4px); 
-            z-index: 1; 
-        }
-
+        body::after { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(5px); z-index: 1; }
         .walker-area { width: 100%; position: absolute; top: -55px; left: 0; height: 60px; pointer-events: none; z-index: 5; }
         .cat-walker {
             width: 60px; height: 60px;
@@ -49,55 +24,38 @@
         }
         .cat-1 { animation-delay: 0s; } .cat-2 { animation-delay: 2.5s; } .cat-3 { animation-delay: 5s; } .cat-4 { animation-delay: 7.5s; } .cat-5 { animation-delay: 10s; }
         @keyframes lariMulus { 0% { left: 100%; } 100% { left: -80px; } }
-
         #overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
             z-index: 100; display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
-        
         #overlay .avatar {
             width: 140px; height: 140px; margin-bottom: 25px;
             border-radius: 25px; border: 5px solid white;
             background: url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/love-letter-send-love.gif') center/cover;
         }
-
+        #overlay button { padding: 18px 35px; font-size: 18px; border-radius: 50px; border: none; background: #ff4d6d; color: white; cursor: pointer; font-weight: 900; }
         .card {
             position: relative; z-index: 10; width: 92%; max-width: 360px;
-            background: rgba(255, 255, 255, 0.15); 
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 30px; padding: 30px 20px; text-align: center; 
-            backdrop-filter: blur(15px); display: none;
+            background: rgba(255, 255, 255, 0.2); border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 35px; padding: 30px 20px; text-align: center; backdrop-filter: blur(10px); display: none;
         }
-
-        .vibrate-mode { animation: vibrate 0.15s linear infinite; }
-        @keyframes vibrate { 0% { transform: translate(0,0); } 25% { transform: translate(-3px,3px); } 50% { transform: translate(3px,-3px); } 100% { transform: translate(0,0); } }
-
-        .avatar { width: 130px; height: 130px; margin: 0 auto 20px; border-radius: 20px; border: 4px solid white; background: center/cover no-repeat; }
-        
-        /* Tambahkan min-height tetap agar kartu tidak "lompat-lompat" saat mengetik */
-        .text { 
-            font-size: 19px; 
-            line-height: 1.4; 
-            min-height: 90px; 
-            margin-bottom: 25px; 
-            font-weight: 900; 
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.6); 
-            white-space: pre-wrap; /* Menjaga spasi agar rapi */
-        }
-
-        .btn-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; opacity: 0; transition: 0.4s; }
-        button { padding: 15px 5px; font-size: 16px; font-weight: 900; border-radius: 20px; border: none; cursor: pointer; }
-        #yes { background: #fff; color: #ff4d6d; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .vibrate-mode { animation: vibrate 0.2s linear infinite; }
+        @keyframes vibrate { 0% { transform: translate(0, 0); } 25% { transform: translate(-4px, 4px); } 50% { transform: translate(4px, -4px); } 100% { transform: translate(0, 0); } }
+        .avatar { width: 130px; height: 130px; margin: 0 auto 20px; border-radius: 20px; border: 4px solid white; background: center/cover no-repeat; transition: background 0.8s ease; }
+        .text { font-size: 20px; line-height: 1.5; min-height: 110px; margin-bottom: 25px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.4); }
+        .btn-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; opacity: 0; transition: 0.5s; }
+        button { padding: 14px 5px; font-size: 16px; font-weight: 900; border-radius: 18px; border: none; cursor: pointer; }
+        #yes { background: #ffffff; color: #ff4d6d; }
         #no { background: #ff4d4d; color: white; position: relative; }
-        .heart { position: fixed; bottom: -50px; color: #ff4d6d; font-size: 22px; pointer-events: none; z-index: 2; animation: flyUp 4s linear forwards; }
-        @keyframes flyUp { 0% { transform: translateY(0) scale(1); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateY(-110vh) scale(2) rotate(45deg); opacity: 0; } }
+        .heart { position: fixed; bottom: -50px; color: rgba(255, 77, 109, 0.6); font-size: 22px; pointer-events: none; z-index: 2; animation: flyUp 4s linear forwards; }
+        @keyframes flyUp { 0% { transform: translateY(0) scale(1); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateY(-110vh) scale(1.8) rotate(45deg); opacity: 0; } }
     </style>
 </head>
 <body>
 
 <div id="overlay">
     <div class="avatar"></div>
-    <button style="background:#ff4d6d; color:white; padding:15px 30px;" onclick="mulai()">BUKA PESAN DARI RUSDY 💌</button>
+    <button onclick="mulai()">BUKA PESAN DARI RUSDY 💌</button>
 </div>
 
 <div class="card" id="mainCard">
@@ -105,6 +63,8 @@
         <div class="cat-walker cat-1"></div>
         <div class="cat-walker cat-2"></div>
         <div class="cat-walker cat-3"></div>
+        <div class="cat-walker cat-4"></div>
+        <div class="cat-walker cat-5"></div>
     </div>
     <div class="avatar" id="catGif"></div>
     <div id="text" class="text"></div>
@@ -124,6 +84,7 @@
     const noBtn = document.getElementById("no");
     const mainCard = document.getElementById("mainCard");
 
+    // LIST GIF KEMBALI LENGKAP
     const normalGifs = [
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-bubu-dudu.gif",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-dance.gif",
@@ -136,57 +97,63 @@
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/haleys-ouo.gif",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/stella-hsr-cute-dance-stella-hsr.gif",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/tanzen-hase-hyper-hase-sehr-gut.gif",
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/vision-sloth.gif"
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/vision-sloth.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/happy-dance.gif"
     ];
 
     const backgroundList = [
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/desktop-wallpaper-pin-oleh-w-yaya-di-peach-et-goma-%E2%9D%A4-seni-kucing-ilustrasi-hewan-seni-thumbnail.jpg",
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187a4696.jpeg"
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187a4696.jpeg",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187b55ee.jpeg"
     ];
 
+    // EMOJI KEMBALI LENGKAP
     const texts = [
         "MINAL AIDIN WALPAIDIN MON MAAP LAHIR BATIN 🙏🙏",
         "MAAPKAN RUSDY KALAW ADA SALAH 🤗🙏",
         "MEMANG RUSDY SUKA MEMAKI DAN MEMBULI 🤡🤗",
         "TETAPI NTU SEMUWA MEMANG HOBY 🗿🗿🗿",
-        "SAYANG KAMU BANYAK-BANYAK! ❤️✨"
+        "MAKASIH YA SUDAH DIMAAFIN! 🥰✨",
+        ""
     ];
 
     const angryGifs = [
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-rTRYbFx38K.gif",
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/angry-angry-emoji.gif"
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-YNbTiWGdcr.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-xKnUJBPzZf.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-QCaiGlMeJg.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/angry-angry-emoji.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/anime-aaaa.gif"
     ];
 
     let step = 0;
+    let angryIdx = 0;
+    let finalIdx = 0;
     let isTyping = false;
 
     function mulai() {
         document.getElementById("overlay").style.display = "none";
         mainCard.style.display = "block";
         music.play().catch(() => {});
-        updateStep();
+        catGifEl.style.backgroundImage = `url('${normalGifs[0]}')`;
+        typeWriter(texts[0], textEl, () => { btnGroup.style.opacity = "1"; });
     }
 
-    // Fungsi Typewriter yang diperbaiki agar tidak berantakan
+    // Fungsi TypeWriter yang diperbaiki (textContent biar gak berantakan)
     function typeWriter(text, element, callback) {
         if(isTyping) return;
         isTyping = true;
-        let i = 0; 
-        element.textContent = ""; // Gunakan textContent agar lebih aman
-        btnGroup.style.opacity = "0";
-        btnGroup.style.pointerEvents = "none";
-
+        let i = 0; element.textContent = ""; btnGroup.style.opacity = "0";
         function type() {
-            if (i < text.length) {
-                element.textContent += text.charAt(i);
-                i++;
-                setTimeout(type, 80); // Dipercepat sedikit agar tidak lag
-            } else {
+            if (i < text.length) { 
+                element.textContent += text.charAt(i); 
+                i++; 
+                setTimeout(type, 100); 
+            } 
+            else {
                 isTyping = false;
-                btnGroup.style.opacity = "1";
-                btnGroup.style.pointerEvents = "auto";
-                if (callback) callback();
+                if (callback) setTimeout(callback, 300);
             }
         }
         type();
@@ -196,27 +163,16 @@
         const h = document.createElement("div");
         h.innerHTML = "❤️"; h.className = "heart";
         h.style.left = Math.random() * 100 + "vw";
-        h.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        h.style.animationDuration = Math.random() * 2 + 3 + "s";
         document.body.appendChild(h);
-        setTimeout(() => h.remove(), 4000);
+        setTimeout(() => h.remove(), 4500);
     }
 
-    function updateStep() {
-        if (step < texts.length) {
-            document.body.style.backgroundImage = `url('${backgroundList[step % backgroundList.length]}')`;
-            catGifEl.style.backgroundImage = `url('${normalGifs[step % normalGifs.length]}')`;
-            typeWriter(texts[step], textEl);
-        } else {
-            // Bagian Akhir
-            btnGroup.style.display = "none";
-            textEl.textContent = "MAKASIH YA SUDAH DIMAAFIN! 🥰✨";
-            setInterval(createHeart, 300);
-            let fIdx = 0;
-            setInterval(() => {
-                catGifEl.style.backgroundImage = `url('${finalDanceGifs[fIdx % finalDanceGifs.length]}')`;
-                fIdx++;
-            }, 3000);
-        }
+    function mulaiKonserKartu() {
+        setInterval(() => {
+            finalIdx = (finalIdx + 1) % finalDanceGifs.length;
+            catGifEl.style.backgroundImage = `url('${finalDanceGifs[finalIdx]}')`;
+        }, 4000);
     }
 
     document.getElementById("yes").onclick = () => {
@@ -224,22 +180,33 @@
         mainCard.classList.remove("vibrate-mode");
         noBtn.style.position = "relative"; noBtn.style.left = "0"; noBtn.style.top = "0";
         step++;
-        for(let i=0; i<8; i++) setTimeout(createHeart, i * 200);
-        updateStep();
+        for(let i=0; i<10; i++) setTimeout(createHeart, i * 150);
+        
+        if (step < texts.length - 1) {
+            document.body.style.backgroundImage = `url('${backgroundList[step % backgroundList.length]}')`;
+            catGifEl.style.backgroundImage = `url('${normalGifs[step % normalGifs.length]}')`;
+            typeWriter(texts[step], textEl, () => { btnGroup.style.opacity = "1"; });
+        } else {
+            // Step Terakhir
+            typeWriter(texts[texts.length-2], textEl, () => {
+                setTimeout(() => {
+                    btnGroup.style.display = "none";
+                    setInterval(createHeart, 250);
+                    mulaiKonserKartu();
+                }, 1000);
+            });
+        }
     };
 
-    let angryIdx = 0;
     noBtn.onclick = () => {
-        if (navigator.vibrate) navigator.vibrate(100);
+        if (navigator.vibrate) navigator.vibrate([150, 50, 150]);
         mainCard.classList.add("vibrate-mode");
-        catGifEl.style.backgroundImage = `url('${angryGifs[angryIdx % angryGifs.length]}')`;
-        angryIdx++;
-        textEl.textContent = "DI BILANGIN JANGAN PENCET ENGGAK!! 😡💢";
-        
-        // Pindahkan tombol secara acak
+        catGifEl.style.backgroundImage = `url('${angryGifs[angryIdx]}')`;
+        angryIdx = (angryIdx + 1) % angryGifs.length;
+        textEl.textContent = "Dibilangin JANGAN PENCET ENGGAK!!! 😡💢";
+        noBtn.style.position = "absolute";
         const maxX = mainCard.clientWidth - noBtn.clientWidth - 20;
         const maxY = mainCard.clientHeight - noBtn.clientHeight - 20;
-        noBtn.style.position = "absolute";
         noBtn.style.left = Math.random() * maxX + "px";
         noBtn.style.top = Math.random() * maxY + "px";
     };
