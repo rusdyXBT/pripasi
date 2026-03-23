@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Maapkan Rusdy 🙏</title>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
@@ -75,7 +74,7 @@
             background-position: center; background-size: cover;
             background-color: rgba(255,255,255,0.2);
             transition: 0.3s;
-            background-image: url('https://media.tenor.com/8m_l17VId8MAAAAC/cat-sad.gif'); /* Intro */
+            background-image: url('https://media.tenor.com/8m_l17VId8MAAAAC/cat-sad.gif');
         }
 
         .text { 
@@ -100,12 +99,16 @@
         #yes { background: white; color: #ff4d6d; }
         #no { background: #ff4d4d; color: white; position: relative; }
 
+        /* --- EFEK LOVE --- */
         .heart {
             position: absolute; color: #ff4d6d; font-size: 25px;
-            pointer-events: none; animation: fly 2s linear forwards;
+            pointer-events: none; animation: fly 2.5s ease-in forwards;
             z-index: 10;
         }
-        @keyframes fly { 0% { opacity: 1; } 100% { transform: translateY(-180px); opacity: 0; } }
+        @keyframes fly { 
+            0% { transform: translateY(0) scale(1); opacity: 1; } 
+            100% { transform: translateY(-350px) scale(1.5) rotate(20deg); opacity: 0; } 
+        }
     </style>
 </head>
 <body>
@@ -152,7 +155,6 @@
         "https://media.tenor.com/7966A0D7p88AAAAC/cat-smile.gif"
     ];
 
-    // --- 4 GIF MARAH (Gonta-ganti sesuai request) ---
     const angryGifs = [
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-rTRYbFx38K.gif",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-YNbTiWGdcr.gif",
@@ -168,12 +170,23 @@
             if (i < text.length) {
                 element.innerHTML += text.charAt(i);
                 i++;
-                setTimeout(type, 150); // Santai
+                setTimeout(type, 150);
             } else if (callback) {
                 setTimeout(callback, 500);
             }
         }
         type();
+    }
+
+    function createHeart() {
+        const h = document.createElement("div");
+        h.innerHTML = "❤️"; h.className = "heart";
+        // Menyebar dari kiri ke kanan
+        h.style.left = Math.random() * 90 + 5 + "%";
+        // Muncul dari area kartu ke atas
+        h.style.top = "60%";
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 2500);
     }
 
     window.onload = () => {
@@ -183,7 +196,11 @@
     document.getElementById("yes").onclick = () => {
         mainCard.classList.remove("vibrate-mode");
         step++;
-        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        
+        // Kasih beberapa love setiap klik Iyah
+        for(let i=0; i<5; i++) {
+            setTimeout(createHeart, i * 100);
+        }
         
         if (step === 1) {
             typeWriter(texts[1], textEl, () => { btnGroup.style.opacity = "1"; });
@@ -195,35 +212,23 @@
             textEl.innerHTML = "Janji nggak nakal lagi! 🐱💕";
             catGifEl.style.backgroundImage = "url('https://media.tenor.com/vFKqnCdLPNOKcAAAAC/kiss-cat.gif')";
             btnGroup.style.display = "none";
-            setInterval(() => {
-                const h = document.createElement("div");
-                h.innerHTML = "❤️"; h.className = "heart";
-                h.style.left = Math.random() * 80 + 10 + "%";
-                h.style.top = "50%";
-                document.body.appendChild(h);
-                setTimeout(() => h.remove(), 2000);
-            }, 300);
+            
+            // HUJAN LOVE INTENS DI TERAKHIR (Request: Banyakin Love)
+            setInterval(createHeart, 150); 
         }
     };
 
-    // --- LOGIKA TOMBOL ENGGAK: GETAR & GONTA-GANTI 4 GIF ---
     function triggerNo() {
-        // Geter HP
         if (navigator.vibrate) navigator.vibrate(200);
-        
-        // Geter Kartu
         mainCard.classList.add("vibrate-mode");
-
-        // Gonta-ganti GIF Marah (Berurutan 1-4)
+        
         catGifEl.style.backgroundImage = `url('${angryGifs[angryIdx]}')`;
-        angryIdx = (angryIdx + 1) % angryGifs.length; // Balik ke awal kalau sudah 4
+        angryIdx = (angryIdx + 1) % angryGifs.length;
 
         textEl.innerHTML = "Dibilangin JANGAN PENCET ENGGAK!!! 😡💢";
         
-        // Sembunyikan 'No' bentar biar kapok
         noBtn.style.pointerEvents = "none";
         noBtn.style.opacity = "0.5";
-        
         setTimeout(() => {
             noBtn.style.pointerEvents = "auto";
             noBtn.style.opacity = "1";
