@@ -21,11 +21,11 @@
             background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(8px); z-index: 1;
         }
 
-        /* --- ROMBONGAN KUCING LARI DI ATAS ATAP KARTU --- */
+        /* --- ROMBONGAN KUCING RAMAI & MENGHADAP DEPAN --- */
         .walker-area {
             width: 100%;
             position: absolute;
-            top: -55px; /* Nangkring di atas garis putih kartu */
+            top: -55px; 
             left: 0;
             overflow: hidden;
             white-space: nowrap;
@@ -37,14 +37,15 @@
             display: inline-block;
             width: 60px;
             height: 60px;
-            /* PAKAI LINK GITHUB KAMU (SOFT-MEME.GIF) */
             background: url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/soft-meme.gif') center/cover no-repeat;
-            animation: jalan 4.5s linear infinite;
+            /* scaleX(-1) UNTUK BALIK ARAH BIAR GAK MUNDUR */
+            transform: scaleX(-1); 
+            animation: jalan 4s linear infinite;
         }
 
         @keyframes jalan {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(500%); }
+            0% { transform: translateX(-100%) scaleX(-1); }
+            100% { transform: translateX(600%) scaleX(-1); }
         }
 
         .card {
@@ -54,7 +55,7 @@
             border: 2px solid rgba(255, 255, 255, 0.4);
             border-radius: 30px; padding: 30px 15px;
             text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            margin-top: 60px; /* Jarak agar kucing lari tidak terpotong layar */
+            margin-top: 60px;
         }
 
         .avatar {
@@ -62,32 +63,24 @@
             border-radius: 25px; border: 4px solid white;
             background-position: center; background-size: cover;
             background-color: rgba(255,255,255,0.2);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        .text { font-size: 16px; min-height: 55px; margin-bottom: 25px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
-        .btn-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
+        .text { font-size: 16px; min-height: 55px; margin-bottom: 25px; font-weight: bold; }
+        .btn-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
         button {
             padding: 14px 5px; font-size: 14px; font-weight: bold;
-            border-radius: 15px; border: none; cursor: pointer; touch-action: none;
+            border-radius: 15px; border: none; cursor: pointer;
         }
 
-        #yes { background: white; color: #ff4d6d; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        #yes { background: white; color: #ff4d6d; }
         #no { background: #ff4d4d; color: white; position: relative; transition: 0.2s; }
-
-        @keyframes shake {
-            0% { transform: translate(1px, 1px); }
-            20% { transform: translate(-3px, 0px); }
-            100% { transform: translate(1px, 1px); }
-        }
-        .shaking { animation: shake 0.2s infinite; }
 
         .heart {
             position: absolute; color: #ff4d6d; font-size: 25px;
             pointer-events: none; animation: fly 2s linear forwards;
         }
-        @keyframes fly { 0% { opacity: 1; transform: scale(1); } 100% { transform: translateY(-180px) scale(1.5); opacity: 0; } }
+        @keyframes fly { 0% { opacity: 1; } 100% { transform: translateY(-180px); opacity: 0; } }
     </style>
 </head>
 <body>
@@ -95,8 +88,11 @@
 <div class="card" id="mainCard">
     <div class="walker-area">
         <div class="cat-walker"></div>
-        <div class="cat-walker" style="animation-delay: 1.5s;"></div>
-        <div class="cat-walker" style="animation-delay: 3s;"></div>
+        <div class="cat-walker" style="animation-delay: 0.7s;"></div>
+        <div class="cat-walker" style="animation-delay: 1.4s;"></div>
+        <div class="cat-walker" style="animation-delay: 2.1s;"></div>
+        <div class="cat-walker" style="animation-delay: 2.8s;"></div>
+        <div class="cat-walker" style="animation-delay: 3.5s;"></div>
     </div>
 
     <div class="avatar" id="catGif"></div>
@@ -139,7 +135,6 @@
     catGifEl.style.backgroundImage = `url('${content.awal}')`;
 
     document.getElementById("yes").onclick = () => {
-        cardEl.classList.remove("shaking");
         if (yesStep < content.yes.length) {
             textEl.innerHTML = content.yes[yesStep].t;
             catGifEl.style.backgroundImage = `url('${content.yes[yesStep].g}')`;
@@ -157,7 +152,6 @@
         let idx = Math.min(noStep, content.no.length - 1);
         textEl.innerHTML = content.no[idx].t;
         catGifEl.style.backgroundImage = `url('${content.no[idx].g}')`;
-        cardEl.classList.add("shaking");
         noStep++;
 
         noBtn.style.position = "fixed";
