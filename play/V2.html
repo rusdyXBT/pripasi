@@ -5,98 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Maapkan Rusdy 🙏</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap" rel="stylesheet">
-    
     <style>
+        /* CSS TETAP SAMA SEPERTI SEBELUMNYA */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; font-family: 'Nunito', sans-serif; }
-        
         body {
-            /* Wallpaper RAW Rusdy #1 (Sky Aesthetic) */
             background: url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg') no-repeat center center fixed;
             background-size: cover; height: 100vh;
             display: flex; justify-content: center; align-items: center;
             overflow: hidden; color: white; transition: background 1s ease;
         }
-
         body::after { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(5px); z-index: 1; }
-
-        /* --- PASUKAN KUCING/HEWAN JOGET (EPIC VERSION) --- */
         .walker-area { width: 100%; position: absolute; top: -55px; left: 0; height: 60px; pointer-events: none; z-index: 5; }
         .cat-walker {
             width: 60px; height: 60px;
-            background-size: cover; background-position: center;
+            background: url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/soft-meme.gif') center/cover no-repeat;
             position: absolute; left: 100%; animation: lariMulus 12s linear infinite;
         }
-        /* Delay agar muncul bergantian */
-        .cat-1 { animation-delay: 0s; }
-        .cat-2 { animation-delay: 2s; }
-        .cat-3 { animation-delay: 4s; }
-        .cat-4 { animation-delay: 6s; }
-        .cat-5 { animation-delay: 8s; }
-        .cat-6 { animation-delay: 10s; } /* Tambah 1 baris antrean */
-
-        @keyframes lariMulus {
-            0% { left: 100%; }
-            100% { left: -80px; }
-        }
-
-        /* --- OVERLAY AWAL (AMPLOP + GIF) --- */
+        .cat-1 { animation-delay: 0s; } .cat-2 { animation-delay: 2.5s; } .cat-3 { animation-delay: 5s; } .cat-4 { animation-delay: 7.5s; } .cat-5 { animation-delay: 10s; }
+        @keyframes lariMulus { 0% { left: 100%; } 100% { left: -80px; } }
         #overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85);
             z-index: 100; display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
-        /* GIF Amplop Hati Rusdy (RAW) */
         #overlay .avatar {
             width: 140px; height: 140px; margin-bottom: 25px;
             border-radius: 25px; border: 5px solid white;
             background: url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/love-letter-send-love.gif') center/cover;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
-        #overlay button {
-            padding: 18px 35px; font-size: 18px; border-radius: 50px;
-            border: none; background: #ff4d6d; color: white; cursor: pointer;
-            font-weight: 900; box-shadow: 0 5px 15px rgba(255,77,109,0.4);
-        }
-
-        /* --- KARTU UTAMA --- */
+        #overlay button { padding: 18px 35px; font-size: 18px; border-radius: 50px; border: none; background: #ff4d6d; color: white; cursor: pointer; font-weight: 900; }
         .card {
             position: relative; z-index: 10; width: 92%; max-width: 360px;
             background: rgba(255, 255, 255, 0.2); border: 2px solid rgba(255, 255, 255, 0.4);
-            border-radius: 35px; padding: 30px 20px; text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3); display: none;
-            backdrop-filter: blur(10px);
+            border-radius: 35px; padding: 30px 20px; text-align: center; backdrop-filter: blur(10px); display: none;
         }
-        @keyframes vibrate { 0% { transform: translate(0, 0); } 25% { transform: translate(-4px, 4px); } 50% { transform: translate(4px, -4px); } 100% { transform: translate(0, 0); } }
         .vibrate-mode { animation: vibrate 0.2s linear infinite; }
-
-        .avatar {
-            width: 130px; height: 130px; margin: 0 auto 20px;
-            border-radius: 20px; border: 4px solid white;
-            background: center/cover no-repeat; transition: background 0.5s;
-        }
-
-        /* TEKS TEBAL NUNITO 900 */
-        .text { 
-            font-size: 20px; line-height: 1.5; min-height: 110px; 
-            margin-bottom: 25px; font-weight: 900; 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-            color: #ffffff;
-        }
-
+        @keyframes vibrate { 0% { transform: translate(0, 0); } 25% { transform: translate(-4px, 4px); } 50% { transform: translate(4px, -4px); } 100% { transform: translate(0, 0); } }
+        .avatar { width: 130px; height: 130px; margin: 0 auto 20px; border-radius: 20px; border: 4px solid white; background: center/cover no-repeat; transition: background 0.8s ease; }
+        .text { font-size: 20px; line-height: 1.5; min-height: 110px; margin-bottom: 25px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.4); }
         .btn-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; opacity: 0; transition: 0.5s; }
-        button { 
-            padding: 14px 5px; font-size: 16px; font-weight: 900; 
-            border-radius: 18px; border: none; cursor: pointer; 
-        }
+        button { padding: 14px 5px; font-size: 16px; font-weight: 900; border-radius: 18px; border: none; cursor: pointer; }
         #yes { background: #ffffff; color: #ff4d6d; }
-        #no { background: #ff4d4d; color: white; position: relative; z-index: 11; }
-
-        /* --- EFEK LOVE BACKGROUND --- */
-        .heart {
-            position: fixed; bottom: -50px; 
-            color: rgba(255, 77, 109, 0.6); 
-            font-size: 22px; pointer-events: none; z-index: 2; 
-            animation: flyUp 4s linear forwards;
-        }
+        #no { background: #ff4d4d; color: white; position: relative; }
+        .heart { position: fixed; bottom: -50px; color: rgba(255, 77, 109, 0.6); font-size: 22px; pointer-events: none; z-index: 2; animation: flyUp 4s linear forwards; }
         @keyframes flyUp { 0% { transform: translateY(0) scale(1); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateY(-110vh) scale(1.8) rotate(45deg); opacity: 0; } }
     </style>
 </head>
@@ -114,9 +64,7 @@
         <div class="cat-walker cat-3"></div>
         <div class="cat-walker cat-4"></div>
         <div class="cat-walker cat-5"></div>
-        <div class="cat-walker cat-6"></div>
     </div>
-    
     <div class="avatar" id="catGif"></div>
     <div id="text" class="text"></div>
     <div class="btn-wrapper" id="btnGroup">
@@ -135,21 +83,29 @@
     const noBtn = document.getElementById("no");
     const mainCard = document.getElementById("mainCard");
 
-    // DATA GIF & WALLPAPER (RAW)
+    // GIF NORMAL PAS KLIK IYAH
     const normalGifs = [
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-bubu-dudu.gif", // Step Awal (Bubu Dudu)
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-dance.gif",     
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-bubu-dudu.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-dance.gif",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-dancing-dance.gif",
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/cat.gif",           
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/happy-dance.gif"     // Step Terakhir
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/cat.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/happy-dance.gif"
+    ];
+
+    // GIF JOGET AKHIR (GANTI TIAP 5 DETIK)
+    const finalDanceGifs = [
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/haleys-ouo.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/stella-hsr-cute-dance-stella-hsr.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/tanzen-hase-hyper-hase-sehr-gut.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/vision-sloth.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/happy-dance.gif"
     ];
 
     const backgroundList = [
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg", // BG Awal
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/desktop-wallpaper-pin-oleh-w-yaya-di-peach-et-goma-%E2%9D%A4-seni-kucing-ilustrasi-hewan-seni-thumbnail.jpg",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187a4696.jpeg",
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187b55ee.jpeg",
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg" // Balik ke awal
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187b55ee.jpeg"
     ];
 
     const texts = [
@@ -160,61 +116,32 @@
         "Janji nggak nakal lagi! (Dikit aja nakalnya) 🐱💕"
     ];
 
-    // PASUKAN MARAH JADI 6 (RAW)
     const angryGifs = [
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-rTRYbFx38K.gif",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-YNbTiWGdcr.gif",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-xKnUJBPzZf.gif",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-QCaiGlMeJg.gif",
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/angry-angry-emoji.gif", // RAW Rusdy #2
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/anime-aaaa.gif"         // RAW Rusdy #3
-    ];
-
-    // KONSER JOGET DI BAGIAN AKHIR (RAW)
-    const finalDanceGifs = [
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/soft-meme.gif",                  // Kucing Goyang Awal
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/haleys-ouo.gif",             // Kucing Goyang Rusdy
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/stella-hsr-cute-dance.gif",  // Anime Joget Rusdy
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/tanzen-hase-hyper-hase-sehr-gut.gif", // Kelinci Joget Rusdy
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/vision-sloth.gif",           // Kukang Joget Rusdy
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/happy-dance.gif"          // Kucing happy
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/angry-angry-emoji.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/anime-aaaa.gif"
     ];
 
     let step = 0;
     let angryIdx = 0;
-
-    // FUNGSI INISIALISASI PASUKAN JOGET
-    function initDanceParty() {
-        const walkers = document.querySelectorAll('.cat-walker');
-        walkers.forEach((walker, index) => {
-            // Pasang GIF konser Rusdy (loop kalau finalDanceGifs habis)
-            walker.style.backgroundImage = `url('${finalDanceGifs[index % finalDanceGifs.length]}')`;
-        });
-    }
+    let finalIdx = 0;
 
     function mulai() {
         document.getElementById("overlay").style.display = "none";
         mainCard.style.display = "block";
         music.play();
-        
-        // GIF JOGET SETELAH DIBUKA: Rusdy Kelinci Hyper (RAW)
-        catGifEl.style.backgroundImage = "url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/tanzen-hase-hyper-hase-sehr-gut.gif')";
-        
+        catGifEl.style.backgroundImage = `url('${normalGifs[0]}')`;
         typeWriter(texts[0], textEl, () => { btnGroup.style.opacity = "1"; });
     }
 
     function typeWriter(text, element, callback) {
-        let i = 0;
-        element.innerHTML = "";
-        btnGroup.style.opacity = "0";
+        let i = 0; element.innerHTML = ""; btnGroup.style.opacity = "0";
         function type() {
-            if (i < text.length) {
-                element.innerHTML += text.charAt(i);
-                i++;
-                setTimeout(type, 120);
-            } else if (callback) {
-                setTimeout(callback, 500);
-            }
+            if (i < text.length) { element.innerHTML += text.charAt(i); i++; setTimeout(type, 120); } 
+            else if (callback) { setTimeout(callback, 500); }
         }
         type();
     }
@@ -229,11 +156,17 @@
         setTimeout(() => h.remove(), 4500);
     }
 
+    // FUNGSI GANTI GIF OTOMATIS DI AKHIR
+    function mulaiKonserKartu() {
+        setInterval(() => {
+            finalIdx = (finalIdx + 1) % finalDanceGifs.length;
+            catGifEl.style.backgroundImage = `url('${finalDanceGifs[finalIdx]}')`;
+        }, 5000); // GANTI SETIAP 5 DETIK
+    }
+
     document.getElementById("yes").onclick = () => {
         mainCard.classList.remove("vibrate-mode");
-        // Reset posisi No
         noBtn.style.position = "relative"; noBtn.style.left = "0"; noBtn.style.top = "0";
-        
         step++;
         for(let i=0; i<10; i++) setTimeout(createHeart, i * 150);
         
@@ -242,12 +175,11 @@
             catGifEl.style.backgroundImage = `url('${normalGifs[step]}')`;
             typeWriter(texts[step], textEl, () => { 
                 btnGroup.style.opacity = "1"; 
-                // STEP AKHIR: MULAI KONSER JOGET!
                 if (step === texts.length - 1) {
                     setTimeout(() => {
                         btnGroup.style.display = "none";
-                        setInterval(createHeart, 250); 
-                        initDanceParty(); // Aktifkan konser joget abadi
+                        setInterval(createHeart, 250);
+                        mulaiKonserKartu(); // MULAI GANTI-GANTI GIF JOGET
                     }, 2000);
                 }
             });
@@ -258,14 +190,11 @@
         if (navigator.vibrate) navigator.vibrate([150, 50, 150]);
         mainCard.classList.add("vibrate-mode");
         catGifEl.style.backgroundImage = `url('${angryGifs[angryIdx]}')`;
-        // Ganti index: 0-5
         angryIdx = (angryIdx + 1) % angryGifs.length;
         textEl.innerHTML = "Dibilangin JANGAN PENCET ENGGAK!!! 😡💢";
-        
         noBtn.style.position = "absolute";
         const maxX = mainCard.clientWidth - noBtn.clientWidth - 20;
         const maxY = mainCard.clientHeight - noBtn.clientHeight - 20;
-        
         noBtn.style.left = Math.random() * maxX + "px";
         noBtn.style.top = Math.random() * maxY + "px";
     };
