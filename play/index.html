@@ -1,184 +1,174 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maapkan rusdy 😔</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Maapkan Rusdy 😔</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: url('https://w0.peakpx.com/wallpaper/424/399/HD-wallpaper-view-sky-aesthetic-thumbnail.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: white;
+        }
 
-<style>
-body {
-  margin: 0;
-  font-family: sans-serif;
-  background: url('https://i.imgur.com/3ZQ3Z4D.jpg') no-repeat center center;
-  background-size: cover;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-}
+        body::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1;
+        }
 
-/* overlay gelap + blur */
-body::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(4px);
-}
+        /* Getar Card */
+        @keyframes shake {
+            0% { transform: translate(1px, 1px); }
+            20% { transform: translate(-3px, 0px); }
+            40% { transform: translate(3px, 2px); }
+            100% { transform: translate(1px, 1px); }
+        }
+        .shaking { animation: shake 0.2s infinite; border: 2px solid #ff4d4d !important; }
 
-/* bubble effect */
-body::before {
-  content: "";
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.08) 10%, transparent 10%);
-  background-size: 80px 80px;
-  animation: moveBg 20s linear infinite;
-}
+        .card {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            max-width: 320px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 30px 15px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
 
-@keyframes moveBg {
-  0% { transform: translate(0,0); }
-  100% { transform: translate(-200px,-200px); }
-}
+        .avatar {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 20px;
+            border-radius: 20px;
+            border: 3px solid white;
+            background-image: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3R4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA8AU/giphy.gif');
+            background-position: center;
+            background-size: cover;
+        }
 
-.card {
-  width: 320px;
-  padding: 20px;
-  border-radius: 20px;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 0 25px rgba(255,255,255,0.2);
-  text-align: center;
-  position: relative;
-  z-index: 2;
-}
+        .text {
+            font-size: 15px;
+            min-height: 50px;
+            margin-bottom: 25px;
+            line-height: 1.4;
+            font-weight: bold;
+        }
 
-.avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin: auto;
-  background: url('https://i.imgur.com/6qK0Q6C.png') center/cover;
-  border: 3px solid white;
-}
+        .btn-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+        }
 
-.text {
-  margin-top: 15px;
-  font-size: 16px;
-  min-height: 90px;
-  white-space: pre-line;
-}
+        button {
+            padding: 12px 5px;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            touch-action: none;
+        }
 
-.buttons {
-  margin-top: 20px;
-  position: relative;
-}
-
-button {
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: none;
-  margin: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-#yes {
-  background: white;
-  color: black;
-}
-
-#no {
-  background: transparent;
-  border: 2px solid white;
-  color: white;
-  position: absolute;
-}
-</style>
+        #yes { background: white; color: black; z-index: 3; }
+        
+        #no { 
+            background: #ff4d4d; 
+            color: white; 
+            position: relative; 
+            z-index: 1000;
+            /* Transisi biar geraknya halus */
+            transition: all 0.2s ease-out; 
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="card">
-  <div class="avatar"></div>
-  <div id="text" class="text"></div>
-
-  <div class="buttons">
-    <button id="yes">Iyah di maapkan</button>
-    <button id="no">Emoh</button>
-  </div>
+<div class="card" id="mainCard">
+    <div class="avatar" id="catGif"></div>
+    <div id="text" class="text"></div>
+    <div class="btn-wrapper" id="btnGroup">
+        <button id="yes">Iyah dimaafin</button>
+        <button id="no">Enggak!</button>
+    </div>
 </div>
 
 <script>
-/* =========================
-   🎵 MUSIK (GITHUB RAW)
-========================= */
-const music = new Audio("https://raw.githubusercontent.com/rusdyXBT/pripasi/main/play/2.mp3");
-music.loop = true;
-music.volume = 0.5;
+    const music = new Audio("https://raw.githubusercontent.com/rusdyXBT/pripasi/main/play/2.mp3");
+    music.loop = true;
+    document.body.onclick = () => { music.play().catch(() => {}); };
 
-// autoplay saat klik pertama
-document.body.addEventListener("click", () => {
-  music.play().catch(() => {});
-}, { once: true });
+    const messages = ["Upps! 😢 Harus dimaafin yaa 👀🤝", "Minal 'Aidin Walfaizin ✨", "Maapkan Rusdy yaa? 👉👈"];
+    let step = 0;
+    const textEl = document.getElementById("text");
+    const catGifEl = document.getElementById("catGif");
+    const cardEl = document.getElementById("mainCard");
+    const noBtn = document.getElementById("no");
 
-/* =========================
-   💬 TEXT + TYPING
-========================= */
-const messages = [
-"Upps! 😢\nHari raya ini harus saling maaf²an yaa 👀🤝",
-"Minall 'Aidin Walpaidin ✨",
-"Mohon maaf lahir & batin dari aku untuk dirimu 🤭",
-"rusdy mau minta kalaw sering kali membuli tetapi itu semuwa karena hoby...",
-"tulong maapkan rusdy.🗿"
-];
+    textEl.innerHTML = messages[step];
 
-let i = 0;
-const textEl = document.getElementById("text");
+    document.getElementById("yes").onclick = () => {
+        cardEl.classList.remove("shaking");
+        step++;
+        if (step < messages.length) {
+            textEl.innerHTML = messages[step];
+            catGifEl.style.backgroundImage = "url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJndXIzZ3R4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4bmV4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA8AU/giphy.gif')";
+        } else {
+            catGifEl.style.backgroundImage = "url('https://media.giphy.com/media/ICOgUNoMPvG24/giphy.gif')";
+            textEl.innerHTML = "Makasih! ❤️ Sayang kamu!";
+            document.getElementById("btnGroup").style.display = "none";
+        }
+    };
 
-function typeText(text, speed = 35) {
-  let index = 0;
-  textEl.innerHTML = "";
+    function lari(e) {
+        if(e) e.preventDefault();
+        
+        // GIF Cony Brown Marah
+        catGifEl.style.backgroundImage = "url('https://media1.tenor.com/m/Xo7F7x7uD7kAAAAC/cony-and-brown-angry.gif')";
+        cardEl.classList.add("shaking");
+        textEl.innerHTML = "KOK DITEKAN TERUS?! 😡";
 
-  const interval = setInterval(() => {
-    textEl.innerHTML += text.charAt(index);
-    index++;
-    if (index >= text.length) clearInterval(interval);
-  }, speed);
-}
+        noBtn.style.position = "fixed";
+        noBtn.style.width = "100px";
 
-typeText(messages[i]);
+        /* --- SISTEM ANTI HILANG --- */
+        // Kita batasi area random hanya di tengah layar (sekitar Card)
+        const lebarTombol = 100;
+        const tinggiTombol = 45;
+        
+        // Batas atas (Jangan terlalu atas sampai kena status bar)
+        // Batas bawah (Jangan terlalu bawah sampai hilang dari layar)
+        const areaX_min = 30; 
+        const areaX_max = window.innerWidth - lebarTombol - 30;
+        const areaY_min = 100;
+        const areaY_max = window.innerHeight - tinggiTombol - 150; // Jarak 150px dari bawah layar
 
-/* =========================
-   ✅ MAUU
-========================= */
-document.getElementById("yes").onclick = () => {
-  i++;
-  if (i < messages.length) {
-    typeText(messages[i]);
-  } else {
-    typeText("Terimakasih sudah memaapkan rusdy 😭❤️");
-    document.querySelector(".buttons").style.display = "none";
-  }
-};
+        const randomX = Math.floor(Math.random() * (areaX_max - areaX_min)) + areaX_min;
+        const randomY = Math.floor(Math.random() * (areaY_max - areaY_min)) + areaY_min;
 
-/* =========================
-   ❌ GAMAU (kabur)
-========================= */
-const noBtn = document.getElementById("no");
+        noBtn.style.left = randomX + "px";
+        noBtn.style.top = randomY + "px";
+    }
 
-noBtn.onclick = () => {
-  const x = Math.random() * 250 - 125;
-  const y = Math.random() * 150 - 75;
-  noBtn.style.transform = `translate(${x}px, ${y}px)`;
-};
+    noBtn.addEventListener("touchstart", lari);
+    noBtn.addEventListener("mouseover", lari);
 </script>
-
 </body>
 </html>
