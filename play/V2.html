@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Maapkan Rusdy 🙏</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap" rel="stylesheet">
+    
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        * { 
+            box-sizing: border-box; margin: 0; padding: 0; 
+            -webkit-tap-highlight-color: transparent; 
+            font-family: 'Nunito', sans-serif; /* PENGGUNAAN FONT TEBAL */
+        }
         
         body {
-            font-family: 'Segoe UI', sans-serif;
-            /* Wallpaper RAW Rusdy #1 (Sky Aesthetic) */
             background: url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg') no-repeat center center fixed;
             background-size: cover; height: 100vh;
             display: flex; justify-content: center; align-items: center;
@@ -18,7 +22,7 @@
 
         body::after { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(5px); z-index: 1; }
 
-        /* --- PASUKAN 5 KUCING BERJEDA --- */
+        /* --- PASUKAN 5 KUCING --- */
         .walker-area { width: 100%; position: absolute; top: -55px; left: 0; height: 60px; pointer-events: none; z-index: 5; }
         .cat-walker {
             width: 60px; height: 60px;
@@ -32,65 +36,78 @@
         .cat-5 { animation-delay: 10s; }
         @keyframes lariMulus { 0% { left: 100%; } 100% { left: -80px; } }
 
-        /* --- OVERLAY AWAL (AMPLOP + GIF SENANG) --- */
+        /* --- OVERLAY AMPLOP --- */
         #overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85);
             z-index: 100; display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
-        /* GIF Senang Rusdy #1 (Bubu Dudu) di Amplop */
         #overlay .avatar {
-            width: 130px; height: 130px; margin-bottom: 25px;
-            border-radius: 20px; border: 4px solid white;
+            width: 140px; height: 140px; margin-bottom: 25px;
+            border-radius: 25px; border: 5px solid white;
             background: url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-bubu-dudu.gif') center/cover;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
         #overlay button {
-            padding: 15px 30px; font-size: 16px; border-radius: 50px;
+            padding: 18px 35px; font-size: 18px; border-radius: 50px;
             border: none; background: #ff4d6d; color: white; cursor: pointer;
-            font-weight: bold; box-shadow: 0 5px 15px rgba(255,77,109,0.4);
+            font-weight: 900; box-shadow: 0 5px 15px rgba(255,77,109,0.4);
         }
 
         /* --- KARTU UTAMA --- */
         .card {
-            position: relative; z-index: 10; width: 92%; max-width: 350px;
-            background: rgba(255, 255, 255, 0.25); border: 2px solid rgba(255, 255, 255, 0.4);
-            border-radius: 30px; padding: 25px 20px; text-align: center;
+            position: relative; z-index: 10; width: 92%; max-width: 360px;
+            background: rgba(255, 255, 255, 0.2); border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 35px; padding: 30px 20px; text-align: center;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3); display: none;
+            backdrop-filter: blur(10px);
         }
+
         @keyframes vibrate { 0% { transform: translate(0, 0); } 25% { transform: translate(-4px, 4px); } 50% { transform: translate(4px, -4px); } 100% { transform: translate(0, 0); } }
         .vibrate-mode { animation: vibrate 0.2s linear infinite; }
 
         .avatar {
-            width: 120px; height: 120px; margin: 0 auto 15px;
-            border-radius: 20px; border: 3px solid white;
-            background: center/cover no-repeat; transition: background 0.5s;
+            width: 130px; height: 130px; margin: 0 auto 20px;
+            border-radius: 20px; border: 4px solid white;
+            background: center/cover no-repeat;
         }
 
-        .text { font-size: 18px; line-height: 1.5; min-height: 100px; margin-bottom: 20px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+        /* TEKS TEBAL */
+        .text { 
+            font-size: 20px; line-height: 1.5; min-height: 110px; 
+            margin-bottom: 25px; font-weight: 900; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            color: #ffffff;
+        }
 
-        .btn-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; opacity: 0; transition: 0.5s; }
-        button { padding: 12px 5px; font-size: 14px; font-weight: bold; border-radius: 15px; border: none; cursor: pointer; }
-        #yes { background: white; color: #ff4d6d; }
-        #no {
-            background: #ff4d4d; color: white;
-            position: relative; z-index: 10;
-            transition: all 0.2s ease; /* Transisi halus pas lompat */
+        .btn-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; opacity: 0; transition: 0.5s; }
+        
+        button { 
+            padding: 14px 5px; font-size: 16px; font-weight: 900; 
+            border-radius: 18px; border: none; cursor: pointer; 
+            transition: transform 0.1s;
+        }
+        
+        #yes { background: #ffffff; color: #ff4d6d; box-shadow: 0 4px 10px rgba(255,255,255,0.2); }
+        #no { 
+            background: #ff4d4d; color: white; 
+            position: relative; z-index: 11;
         }
 
         /* --- EFEK LOVE BACKGROUND --- */
         .heart {
             position: fixed; bottom: -50px; 
             color: rgba(255, 77, 109, 0.6); 
-            font-size: 20px; pointer-events: none; z-index: 2; 
+            font-size: 22px; pointer-events: none; z-index: 2; 
             animation: flyUp 4s linear forwards;
         }
-        @keyframes flyUp { 0% { transform: translateY(0) scale(1); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateY(-110vh) scale(1.6) rotate(45deg); opacity: 0; } }
+        @keyframes flyUp { 0% { transform: translateY(0) scale(1); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateY(-110vh) scale(1.8) rotate(45deg); opacity: 0; } }
     </style>
 </head>
 <body>
 
 <div id="overlay">
     <div class="avatar"></div>
-    <button onclick="mulai()">Klik untuk Buka Pesan 💌</button>
+    <button onclick="mulai()">BUKA PESAN DARI RUSDY 💌</button>
 </div>
 
 <div class="card" id="mainCard">
@@ -101,8 +118,10 @@
         <div class="cat-walker cat-4"></div>
         <div class="cat-walker cat-5"></div>
     </div>
+    
     <div class="avatar" id="catGif"></div>
     <div id="text" class="text"></div>
+    
     <div class="btn-wrapper" id="btnGroup">
         <button id="yes">Iyah dimaafin</button>
         <button id="no">Enggak!</button>
@@ -119,8 +138,8 @@
     const noBtn = document.getElementById("no");
     const mainCard = document.getElementById("mainCard");
 
-    // --- LINK GIF SENANG RUSDY (RAW) ---
-    const senangGifs = [
+    // DATA GIF & WALLPAPER RUSDY
+    const normalGifs = [
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-bubu-dudu.gif",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-dance.gif",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-dancing-dance.gif",
@@ -128,21 +147,11 @@
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/happy-dance.gif"
     ];
 
-    // --- LINK WALLPAPER RUSDY (RAW) ---
-    const normalGifs = [
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-bubu-dudu.gif", // GIF Pas Dibuka (Intro)
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-dance.gif",     // Step 1
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-dancing-dance.gif", // Step 2
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/cat.gif",           // Step 3
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/happy-dance.gif"     // Penutup
-    ];
-
     const backgroundList = [
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg", // BG Awal
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/desktop-wallpaper-pin-oleh-w-yaya-di-peach-et-goma-%E2%9D%A4-seni-kucing-ilustrasi-hewan-seni-thumbnail.jpg",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187a4696.jpeg",
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187b55ee.jpeg",
-        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg" // Balik ke awal
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187b55ee.jpeg"
     ];
 
     const texts = [
@@ -167,7 +176,7 @@
         document.getElementById("overlay").style.display = "none";
         mainCard.style.display = "block";
         music.play();
-        catGifEl.style.backgroundImage = `url('${normalGifs[0]}')`; // GIF Intro Muncul!
+        catGifEl.style.backgroundImage = `url('${normalGifs[0]}')`;
         typeWriter(texts[0], textEl, () => { btnGroup.style.opacity = "1"; });
     }
 
@@ -179,7 +188,7 @@
             if (i < text.length) {
                 element.innerHTML += text.charAt(i);
                 i++;
-                setTimeout(type, 130);
+                setTimeout(type, 120);
             } else if (callback) {
                 setTimeout(callback, 500);
             }
@@ -199,7 +208,7 @@
 
     document.getElementById("yes").onclick = () => {
         mainCard.classList.remove("vibrate-mode");
-        // Reset posisi tombol 'No'
+        // Reset posisi No
         noBtn.style.position = "relative"; noBtn.style.left = "0"; noBtn.style.top = "0";
         
         step++;
@@ -213,49 +222,29 @@
                 if (step === texts.length - 1) {
                     setTimeout(() => {
                         btnGroup.style.display = "none";
-                        setInterval(createHeart, 250); 
+                        setInterval(createHeart, 250);
                     }, 2000);
                 }
             });
         }
     };
 
-    // --- LOGIKA TOMBOL NO: LOMPAT RANDOM TAPI TERKONTROL ---
-    function triggerNo() {
+    // LOGIKA NO: LOMPAT DI SEKITAR KARTU
+    noBtn.onclick = () => {
         if (navigator.vibrate) navigator.vibrate([150, 50, 150]);
         mainCard.classList.add("vibrate-mode");
         catGifEl.style.backgroundImage = `url('${angryGifs[angryIdx]}')`;
         angryIdx = (angryIdx + 1) % angryGifs.length;
         textEl.innerHTML = "Dibilangin JANGAN PENCET ENGGAK!!! 😡💢";
         
-        // Buat lompat random tapi terkontrol
         noBtn.style.position = "absolute";
+        const maxX = mainCard.clientWidth - noBtn.clientWidth - 20;
+        const maxY = mainCard.clientHeight - noBtn.clientHeight - 20;
         
-        // Ukuran tombol
-        const btnWidth = noBtn.offsetWidth;
-        const btnHeight = noBtn.offsetHeight;
-        
-        // Ukuran area kartu
-        const cardWidth = mainCard.offsetWidth;
-        const cardHeight = mainCard.offsetHeight;
-        
-        // Hitung batas maksimum lompatan biar nggak jauh dari kartu
-        // Kita lompat random di sekitar kartu saja
-        const maxX = Math.max(0, cardWidth - btnWidth - 20); // Tambah padding 20
-        const maxY = Math.max(0, cardHeight - btnHeight - 20);
-        
-        // Hitung random position (X dan Y)
-        const randomX = Math.floor(Math.random() * maxX);
-        const randomY = Math.floor(Math.random() * maxY);
-        
-        noBtn.style.left = randomX + "px";
-        noBtn.style.top = randomY + "px";
-        
-        noBtn.style.opacity = "0.7";
-        setTimeout(() => { noBtn.style.opacity = "1"; }, 1000);
-    }
+        noBtn.style.left = Math.random() * maxX + "px";
+        noBtn.style.top = Math.random() * maxY + "px";
+    };
 
-    noBtn.addEventListener("click", triggerNo);
     document.body.onclick = () => { music.play().catch(() => {}); };
 </script>
 </body>
