@@ -9,44 +9,43 @@
         
         body {
             font-family: 'Segoe UI', sans-serif;
-            background: url('https://w0.peakpx.com/wallpaper/492/653/HD-wallpaper-view-aesthetic-sky-thumbnail.jpg') no-repeat center center fixed;
+            background: url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg') no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
             display: flex; justify-content: center; align-items: center;
             overflow: hidden; color: white;
             perspective: 1000px;
+            transition: background 1s ease;
         }
 
         body::after {
             content: ""; position: absolute; inset: 0;
-            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px); z-index: 1;
+            background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(5px); z-index: 1;
         }
 
-        /* --- OVERLAY AWAL --- */
-        #overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-            z-index: 100; display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-        }
-        #overlay button {
-            padding: 15px 30px; font-size: 16px; border-radius: 50px;
-            border: none; background: #ff4d6d; color: white; cursor: pointer;
-            font-weight: bold;
-        }
-
-        /* --- PASUKAN 4 KUCING --- */
+        /* --- PASUKAN 5 KUCING BERJEDA --- */
         .walker-area {
             width: 100%; position: absolute; top: -55px; left: 0;
-            overflow: hidden; white-space: nowrap; pointer-events: none; z-index: 5;
+            height: 60px; pointer-events: none; z-index: 5;
         }
         .cat-walker {
-            display: inline-block; width: 60px; height: 60px;
+            width: 60px; height: 60px;
             background: url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/soft-meme.gif') center/cover no-repeat;
-            animation: lariKiri 8s linear infinite;
+            position: absolute; left: 100%;
+            animation: lariMulus 12s linear infinite;
         }
-        @keyframes lariKiri { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100vw); } }
+        .cat-1 { animation-delay: 0s; }
+        .cat-2 { animation-delay: 2.5s; }
+        .cat-3 { animation-delay: 5s; }
+        .cat-4 { animation-delay: 7.5s; }
+        .cat-5 { animation-delay: 10s; }
 
-        /* --- KARTU UTAMA --- */
+        @keyframes lariMulus {
+            0% { left: 100%; }
+            100% { left: -80px; }
+        }
+
+        /* --- KARTU --- */
         .card {
             position: relative; z-index: 10; width: 92%; max-width: 350px;
             background: rgba(255, 255, 255, 0.25); border: 2px solid rgba(255, 255, 255, 0.4);
@@ -56,8 +55,8 @@
 
         @keyframes vibrate {
             0% { transform: translate(0, 0); }
-            20% { transform: translate(-5px, 5px); }
-            40% { transform: translate(5px, -5px); }
+            25% { transform: translate(-4px, 4px); }
+            50% { transform: translate(4px, -4px); }
             100% { transform: translate(0, 0); }
         }
         .vibrate-mode { animation: vibrate 0.2s linear infinite; }
@@ -69,44 +68,47 @@
             background-image: url('https://media.tenor.com/8m_l17VId8MAAAAC/cat-sad.gif');
         }
 
-        .text { font-size: 18px; line-height: 1.5; min-height: 100px; margin-bottom: 20px; font-weight: bold; }
+        .text { font-size: 18px; line-height: 1.5; min-height: 100px; margin-bottom: 20px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
 
         .btn-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; opacity: 0; transition: 0.5s; }
         button { padding: 12px 5px; font-size: 14px; font-weight: bold; border-radius: 15px; border: none; cursor: pointer; }
         #yes { background: white; color: #ff4d6d; }
         #no { background: #ff4d4d; color: white; }
 
-        /* --- EFEK LOVE BACKGROUND (FULL SCREEN) --- */
+        #overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+            z-index: 100; display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+        #overlay button { padding: 15px 30px; font-size: 16px; border-radius: 50px; border: none; background: #ff4d6d; color: white; cursor: pointer; font-weight: bold; }
+
+        /* --- EFEK LOVE BACKGROUND --- */
         .heart {
-            position: fixed; 
-            bottom: -50px; /* Start dari bawah layar */
-            color: rgba(255, 77, 109, 0.7); /* Transparan biar nggak alay */
-            font-size: 20px;
-            pointer-events: none; 
-            z-index: 2; /* Di belakang kartu (z-index 10) */
+            position: fixed; bottom: -50px; 
+            color: rgba(255, 77, 109, 0.6); 
+            font-size: 20px; pointer-events: none; z-index: 2; 
             animation: flyUp 4s linear forwards;
         }
         @keyframes flyUp { 
-            0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0; } 
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-110vh) scale(1.5) rotate(45deg); opacity: 0; } 
+            0% { transform: translateY(0) scale(1); opacity: 0; } 
+            15% { opacity: 1; }
+            100% { transform: translateY(-110vh) scale(1.6) rotate(45deg); opacity: 0; } 
         }
     </style>
 </head>
 <body>
 
 <div id="overlay">
-    <div class="avatar" style="margin-bottom: 20px;"></div>
+    <div class="avatar" style="margin-bottom: 20px; background-image: url('https://media.tenor.com/8m_l17VId8MAAAAC/cat-sad.gif');"></div>
     <button onclick="mulai()">Klik untuk Buka Pesan 💌</button>
 </div>
 
 <div class="card" id="mainCard">
     <div class="walker-area">
-        <div class="cat-walker" style="animation-delay: 0s;"></div>
-        <div class="cat-walker" style="animation-delay: 2s;"></div>
-        <div class="cat-walker" style="animation-delay: 4s;"></div>
-        <div class="cat-walker" style="animation-delay: 6s;"></div>
+        <div class="cat-walker cat-1"></div>
+        <div class="cat-walker cat-2"></div>
+        <div class="cat-walker cat-3"></div>
+        <div class="cat-walker cat-4"></div>
+        <div class="cat-walker cat-5"></div>
     </div>
     <div class="avatar" id="catGif"></div>
     <div id="text" class="text"></div>
@@ -126,16 +128,30 @@
     const noBtn = document.getElementById("no");
     const mainCard = document.getElementById("mainCard");
 
+    // --- LINK GITHUB RUSDY (SUDAH RAW) ---
+    const normalGifs = [
+        "https://media.tenor.com/8m_l17VId8MAAAAC/cat-sad.gif", // Intro
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-bubu-dudu.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-dance.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-dancing-dance.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/cat.gif",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/happy-dance.gif" // Penutup
+    ];
+
+    const backgroundList = [
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg", // Intro
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/desktop-wallpaper-pin-oleh-w-yaya-di-peach-et-goma-%E2%9D%A4-seni-kucing-ilustrasi-hewan-seni-thumbnail.jpg",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187a4696.jpeg",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187b55ee.jpeg",
+        "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg" // Balik ke awal
+    ];
+
     const texts = [
         "Minal aidin walpaidin mon maap lahir batin 🙏🙏",
         "Maapkan Rusdy kalaw ada salah memang Rusdy suka memaki dan membuli",
-        "tetapi ntu semuwa memang hoby 🗿🗿"
-    ];
-
-    const normalGifs = [
-        "https://media.tenor.com/8m_l17VId8MAAAAC/cat-sad.gif",
-        "https://media.tenor.com/GfV6S6I_h9AAAAAC/cat-cute.gif",
-        "https://media.tenor.com/7966A0D7p88AAAAC/cat-smile.gif"
+        "tetapi ntu semuwa memang hoby 🗿🗿",
+        "Tapi beneran, Rusdy sayang kalian semua kok! Makasih ya sudah sabar.",
+        "Janji nggak nakal lagi! (Dikit aja nakalnya) 🐱💕"
     ];
 
     const angryGifs = [
@@ -163,7 +179,7 @@
             if (i < text.length) {
                 element.innerHTML += text.charAt(i);
                 i++;
-                setTimeout(type, 150);
+                setTimeout(type, 130);
             } else if (callback) {
                 setTimeout(callback, 500);
             }
@@ -174,39 +190,38 @@
     function createHeart() {
         const h = document.createElement("div");
         h.innerHTML = "❤️"; h.className = "heart";
-        // Posisi random dari ujung kiri ke ujung kanan layar
         h.style.left = Math.random() * 100 + "vw";
-        // Ukuran random biar variatif
-        h.style.fontSize = Math.random() * 20 + 15 + "px";
-        // Durasi meluncur random biar nggak barengan terus
+        h.style.fontSize = Math.random() * 15 + 15 + "px";
         h.style.animationDuration = Math.random() * 2 + 3 + "s";
         document.body.appendChild(h);
-        setTimeout(() => h.remove(), 5000);
+        setTimeout(() => h.remove(), 4500);
     }
 
     document.getElementById("yes").onclick = () => {
         mainCard.classList.remove("vibrate-mode");
         step++;
-        // Efek love setiap klik
+        
         for(let i=0; i<10; i++) setTimeout(createHeart, i * 150);
         
-        if (step === 1) {
-            typeWriter(texts[1], textEl, () => { btnGroup.style.opacity = "1"; });
-            catGifEl.style.backgroundImage = `url('${normalGifs[1]}')`;
-        } else if (step === 2) {
-            typeWriter(texts[2], textEl, () => { btnGroup.style.opacity = "1"; });
-            catGifEl.style.backgroundImage = `url('${normalGifs[2]}')`;
-        } else {
-            textEl.innerHTML = "Janji nggak nakal lagi! 🐱💕";
-            catGifEl.style.backgroundImage = "url('https://media.tenor.com/vFKqnCdLPNOKcAAAAC/kiss-cat.gif')";
-            btnGroup.style.display = "none";
-            // HUJAN LOVE BACKGROUND INTENS DI TERAKHIR
-            setInterval(createHeart, 200); 
+        if (step < texts.length) {
+            // Ganti Background (loop kalau wallpaper habis) & GIF
+            document.body.style.backgroundImage = `url('${backgroundList[step % backgroundList.length]}')`;
+            catGifEl.style.backgroundImage = `url('${normalGifs[step]}')`;
+            
+            typeWriter(texts[step], textEl, () => { 
+                btnGroup.style.opacity = "1"; 
+                if (step === texts.length - 1) {
+                    setTimeout(() => {
+                        btnGroup.style.display = "none";
+                        setInterval(createHeart, 250); 
+                    }, 2000);
+                }
+            });
         }
     };
 
     noBtn.onclick = () => {
-        if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+        if (navigator.vibrate) navigator.vibrate([150, 50, 150]);
         mainCard.classList.add("vibrate-mode");
         catGifEl.style.backgroundImage = `url('${angryGifs[angryIdx]}')`;
         angryIdx = (angryIdx + 1) % angryGifs.length;
