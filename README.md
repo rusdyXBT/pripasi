@@ -1,1 +1,1 @@
-# pripasi
+# pripat wey ngapaon kemari
