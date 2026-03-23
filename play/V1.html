@@ -107,7 +107,6 @@
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187b55ee.jpeg"
     ];
 
-    // BALIK KE TEKS ASLI KAMU
     const texts = [
         "MINAL AIDIN WALPAIDIN MON MAAP LAHIR BATIN 🙏🙏",
         "MAAPKAN RUSDY KALAW ADA SALAH 🤗🙏",
@@ -117,6 +116,7 @@
         ""
     ];
 
+    // INI LHO 6 GIF NYA, SUDAH LENGKAP JIR!
     const angryGifs = [
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-rTRYbFx38K.gif",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-YNbTiWGdcr.gif",
@@ -127,6 +127,7 @@
     ];
 
     let step = 0;
+    let angryIdx = 0; // Index buat ganti-ganti GIF marah
     let isTyping = false;
 
     function mulai() {
@@ -175,7 +176,6 @@
             catGifEl.style.backgroundImage = `url('${normalGifs[step % normalGifs.length]}')`;
             typeWriter(texts[step], textEl, () => { btnGroup.style.opacity = "1"; });
         } else {
-            // Selesai teks, langsung sebar hati dan ganti GIF joget
             btnGroup.style.display = "none";
             textEl.textContent = "MAKASIH YA SUDAH DIMAAFIN! 🥰🙏";
             setInterval(createHeart, 250);
@@ -190,7 +190,11 @@
     noBtn.onclick = () => {
         if (navigator.vibrate) navigator.vibrate([150, 50, 150]);
         mainCard.classList.add("vibrate-mode");
-        catGifEl.style.backgroundImage = `url('${angryGifs[step % angryGifs.length]}')`;
+        
+        // GANTI GIF MARAH SETIAP KALI DIPENCET (1-6)
+        catGifEl.style.backgroundImage = `url('${angryGifs[angryIdx]}')`;
+        angryIdx = (angryIdx + 1) % angryGifs.length; // Biar muter terus urutannya
+        
         textEl.textContent = "Dibilangin JANGAN PENCET ENGGAK!!! 😡💢";
         noBtn.style.position = "absolute";
         const maxX = mainCard.clientWidth - noBtn.clientWidth - 20;
