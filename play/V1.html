@@ -84,7 +84,6 @@
     const noBtn = document.getElementById("no");
     const mainCard = document.getElementById("mainCard");
 
-    // LIST GIF KEMBALI LENGKAP
     const normalGifs = [
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-bubu-dudu.gif",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-dance.gif",
@@ -108,13 +107,13 @@
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187b55ee.jpeg"
     ];
 
-    // EMOJI KEMBALI LENGKAP
+    // BALIK KE TEKS ASLI KAMU
     const texts = [
         "MINAL AIDIN WALPAIDIN MON MAAP LAHIR BATIN 🙏🙏",
         "MAAPKAN RUSDY KALAW ADA SALAH 🤗🙏",
         "MEMANG RUSDY SUKA MEMAKI DAN MEMBULI 🤡🤗",
         "TETAPI NTU SEMUWA MEMANG HOBY 🗿🗿🗿",
-        "MAKASIH YA SUDAH DIMAAFIN! 🥰✨",
+        "",
         ""
     ];
 
@@ -128,8 +127,6 @@
     ];
 
     let step = 0;
-    let angryIdx = 0;
-    let finalIdx = 0;
     let isTyping = false;
 
     function mulai() {
@@ -140,7 +137,6 @@
         typeWriter(texts[0], textEl, () => { btnGroup.style.opacity = "1"; });
     }
 
-    // Fungsi TypeWriter yang diperbaiki (textContent biar gak berantakan)
     function typeWriter(text, element, callback) {
         if(isTyping) return;
         isTyping = true;
@@ -150,8 +146,7 @@
                 element.textContent += text.charAt(i); 
                 i++; 
                 setTimeout(type, 100); 
-            } 
-            else {
+            } else {
                 isTyping = false;
                 if (callback) setTimeout(callback, 300);
             }
@@ -168,13 +163,6 @@
         setTimeout(() => h.remove(), 4500);
     }
 
-    function mulaiKonserKartu() {
-        setInterval(() => {
-            finalIdx = (finalIdx + 1) % finalDanceGifs.length;
-            catGifEl.style.backgroundImage = `url('${finalDanceGifs[finalIdx]}')`;
-        }, 4000);
-    }
-
     document.getElementById("yes").onclick = () => {
         if(isTyping) return;
         mainCard.classList.remove("vibrate-mode");
@@ -182,27 +170,27 @@
         step++;
         for(let i=0; i<10; i++) setTimeout(createHeart, i * 150);
         
-        if (step < texts.length - 1) {
+        if (step < 4) {
             document.body.style.backgroundImage = `url('${backgroundList[step % backgroundList.length]}')`;
             catGifEl.style.backgroundImage = `url('${normalGifs[step % normalGifs.length]}')`;
             typeWriter(texts[step], textEl, () => { btnGroup.style.opacity = "1"; });
         } else {
-            // Step Terakhir
-            typeWriter(texts[texts.length-2], textEl, () => {
-                setTimeout(() => {
-                    btnGroup.style.display = "none";
-                    setInterval(createHeart, 250);
-                    mulaiKonserKartu();
-                }, 1000);
-            });
+            // Selesai teks, langsung sebar hati dan ganti GIF joget
+            btnGroup.style.display = "none";
+            textEl.textContent = "MAKASIH YA SUDAH DIMAAFIN! 🥰🙏";
+            setInterval(createHeart, 250);
+            let fIdx = 0;
+            setInterval(() => {
+                catGifEl.style.backgroundImage = `url('${finalDanceGifs[fIdx % finalDanceGifs.length]}')`;
+                fIdx++;
+            }, 4000);
         }
     };
 
     noBtn.onclick = () => {
         if (navigator.vibrate) navigator.vibrate([150, 50, 150]);
         mainCard.classList.add("vibrate-mode");
-        catGifEl.style.backgroundImage = `url('${angryGifs[angryIdx]}')`;
-        angryIdx = (angryIdx + 1) % angryGifs.length;
+        catGifEl.style.backgroundImage = `url('${angryGifs[step % angryGifs.length]}')`;
         textEl.textContent = "Dibilangin JANGAN PENCET ENGGAK!!! 😡💢";
         noBtn.style.position = "absolute";
         const maxX = mainCard.clientWidth - noBtn.clientWidth - 20;
