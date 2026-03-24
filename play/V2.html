@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>aset negara🙏</title>
+    <title>aset negara 🔐</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap" rel="stylesheet">
     <style>
-        /* CSS TETAP SAMA SEPERTI SEBELUMNYA */
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; font-family: 'Nunito', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; font-family: 'Nunito', sans-serif, Arial; }
         body {
             background: url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg') no-repeat center center fixed;
             background-size: cover; height: 100vh;
@@ -68,13 +69,13 @@
     <div class="avatar" id="catGif"></div>
     <div id="text" class="text"></div>
     <div class="btn-wrapper" id="btnGroup">
-        <button id="yes">Iyah dimaafin</button>
-        <button id="no">Enggak!</button>
+        <button id="yes">Iya dimaapin😇</button>
+        <button id="no">Emooh😏!</button>
     </div>
 </div>
 
 <script>
-    const music = new Audio("https://raw.githubusercontent.com/rusdyXBT/pripasi/main/play/ciio.mp3");
+    const music = new Audio("https://raw.githubusercontent.com/rusdyXBT/pripasi/main/play/ciio.mp3.mp3");
     music.loop = true;
     
     const textEl = document.getElementById("text");
@@ -83,7 +84,6 @@
     const noBtn = document.getElementById("no");
     const mainCard = document.getElementById("mainCard");
 
-    // GIF NORMAL PAS KLIK IYAH
     const normalGifs = [
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-bubu-dudu.gif",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-dance.gif",
@@ -92,7 +92,6 @@
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/happy-dance.gif"
     ];
 
-    // GIF JOGET AKHIR (GANTI TIAP 5 DETIK)
     const finalDanceGifs = [
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/haleys-ouo.gif",
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/stella-hsr-cute-dance-stella-hsr.gif",
@@ -108,13 +107,25 @@
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187b55ee.jpeg"
     ];
 
+    // SEMUA KATA-KATA DISINI AKAN MUNCUL BERURUTAN
     const texts = [
-        "MINAL AIDIN WALPAIDIN MON MAAP LAHIR BATIN 🙏🙏",
-        "MAAPKAN RUSDY KALAW ADA SALAH 🤗🙏",
-        "MEMANG RUSDY SUKA MEMAKI DAN MEMBULI 🤡🤗",
-        "TETAPI NTU SEMUWA MEMANG HOBY 🗿🗿🗿",
-        "",
-        ""
+        "MINAL AIDIN WALPAIDIN MON MAAP LAHIR BATIN 🙏",
+        "MAAPKAN RUSDY KALAW ADA SALAH 🤗",
+        "MEMANG RUSDY SUKA MEMAKI DAN MEMBULI 🤡",
+        "TETAPI NTU SEMUWA MEMANG HOBY 🗿",
+        "INTINYAH MAAPKAN RUSDY JIR LAH SLEBEW... 🤤",
+        "BEDOSA JIKA TIDAK DI MAAPKAN 🤗",
+        "MOHON MAAP SEKALI LAGI, JIKA LAHIRMU DITAKDIRKAN UNTUKU, MAKA BATINKU SIAP SELAMANYA MENJADI MILIKMU. Aww...Aww...slebew. 🤤",
+    ];
+
+    // VARIASI KATA SAAT KLIK ENGGAK
+    const angryTexts = [
+        "PARAH ANY!!! 💢",
+        "KOG MASI PENCET ITU ANY! 😤",
+        "AH MALAS MENANGGAPI! 😫",
+        "KLIK IYAH AJA KENAPA SIH ANY? 👊",
+        "APA SUSAHNYA KLIK MAAPKAN ANY ! 🥺",
+        "DOSA WEI LEBARAN INI😡"
     ];
 
     const angryGifs = [
@@ -128,21 +139,29 @@
 
     let step = 0;
     let angryIdx = 0;
-    let finalIdx = 0;
+    let isTyping = false;
 
     function mulai() {
         document.getElementById("overlay").style.display = "none";
         mainCard.style.display = "block";
-        music.play();
+        music.play().catch(() => {});
         catGifEl.style.backgroundImage = `url('${normalGifs[0]}')`;
         typeWriter(texts[0], textEl, () => { btnGroup.style.opacity = "1"; });
     }
 
     function typeWriter(text, element, callback) {
-        let i = 0; element.innerHTML = ""; btnGroup.style.opacity = "0";
+        if(isTyping) return;
+        isTyping = true;
+        let i = 0; element.textContent = ""; btnGroup.style.opacity = "0";
         function type() {
-            if (i < text.length) { element.innerHTML += text.charAt(i); i++; setTimeout(type, 120); } 
-            else if (callback) { setTimeout(callback, 500); }
+            if (i < text.length) { 
+                element.textContent += text.charAt(i); 
+                i++; 
+                setTimeout(type, 100); 
+            } else {
+                isTyping = false;
+                if (callback) setTimeout(callback, 300);
+            }
         }
         type();
     }
@@ -151,56 +170,55 @@
         const h = document.createElement("div");
         h.innerHTML = "❤️"; h.className = "heart";
         h.style.left = Math.random() * 100 + "vw";
-        h.style.fontSize = Math.random() * 15 + 15 + "px";
         h.style.animationDuration = Math.random() * 2 + 3 + "s";
         document.body.appendChild(h);
         setTimeout(() => h.remove(), 4500);
     }
 
-    // FUNGSI GANTI GIF OTOMATIS DI AKHIR
-    function mulaiKonserKartu() {
-        setInterval(() => {
-            finalIdx = (finalIdx + 1) % finalDanceGifs.length;
-            catGifEl.style.backgroundImage = `url('${finalDanceGifs[finalIdx]}')`;
-        }, 5000); // GANTI SETIAP 5 DETIK
-    }
-
     document.getElementById("yes").onclick = () => {
+        if(isTyping) return;
         mainCard.classList.remove("vibrate-mode");
         noBtn.style.position = "relative"; noBtn.style.left = "0"; noBtn.style.top = "0";
         step++;
+        
         for(let i=0; i<10; i++) setTimeout(createHeart, i * 150);
         
+        // Sekarang step membandingkan dengan panjang array texts (biar semua muncul)
         if (step < texts.length) {
             document.body.style.backgroundImage = `url('${backgroundList[step % backgroundList.length]}')`;
-            catGifEl.style.backgroundImage = `url('${normalGifs[step]}')`;
-            typeWriter(texts[step], textEl, () => { 
-                btnGroup.style.opacity = "1"; 
-                if (step === texts.length - 1) {
-                    setTimeout(() => {
-                        btnGroup.style.display = "none";
-                        setInterval(createHeart, 250);
-                        mulaiKonserKartu(); // MULAI GANTI-GANTI GIF JOGET
-                    }, 2000);
-                }
-            });
+            catGifEl.style.backgroundImage = `url('${normalGifs[step % normalGifs.length]}')`;
+            typeWriter(texts[step], textEl, () => { btnGroup.style.opacity = "1"; });
+        } else {
+            // Bagian Terakhir
+            btnGroup.style.display = "none";
+            textEl.textContent = "MAKASIH YA SUDAH DIMAAPKAN! 🥰🙏";
+            setInterval(createHeart, 250);
+            let fIdx = 0;
+            setInterval(() => {
+                catGifEl.style.backgroundImage = `url('${finalDanceGifs[fIdx % finalDanceGifs.length]}')`;
+                fIdx++;
+            }, 4000);
         }
     };
 
     noBtn.onclick = () => {
         if (navigator.vibrate) navigator.vibrate([150, 50, 150]);
         mainCard.classList.add("vibrate-mode");
-        catGifEl.style.backgroundImage = `url('${angryGifs[angryIdx]}')`;
-        angryIdx = (angryIdx + 1) % angryGifs.length;
-        textEl.innerHTML = "Dibilangin JANGAN PENCET ENGGAK!!! 😡💢";
+        
+        // Ganti GIF marah
+        catGifEl.style.backgroundImage = `url('${angryGifs[angryIdx % angryGifs.length]}')`;
+        
+        // Ganti KATA-KATA marah (sesuai permintaanmu)
+        textEl.textContent = angryTexts[angryIdx % angryTexts.length];
+        
+        angryIdx++; // Tambah index tiap kali diklik
+        
         noBtn.style.position = "absolute";
         const maxX = mainCard.clientWidth - noBtn.clientWidth - 20;
         const maxY = mainCard.clientHeight - noBtn.clientHeight - 20;
         noBtn.style.left = Math.random() * maxX + "px";
         noBtn.style.top = Math.random() * maxY + "px";
     };
-
-    document.body.onclick = () => { music.play().catch(() => {}); };
 </script>
 </body>
 </html>
