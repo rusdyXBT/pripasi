@@ -75,8 +75,20 @@
 </div>
 
 <script>
-    const music = new Audio("https://raw.githubusercontent.com/rusdyXBT/pripasi/main/play/mas.mp3");
-    music.loop = true;
+    
+    const tracks = [
+        "https://raw.githubusercontent.com/rusdyXBT/pripasi/main/play/ciio.mp3",
+        "https://raw.githubusercontent.com/rusdyXBT/pripasi/main/play/mas.mp3"
+    ];
+    let currentTrack = 0;
+    const music = new Audio(tracks[currentTrack]);
+
+    
+    music.onended = function() {
+        currentTrack = (currentTrack + 1) % tracks.length;
+        music.src = tracks[currentTrack];
+        music.play();
+    };
     
     const textEl = document.getElementById("text");
     const btnGroup = document.getElementById("btnGroup");
@@ -107,7 +119,6 @@
         "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187b55ee.jpeg"
     ];
 
-    // SEMUA KATA-KATA DISINI AKAN MUNCUL BERURUTAN
     const texts = [
         "MINAL AIDIN WALPAIDIN MON MAAP LAHIR BATIN 🙏",
         "MAAPKAN RUSDY KALAW ADA SALAH 🤗",
@@ -118,7 +129,6 @@
         "MOHON MAAP SEKALI LAGI, JIKA LAHIRMU DITAKDIRKAN UNTUKU, MAKA BATINKU SIAP SELAMANYA MENJADI MILIKMU. Aww...Aww...slebew. 🤤",
     ];
 
-    // VARIASI KATA SAAT KLIK ENGGAK
     const angryTexts = [
         "PARAH ANY!!! 💢",
         "KOG MASI PENCET ITU ANY! 😤",
@@ -183,13 +193,11 @@
         
         for(let i=0; i<10; i++) setTimeout(createHeart, i * 150);
         
-        // Sekarang step membandingkan dengan panjang array texts (biar semua muncul)
         if (step < texts.length) {
             document.body.style.backgroundImage = `url('${backgroundList[step % backgroundList.length]}')`;
             catGifEl.style.backgroundImage = `url('${normalGifs[step % normalGifs.length]}')`;
             typeWriter(texts[step], textEl, () => { btnGroup.style.opacity = "1"; });
         } else {
-            // Bagian Terakhir
             btnGroup.style.display = "none";
             textEl.textContent = "MAKASIH YA SUDAH DIMAAPKAN! 🥰🙏";
             setInterval(createHeart, 250);
@@ -204,15 +212,9 @@
     noBtn.onclick = () => {
         if (navigator.vibrate) navigator.vibrate([150, 50, 150]);
         mainCard.classList.add("vibrate-mode");
-        
-        // Ganti GIF marah
         catGifEl.style.backgroundImage = `url('${angryGifs[angryIdx % angryGifs.length]}')`;
-        
-        // Ganti KATA-KATA marah (sesuai permintaanmu)
         textEl.textContent = angryTexts[angryIdx % angryTexts.length];
-        
-        angryIdx++; // Tambah index tiap kali diklik
-        
+        angryIdx++; 
         noBtn.style.position = "absolute";
         const maxX = mainCard.clientWidth - noBtn.clientWidth - 20;
         const maxY = mainCard.clientHeight - noBtn.clientHeight - 20;
