@@ -44,7 +44,7 @@ body{
     animation:bgZoom 18s ease-in-out infinite alternate;
 }
 
-/* auto zoom background */
+/* auto zoom */
 @keyframes bgZoom{
     0%{
         background-size:100%;
@@ -67,7 +67,7 @@ body::before{
     z-index:1;
 }
 
-/* glow background */
+/* glow */
 body::after{
     content:"";
     position:absolute;
@@ -302,19 +302,35 @@ body::after{
 
 /* typing cursor */
 .typing::after{
-    content:"|";
+    content:" |";
+
+    display:inline-block;
+
+    color:#ffffff;
+
+    font-weight:900;
+
+    margin-left:3px;
+
+    text-shadow:
+    0 0 8px rgba(255,255,255,.95),
+    0 0 14px rgba(255,255,255,.55);
 
     animation:blinkCursor .7s infinite;
-
-    margin-left:2px;
 }
 
 @keyframes blinkCursor{
-    0%,50%{
+
+    0%{
         opacity:1;
     }
-    51%,100%{
+
+    50%{
         opacity:0;
+    }
+
+    100%{
+        opacity:1;
     }
 }
 
@@ -504,13 +520,6 @@ const backgroundList = [
 "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187b55ee.jpeg"
 ];
 
-const glowColors = [
-"rgba(255,77,109,.16)",
-"rgba(255,180,120,.16)",
-"rgba(120,180,255,.16)",
-"rgba(180,120,255,.16)"
-];
-
 const texts = [
 "MINAL AIDIN WALPAIDIN MON MAAP LAHIR BATIN 🙏",
 "MAAPKAN RUSDY KALAW ADA SALAH 🤗",
@@ -543,7 +552,7 @@ let step = 0;
 let angryIdx = 0;
 let isTyping = false;
 
-/* bunga jatuh */
+/* bunga */
 function createFlower(){
 
     const flower = document.createElement("div");
@@ -619,7 +628,7 @@ function typeWriter(text, element, callback){
 
             isTyping = false;
 
-            element.classList.remove("typing");
+            /* cursor tetap nyala */
 
             if(callback) setTimeout(callback,300);
         }
@@ -647,11 +656,6 @@ document.getElementById("yes").onclick = () => {
 
         document.querySelector(".text-box").style.backgroundImage =
         `url('${backgroundList[step % backgroundList.length]}')`;
-
-        document.body.style.setProperty(
-        "--glowColor",
-        glowColors[step % glowColors.length]
-        );
 
         catGifEl.style.backgroundImage =
         `url('${normalGifs[step % normalGifs.length]}')`;
