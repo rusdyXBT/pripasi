@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Beruntungnya Aku - Untuk Isra 💌</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Floating Hearts Background */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .heart-bg span {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 20px;
+            animation: floatHeart 10s infinite linear;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-20vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main Card */
+        .card {
+            position: relative;
+            z-index: 10;
+            max-width: 500px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 35px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            padding: 35px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        .couple-icon {
+            font-size: 70px;
+            margin-bottom: 10px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Content */
+        .content {
+            padding: 30px 25px;
+        }
+
+        /* Greeting Card */
+        .greeting {
+            background: #fff0f0;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .greeting p {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .greeting .greeting-text {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .greeting .signature {
+            font-style: italic;
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Beruntungnya Aku Section */
+        .lucky-section {
+            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .lucky-section h3 {
+            color: #d63031;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .lucky-list {
+            text-align: left;
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .lucky-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1em;
+            color: #2d3436;
+        }
+
+        .lucky-list li:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            font-size: 1.3em;
+        }
+
+        /* Love Note */
+        .love-note {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            border: 1px dashed #ff6b6b;
+        }
+
+        .love-note p {
+            color: #555;
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        .love-note .heart-icon {
+            font-size: 30px;
+            margin: 10px 0;
+            color: #ff6b6b;
+        }
+
+        /* Promise Section */
+        .promise {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .promise h4 {
+            color: #2d3436;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+
+        .promise-text {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Button Music */
+        .music-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.5);
+        }
+
+        /* Footer */
+        .footer {
+            background: #2d3436;
+            padding: 15px;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8em;
+        }
+
+        /* Flower decoration */
+        .flower-decoration {
+            font-size: 24px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                max-width: 100%;
+            }
+            .header h1 {
+                font-size: 1.6em;
+            }
+            .lucky-list li {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Hearts -->
+    <div class="heart-bg" id="heartBg"></div>
+
+    <div class="card">
+        <!-- Header -->
+        <div class="header">
+            <div class="couple-icon">💑</div>
+            <h1>✨ Beruntungnya Aku ✨</h1>
+            <p>Untuk Kamu, yang paling istimewa</p>
+        </div>
+
+        <div class="content">
+            <!-- Greeting -->
+            <div class="greeting">
+                <p class="greeting-text">
+                    💌 <strong>Untuk Isra,</strong> 💌
+                </p>
+                <p>
+                    Cuma mau bilang, dari sekian banyak orang di dunia ini, 
+                    aku adalah orang paling beruntung karena bisa memiliki kamu.
+                </p>
+                <p class="signature">
+                    — Dari Yunus, yang selalu mencintaimu —
+                </p>
+            </div>
+
+            <!-- Beruntungnya Aku List -->
+            <div class="lucky-section">
+                <h3>💖 Kenapa aku beruntung? 💖</h3>
+                <ul class="lucky-list">
+                    <li><span class="check-icon">✅</span> Kamu mau menerima aku apa adanya</li>
+                    <li><span class="check-icon">✅</span> Kamu selalu ada saat aku butuh</li>
+                    <li><span class="check-icon">✅</span> Senyummu bisa mengubah hariku yang buruk</li>
+                    <li><span class="check-icon">✅</span> Kamu sabar menghadapi aku yang kadang menyebalkan</li>
+                    <li><span class="check-icon">✅</span> Kamu memilih aku di antara banyak pilihan</li>
+                    <li><span class="check-icon">✅</span> Setiap hari bersamamu adalah hari yang spesial</li>
+                </ul>
+            </div>
+
+            <!-- Love Note -->
+            <div class="love-note">
+                <div class="heart-icon">❤️</div>
+                <p>
+                    "Aku tidak butuh seseorang yang sempurna. <br>
+                    Aku butuh kamu yang selalu membuat hariku terasa sempurna."
+                </p>
+                <div class="heart-icon">💕</div>
+            </div>
+
+            <!-- Promise -->
+            <div class="promise">
+                <h4>🌸 Janji Kecilku 🌸</h4>
+                <p class="promise-text">
+                    Aku akan selalu berusaha membuatmu tersenyum, <br>
+                    menjaga kamu, dan tidak akan pernah membuatmu menangis. <br>
+                    Karena bahagiamu adalah bahagiaku. 🥰
+                </p>
+            </div>
+
+            <!-- Flower Decoration -->
+            <div class="flower-decoration">
+                🌸🌹💐🌷🌻🌺
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>💝 Always & Forever, Yunus untuk Isra 💝</p>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createFloatingHearts() {
+            const heartContainer = document.getElementById('heartBg');
+            const hearts = ['❤️', '💕', '💖', '💗', '💓', '💝', '💘', '💞'];
+            
+            for (let i = 0; i < 40; i++) {
+                const heart = document.createElement('span');
+                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.animationDuration = (Math.random() * 8 + 6) + 's';
+                heartContainer.appendChild(heart);
+            }
+        }
+
+        createFloatingHearts();
+
+        // Add floating effect to card on click (optional)
+        const card = document.querySelector('.card');
+        card.addEventListener('click', () => {
+            card.style.transform = 'scale(1.01)';
+            setTimeout(() => {
+                card.style.transform = 'scale(1)';
+            }, 200);
+        });
+    </script>
+</body>
+</html>
