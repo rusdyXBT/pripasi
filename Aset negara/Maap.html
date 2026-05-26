@@ -644,7 +644,7 @@ document.getElementById("yes").onclick = () => {
     mainCard.classList.remove("vibrate-mode");
 
     noBtn.style.position = "relative";
-    noBtn.style.zIndex = ""; /* Reset z-index supaya normal lagi */
+    noBtn.style.zIndex = ""; /* Reset z-index supaya kembali sejajar jika selesai dipencet-pencet */
     noBtn.style.left = "0";
     noBtn.style.top = "0";
 
@@ -703,17 +703,18 @@ noBtn.onclick = () => {
 
     angryIdx++;
 
-    // PERBAIKAN: Gunakan fixed dan z-index tinggi agar tombol melayang di atas segalanya
-    noBtn.style.position = "fixed";
+    // Menggunakan absolute agar dia melayang, tapi PATOKANNYA tetap di dalam area mainCard (kotak pesan)
+    noBtn.style.position = "absolute";
+    // Memberikan z-index super tinggi agar dia tidak pernah tertutup background atau blur dari teks
     noBtn.style.zIndex = "999";
 
-    // PERBAIKAN: Hitung batas maksimal berdasarkan ukuran layar saat ini
-    const maxX = window.innerWidth - noBtn.clientWidth - 20;
-    const maxY = window.innerHeight - noBtn.clientHeight - 20;
+    // Menghitung sisa ruang di DALAM KOTAK saja
+    const maxX = mainCard.clientWidth - noBtn.clientWidth;
+    const maxY = mainCard.clientHeight - noBtn.clientHeight;
 
-    // PERBAIKAN: Math.max memastikan tombol tidak keluar batas atas dan kiri
-    noBtn.style.left = Math.max(10, Math.random() * maxX) + "px";
-    noBtn.style.top = Math.max(10, Math.random() * maxY) + "px";
+    // Memastikan posisi random tidak lebih dari batas kotak yang diukur di atas (Math.max menjaga nilai minimal 0 agar tidak bablas ke kiri atau atas kotak)
+    noBtn.style.left = Math.max(0, Math.random() * maxX) + "px";
+    noBtn.style.top = Math.max(0, Math.random() * maxY) + "px";
 };
 
 </script>
