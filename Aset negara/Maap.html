@@ -94,6 +94,8 @@ body::after{
     }
 }
 
+/* ================= OVERLAY ================= */
+
 #overlay{
     position:fixed;
     inset:0;
@@ -160,6 +162,8 @@ body::after{
 #overlay button:active{
     transform:scale(.96);
 }
+
+/* ================= CARD ================= */
 
 .card{
     position:relative;
@@ -320,20 +324,22 @@ body::after{
     }
 }
 
-/* tombol */
+/* ================= BUTTON ================= */
 
 .btn-wrapper{
     margin-top:14px;
 
     position:relative;
 
-    height:120px;
+    height:260px;
 
     opacity:0;
 
     transition:.4s;
 
     z-index:9999;
+
+    overflow:visible;
 }
 
 button{
@@ -360,7 +366,7 @@ button:active{
     position:absolute;
 
     left:0;
-    top:0;
+    bottom:0;
 
     width:48%;
 
@@ -378,7 +384,7 @@ button:active{
     position:absolute;
 
     right:0;
-    top:0;
+    bottom:0;
 
     width:48%;
 
@@ -390,6 +396,10 @@ button:active{
 
     box-shadow:
     0 6px 18px rgba(255,77,109,.25);
+
+    transition:
+    left .15s ease,
+    top .15s ease;
 }
 
 .vibrate-mode{
@@ -500,6 +510,8 @@ let step = 0;
 let angryIdx = 0;
 let isTyping = false;
 
+/* ================= BUNGA ================= */
+
 function createFlower(){
 
     const flower = document.createElement("div");
@@ -529,11 +541,16 @@ function createFlower(){
 
 setInterval(createFlower,700);
 
+/* ================= MULAI ================= */
+
 function mulai(){
 
     document.getElementById("overlay").style.display = "none";
 
     mainCard.style.display = "block";
+
+    document.getElementById("catGif").style.backgroundImage =
+    "url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/cute-love.gif')";
 
     typeWriter(texts[0], textEl, () => {
 
@@ -541,6 +558,8 @@ function mulai(){
 
     });
 }
+
+/* ================= TYPING ================= */
 
 function typeWriter(text, element, callback){
 
@@ -564,7 +583,7 @@ function typeWriter(text, element, callback){
 
             i++;
 
-            setTimeout(type, 150);
+            setTimeout(type, 75);
 
         }else{
 
@@ -576,6 +595,8 @@ function typeWriter(text, element, callback){
 
     type();
 }
+
+/* ================= YES ================= */
 
 document.getElementById("yes").onclick = () => {
 
@@ -600,6 +621,50 @@ document.getElementById("yes").onclick = () => {
     }
 };
 
+/* ================= EMOH RANDOM SAMPAI ATAS GIF ================= */
+
+function moveNoButton(){
+
+    const cardRect =
+    mainCard.getBoundingClientRect();
+
+    const gifRect =
+    document.getElementById("catGif").getBoundingClientRect();
+
+    const btnWidth =
+    noBtn.offsetWidth;
+
+    const btnHeight =
+    noBtn.offsetHeight;
+
+    /* batas area */
+
+    const maxX =
+    cardRect.width - btnWidth;
+
+    /* tombol bisa naik sampai dekat gif */
+
+    const minY = -120;
+
+    const maxY =
+    btnGroup.offsetHeight - btnHeight;
+
+    const randomX =
+    Math.floor(Math.random() * maxX);
+
+    const randomY =
+    Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+
+    noBtn.style.left =
+    randomX + "px";
+
+    noBtn.style.top =
+    randomY + "px";
+
+    noBtn.style.right = "auto";
+    noBtn.style.bottom = "auto";
+}
+
 noBtn.addEventListener("click", () => {
 
     if(navigator.vibrate){
@@ -617,39 +682,23 @@ noBtn.addEventListener("click", () => {
 
     angryIdx++;
 
-    const btnWidth =
-    noBtn.offsetWidth;
+    moveNoButton();
+});
 
-    const btnHeight =
-    noBtn.offsetHeight;
+/* mobile susah dipencet */
 
-    const areaWidth =
-    mainCard.clientWidth - btnWidth;
+noBtn.addEventListener("touchstart", () => {
 
-    const areaHeight =
-    mainCard.clientHeight - btnHeight - 20;
+    moveNoButton();
 
-    let randomX =
-    Math.random() * areaWidth;
+});
 
-    let randomY =
-    Math.random() * areaHeight;
+/* desktop hover */
 
-    if(randomY < 20){
-        randomY = 20;
-    }
+noBtn.addEventListener("mouseenter", () => {
 
-    noBtn.style.position = "absolute";
+    moveNoButton();
 
-    noBtn.style.left =
-    randomX + "px";
-
-    noBtn.style.top =
-    randomY + "px";
-
-    noBtn.style.right = "auto";
-
-    noBtn.style.zIndex = "99999";
 });
 
 </script>
