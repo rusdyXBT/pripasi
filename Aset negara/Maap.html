@@ -44,6 +44,7 @@ body{
     animation:bgZoom 18s ease-in-out infinite alternate;
 }
 
+/* auto zoom */
 @keyframes bgZoom{
     0%{
         background-size:100%;
@@ -53,6 +54,7 @@ body{
     }
 }
 
+/* blur tipis */
 body::before{
     content:"";
     position:absolute;
@@ -65,6 +67,7 @@ body::before{
     z-index:1;
 }
 
+/* glow */
 body::after{
     content:"";
     position:absolute;
@@ -110,6 +113,7 @@ body::after{
     z-index:100;
 }
 
+/* surat */
 .surat-avatar{
     width:140px;
     height:140px;
@@ -179,6 +183,7 @@ body::after{
     transform:translateY(-10px);
 }
 
+/* gif */
 .avatar{
     width:128px;
     height:128px;
@@ -206,6 +211,7 @@ body::after{
     transition:.5s ease;
 }
 
+/* kotak */
 .text-box{
     position:relative;
 
@@ -223,6 +229,7 @@ body::after{
     0 10px 30px rgba(0,0,0,.28);
 }
 
+/* blur */
 .text-box::before{
     content:"";
     position:absolute;
@@ -237,6 +244,7 @@ body::after{
     z-index:0;
 }
 
+/* glass reflection */
 .text-box::after{
     content:"";
 
@@ -271,6 +279,7 @@ body::after{
     }
 }
 
+/* text */
 .text{
     position:relative;
     z-index:2;
@@ -291,6 +300,7 @@ body::after{
     0 2px 8px rgba(0,0,0,.55);
 }
 
+/* typing cursor */
 .typing::after{
     content:" |";
 
@@ -324,22 +334,20 @@ body::after{
     }
 }
 
-/* ================= BUTTON ================= */
+/* tombol FIX */
 
 .btn-wrapper{
     margin-top:14px;
 
     position:relative;
 
-    height:260px;
+    height:220px;
 
     opacity:0;
 
     transition:.4s;
 
     z-index:9999;
-
-    overflow:visible;
 }
 
 button{
@@ -396,12 +404,9 @@ button:active{
 
     box-shadow:
     0 6px 18px rgba(255,77,109,.25);
-
-    transition:
-    left .15s ease,
-    top .15s ease;
 }
 
+/* vibrate */
 .vibrate-mode{
     animation:vibrate .15s linear infinite;
 }
@@ -421,6 +426,7 @@ button:active{
     }
 }
 
+/* bunga jatuh */
 .flower{
     position:fixed;
 
@@ -510,7 +516,7 @@ let step = 0;
 let angryIdx = 0;
 let isTyping = false;
 
-/* ================= BUNGA ================= */
+/* bunga */
 
 function createFlower(){
 
@@ -541,16 +547,11 @@ function createFlower(){
 
 setInterval(createFlower,700);
 
-/* ================= MULAI ================= */
-
 function mulai(){
 
     document.getElementById("overlay").style.display = "none";
 
     mainCard.style.display = "block";
-
-    document.getElementById("catGif").style.backgroundImage =
-    "url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/cute-love.gif')";
 
     typeWriter(texts[0], textEl, () => {
 
@@ -558,8 +559,6 @@ function mulai(){
 
     });
 }
-
-/* ================= TYPING ================= */
 
 function typeWriter(text, element, callback){
 
@@ -583,7 +582,7 @@ function typeWriter(text, element, callback){
 
             i++;
 
-            setTimeout(type, 75);
+            setTimeout(type, 150);
 
         }else{
 
@@ -595,8 +594,6 @@ function typeWriter(text, element, callback){
 
     type();
 }
-
-/* ================= YES ================= */
 
 document.getElementById("yes").onclick = () => {
 
@@ -621,39 +618,23 @@ document.getElementById("yes").onclick = () => {
     }
 };
 
-/* ================= EMOH RANDOM SAMPAI ATAS GIF ================= */
+/* FIX TOMBOL EMOH RANDOM */
 
 function moveNoButton(){
 
-    const cardRect =
-    mainCard.getBoundingClientRect();
-
-    const gifRect =
-    document.getElementById("catGif").getBoundingClientRect();
-
-    const btnWidth =
-    noBtn.offsetWidth;
-
-    const btnHeight =
-    noBtn.offsetHeight;
-
-    /* batas area */
+    noBtn.style.position = "absolute";
 
     const maxX =
-    cardRect.width - btnWidth;
-
-    /* tombol bisa naik sampai dekat gif */
-
-    const minY = -120;
+    mainCard.clientWidth - noBtn.clientWidth - 20;
 
     const maxY =
-    btnGroup.offsetHeight - btnHeight;
+    mainCard.clientHeight - noBtn.clientHeight - 20;
 
     const randomX =
-    Math.floor(Math.random() * maxX);
+    Math.random() * maxX;
 
     const randomY =
-    Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+    Math.random() * maxY;
 
     noBtn.style.left =
     randomX + "px";
@@ -662,7 +643,6 @@ function moveNoButton(){
     randomY + "px";
 
     noBtn.style.right = "auto";
-    noBtn.style.bottom = "auto";
 }
 
 noBtn.addEventListener("click", () => {
@@ -685,21 +665,11 @@ noBtn.addEventListener("click", () => {
     moveNoButton();
 });
 
-/* mobile susah dipencet */
+/* biar susah dipencet */
 
-noBtn.addEventListener("touchstart", () => {
+noBtn.addEventListener("mouseenter", moveNoButton);
 
-    moveNoButton();
-
-});
-
-/* desktop hover */
-
-noBtn.addEventListener("mouseenter", () => {
-
-    moveNoButton();
-
-});
+noBtn.addEventListener("touchstart", moveNoButton);
 
 </script>
 
