@@ -34,12 +34,12 @@ body{
     transition:1s ease;
 }
 
-/* blur tipis aja */
+/* blur tipis */
 body::before{
     content:"";
     position:absolute;
     inset:0;
-    background:rgba(0,0,0,0.18);
+    background:rgba(0,0,0,0.14);
     backdrop-filter:blur(2px);
     z-index:1;
 }
@@ -52,13 +52,13 @@ body::after{
     height:420px;
     border-radius:50%;
     background:radial-gradient(circle,
-    rgba(255,77,109,.12),
+    rgba(255,77,109,.10),
     transparent 70%);
     filter:blur(20px);
     z-index:1;
 }
 
-/* overlay buka pesan */
+/* overlay */
 #overlay{
     position:fixed;
     inset:0;
@@ -117,35 +117,64 @@ body::after{
     width:88%;
     max-width:315px;
 
-    padding:22px 16px;
+    padding:72px 16px 22px;
 
     border-radius:30px;
 
-    overflow:hidden;
+    overflow:visible;
 
     text-align:center;
 
-    border:1.5px solid rgba(255,255,255,.28);
+    border:1.5px solid rgba(255,255,255,0.20);
 
     display:none;
 
     background:url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg') center/cover;
 
     box-shadow:
-    0 10px 30px rgba(0,0,0,.35);
+    0 10px 30px rgba(0,0,0,.32);
+
+    transform:translateY(-18px);
 }
 
-/* gelap tipis biar teks kebaca */
+/* blur elegan */
 .card::before{
     content:"";
     position:absolute;
     inset:0;
-    background:rgba(0,0,0,0.28);
-    backdrop-filter:blur(3px);
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(255,255,255,0.08),
+        rgba(255,255,255,0.02)
+    );
+
+    backdrop-filter:blur(6px);
+
+    border-radius:30px;
+
     z-index:-1;
 }
 
-/* sparkle kecil */
+/* glow tipis */
+.card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:30px;
+
+    background:
+    linear-gradient(
+        180deg,
+        rgba(255,255,255,0.06),
+        transparent 40%
+    );
+
+    pointer-events:none;
+}
+
+/* sparkle */
 .spark{
     position:absolute;
     width:5px;
@@ -157,7 +186,7 @@ body::after{
 }
 
 .spark:nth-child(1){
-    top:12%;
+    top:14%;
     left:10%;
 }
 
@@ -185,7 +214,7 @@ body::after{
         transform:scale(.6);
     }
     50%{
-        opacity:1;
+        opacity:.9;
         transform:scale(1.3);
     }
 }
@@ -196,34 +225,41 @@ body::after{
 
 @keyframes vibrate{
     0%{
-        transform:translate(0);
+        transform:translateY(-18px);
     }
     25%{
-        transform:translate(-3px,3px);
+        transform:translate(-3px,3px) translateY(-18px);
     }
     50%{
-        transform:translate(3px,-3px);
+        transform:translate(3px,-3px) translateY(-18px);
     }
     100%{
-        transform:translate(0);
+        transform:translateY(-18px);
     }
 }
 
+/* GIF DI LUAR CARD */
 .avatar{
     width:112px;
     height:112px;
 
-    margin:0 auto 18px;
+    position:absolute;
 
-    border-radius:24px;
+    top:-55px;
+    left:50%;
 
-    border:3px solid rgba(255,255,255,.85);
+    transform:translateX(-50%);
+
+    border-radius:26px;
+
+    border:3px solid rgba(255,255,255,.88);
 
     background:center/cover no-repeat;
 
     box-shadow:
-    0 0 18px rgba(255,255,255,.2),
-    0 0 30px rgba(255,77,109,.18);
+    0 0 18px rgba(255,255,255,.18),
+    0 0 28px rgba(255,77,109,.16),
+    0 8px 18px rgba(0,0,0,.28);
 
     transition:.5s ease;
 }
