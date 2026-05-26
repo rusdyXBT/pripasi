@@ -338,10 +338,9 @@ body::after{
 .btn-wrapper{
     margin-top:14px;
 
-    display:grid;
-    grid-template-columns:1fr 1fr;
+    position:relative;
 
-    gap:12px;
+    height:60px;
 
     opacity:0;
 
@@ -369,6 +368,13 @@ button:active{
 }
 
 #yes{
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:48%;
+
     background:linear-gradient(135deg,#ffffff,#ffe7ee);
 
     color:#ff4d6d;
@@ -378,11 +384,18 @@ button:active{
 }
 
 #no{
+    position:absolute;
+
+    right:0;
+    top:0;
+
+    width:48%;
+
     background:linear-gradient(135deg,#ff3c5f,#ff6b81);
 
     color:white;
 
-    position:relative;
+    z-index:999;
 
     box-shadow:
     0 6px 18px rgba(255,77,109,.25);
@@ -628,8 +641,6 @@ function typeWriter(text, element, callback){
 
             isTyping = false;
 
-            /* cursor tetap nyala */
-
             if(callback) setTimeout(callback,300);
         }
     }
@@ -643,9 +654,9 @@ document.getElementById("yes").onclick = () => {
 
     mainCard.classList.remove("vibrate-mode");
 
-    noBtn.style.position = "relative";
-    noBtn.style.left = "0";
-    noBtn.style.top = "0";
+    noBtn.style.left = "";
+    noBtn.style.top = "";
+    noBtn.style.right = "0";
 
     step++;
 
@@ -695,6 +706,10 @@ noBtn.onclick = () => {
 
     mainCard.classList.add("vibrate-mode");
 
+    setTimeout(() => {
+        mainCard.classList.remove("vibrate-mode");
+    }, 300);
+
     catGifEl.style.backgroundImage =
     `url('${angryGifs[angryIdx % angryGifs.length]}')`;
 
@@ -703,19 +718,26 @@ noBtn.onclick = () => {
 
     angryIdx++;
 
-    noBtn.style.position = "absolute";
+    const wrapperRect =
+    btnGroup.getBoundingClientRect();
+
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
 
     const maxX =
-    mainCard.clientWidth - noBtn.clientWidth - 20;
+    wrapperRect.width - btnWidth;
 
     const maxY =
-    mainCard.clientHeight - noBtn.clientHeight - 20;
+    wrapperRect.height - btnHeight;
 
-    noBtn.style.left =
-    Math.random() * maxX + "px";
+    const randomX =
+    Math.random() * maxX;
 
-    noBtn.style.top =
-    Math.random() * maxY + "px";
+    const randomY =
+    Math.random() * maxY;
+
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
 };
 
 </script>
