@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset='UTF-8'/>
+    <meta content='width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=5' name='viewport'/>
+    <title>Terimakasih Untukmu</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&family=Nerko+One&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --ukuran-teks: 1.1rem;
+            --warna-aksen: #ff4d6d;
+            --gaya-font: 'Nunito Sans', sans-serif;
+            --gaya-font-judul: 'Dancing Script', cursive;
+        }
+        
+        body { 
+            background-color: #000; 
+            font-family: var(--gaya-font); 
+            overflow: hidden; 
+            margin: 0; 
+            color: white;
+        }
+
+        #loading-container {
+            display: none; 
+            margin-top: 20px;
+            text-align: center;
+        }
+        .progress-box {
+            width: 200px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            margin: 15px auto;
+            overflow: hidden;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 100%;
+            background: var(--warna-aksen);
+        }
+        .animate-progress {
+            animation: shrink 7s linear forwards;
+        }
+        @keyframes shrink {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+        
+        #bodyblur { 
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+            z-index: -1; transition: all 1.5s ease; 
+        }
+        #bodyblur img { 
+            width: 100%; height: 100%; object-fit: cover; opacity: 0.6; 
+            filter: brightness(0.6) blur(2px);
+        }
+
+        #Content { 
+            position: relative; display: flex; flex-direction: column; align-items: center; 
+            justify-content: center; min-height: 100vh; z-index: 1; opacity: 0; transition: all 1s ease;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 30px; 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px 20px; 
+            text-align: center; 
+            width: 85%; 
+            max-width: 380px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .lovein { 
+            font-size: 70px; 
+            color: var(--warna-aksen);
+            cursor: pointer; 
+            transition: all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            display: inline-block;
+            filter: drop-shadow(0 0 15px var(--warna-aksen));
+        }
+        .lovein:hover { transform: scale(1.15); }
+
+        #ket { font-size: 14px; margin-top: 20px; opacity: 0.8; letter-spacing: 1px; }
+        #bq { display: none; margin-top: 10px; }
+        #kalimat { font-size: var(--ukuran-teks); font-weight: 700; min-height: 60px; line-height: 1.6; }
+
+        #ftoAkhir { width: 100px; margin-top: 20px; display: none; animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        #Tombol { display: none; margin-top: 30px; }
+        #By { 
+            background: var(--warna-aksen); color: white; text-decoration: none;
+            padding: 12px 35px; border-radius: 50px; font-weight: 700;
+        }
+
+        .wm { position: fixed; bottom: 20px; right: 20px; font-size: 11px; color: rgba(255,255,255,0.5); }
+        .fa-heart-falling { color: var(--warna-aksen); position: fixed; top: -20px; z-index: 999; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <audio src="https://ik.imagekit.io/srfdvvkga/A%20Thousand%20Years.mp3" id="linkmp3"></audio>
+    <div id="bodyblur"><img src="https://feeldreams.github.io/terimakasih/awal.jpg" id="wallpaper"/></div>
+
+    <div id="Content">
+        <div class="glass" id="mainCard">
+            <div id="loveIn" onclick="mulai()">
+                <i class="fa-solid fa-heart lovein"></i>
+                <p id="ket">Klik Hati Ini</p>
+            </div>
+
+            <div id="loading-container">
+                <p style="font-size: 14px; margin-bottom: 5px; font-weight: 700;">Menyiapkan kenangan...</p>
+                <div class="progress-box">
+                    <div class="progress-bar" id="pbar"></div>
+                </div>
+            </div>
+
+            <div id="bq">
+                <p id="kalimat"></p>
+                <img src="https://feeldreams.github.io/heart.png" id="ftoAkhir"/>
+            </div>
+
+            <div id="Tombol"><a href="#" id="By" onclick="balas()">💌 Balas Pesan</a></div>
+        </div>
+    </div>
+
+    <div class="wm">dibuat untuk ayu kesayanganku❤️</div>
+
+    <script>
+        const audio = document.getElementById('linkmp3');
+        const content = document.getElementById('Content');
+        const kalimat = document.getElementById('kalimat');
+        const wallpaper = document.getElementById('wallpaper');
+
+        const images = [
+            "https://feeldreams.github.io/terimakasih/awal.jpg",
+            "https://feeldreams.github.io/terimakasih/dua.jpg",
+            "https://feeldreams.github.io/terimakasih/tiga.jpg",
+            "https://feeldreams.github.io/terimakasih/empat.jpg",
+            "https://feeldreams.github.io/terimakasih/lima.jpg",
+            "https://feeldreams.github.io/terimakasih/enam.jpg",
+            "https://feeldreams.github.io/terimakasih/awal.jpg",
+            "https://feeldreams.github.io/terimakasih/tiga.jpg"
+        ];
+
+        // Daftar pesan yang sudah ditambah menjadi lebih banyak
+        const pesan = [
+            "Hai kamu... ✨",
+            "Terimakasih ya sudah hadir di dalam hidupku.",
+            "Aku tidak pernah membayangkan sebelumnya,",
+            "Bahwa aku akan bertemu seseorang sepertimu.",
+            "Terimakasih sudah sabar menghadapi sikapku,",
+            "Terimakasih sudah menjadi alasan aku tersenyum hari ini.",
+            "Mungkin aku bukan orang yang sempurna,",
+            "Tapi aku janji akan selalu ada untukmu.",
+            "Jangan pernah pergi ya?",
+            "Karena saat bersamamu...",
+            "Aku merasa menjadi orang yang paling bahagia. ❤️"
+        ];
+
+        window.onload = () => { 
+            setTimeout(() => { content.style.opacity = "1"; }, 500);
+        };
+
+        function mulai() {
+            audio.play();
+            document.getElementById('loveIn').style.display = "none";
+            
+            const loadCont = document.getElementById('loading-container');
+            const pbar = document.getElementById('pbar');
+            loadCont.style.display = "block";
+            pbar.classList.add('animate-progress');
+
+            setTimeout(() => {
+                loadCont.style.display = "none";
+                document.getElementById('bq').style.display = "block";
+                showText(0);
+                setInterval(createHeart, 400);
+            }, 7000);
+        }
+
+        function showText(index) {
+            if (index < pesan.length) {
+                // Berganti wallpaper sesuai urutan pesan
+                if(images[index]) wallpaper.src = images[index];
+
+                new TypeIt("#kalimat", {
+                    strings: [pesan[index]],
+                    speed: 50,
+                    waitUntilVisible: true,
+                    afterComplete: function (instance) {
+                        setTimeout(() => {
+                            instance.destroy();
+                            kalimat.innerHTML = "";
+                            showText(index + 1);
+                        }, 1800);
+                    }
+                }).go();
+            } else {
+                kalimat.innerHTML = "<span style='font-family:var(--gaya-font-judul); font-size:26px; color:var(--warna-aksen)'>I Love You More than Anything!</span>";
+                document.getElementById('ftoAkhir').style.display = "inline-block";
+                document.getElementById('Tombol').style.display = "block";
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement("i");
+            // Menggunakan Font Awesome untuk hati yang berjatuhan
+            heart.className = "fa-solid fa-heart fa-heart-falling";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            heart.style.fontSize = Math.random() * 15 + 10 + "px";
+            heart.style.opacity = Math.random();
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        function balas() {
+            window.location.href = "https://wa.me/?text=Terimakasih+juga+sudah+ada+untukku+sayang+❤️";
+        }
+    </script>
+</body>
+</html>
