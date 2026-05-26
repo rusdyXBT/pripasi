@@ -1,379 +1,668 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+<title>aset negara 🔐</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body {
-    font-family: 'Lato', sans-serif;
-    background: #0a0a12;
-    color: #f0eaff;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-  }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+    font-family:'Nunito',sans-serif;
+}
 
-  canvas#stars {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 0;
-    pointer-events: none;
-  }
+body{
+    background:url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg') no-repeat center center fixed;
+    background-size:cover;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    color:white;
+    position:relative;
+    transition:1s ease;
+}
 
-  .container {
-    position: relative;
-    z-index: 10;
-    max-width: 540px;
-    width: 90%;
-    text-align: center;
-    padding: 2.5rem 2rem;
-  }
+/* blur tipis */
+body::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.12);
+    backdrop-filter:blur(2px);
+    z-index:1;
+}
 
-  .heart-wrap {
-    margin-bottom: 2rem;
-    animation: float 3s ease-in-out infinite;
-  }
+/* glow lembut */
+body::after{
+    content:"";
+    position:absolute;
+    width:420px;
+    height:420px;
+    border-radius:50%;
+    background:radial-gradient(circle,
+    rgba(255,77,109,.10),
+    transparent 70%);
+    filter:blur(20px);
+    z-index:1;
+}
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
+/* ================= OVERLAY ================= */
 
-  .heart-svg { width: 80px; height: 80px; }
+#overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.82);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:100;
+}
 
-  .phase { display: none; opacity: 0; transition: opacity 0.8s ease; }
-  .phase.active { display: block; opacity: 1; }
+/* SURAT BALIK NORMAL */
+.surat-avatar{
+    width:140px;
+    height:140px;
 
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    font-weight: 600;
-    color: #f7d6e0;
-    line-height: 1.3;
-    margin-bottom: 1rem;
-  }
+    margin-bottom:24px;
 
-  h1 em {
-    font-style: italic;
-    color: #ffc2d4;
-  }
+    border-radius:24px;
 
-  p {
-    font-size: 1rem;
-    font-weight: 300;
-    color: #c9b8d8;
-    line-height: 1.8;
-    margin-bottom: 1.2rem;
-  }
+    border:4px solid rgba(255,255,255,.88);
 
-  .name-input-wrap {
-    margin: 1.5rem 0;
-  }
+    background:url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/love-letter-send-love.gif') center/cover;
 
-  input[type="text"] {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,194,212,0.4);
-    border-radius: 50px;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-family: 'Lato', sans-serif;
-    color: #f0eaff;
-    width: 100%;
-    text-align: center;
-    outline: none;
-    transition: border-color 0.3s;
-  }
+    box-shadow:
+    0 0 20px rgba(255,255,255,.18),
+    0 0 35px rgba(255,77,109,.18);
 
-  input[type="text"]::placeholder { color: rgba(240,234,255,0.35); }
-  input[type="text"]:focus { border-color: rgba(255,194,212,0.9); }
+    animation:floaty 3s ease-in-out infinite;
+}
 
-  .btn {
-    display: inline-block;
-    margin-top: 1.2rem;
-    padding: 0.8rem 2.2rem;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    transition: transform 0.2s, background 0.3s;
-  }
+@keyframes floaty{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-8px);
+    }
+}
 
-  .btn-yes {
-    background: linear-gradient(135deg, #c9748a, #a0507a);
-    color: #fff;
-    margin-right: 0.5rem;
-  }
+#overlay button{
+    border:none;
+    color:white;
+    cursor:pointer;
 
-  .btn-no {
-    background: rgba(255,255,255,0.08);
-    color: #c9b8d8;
-    border: 1px solid rgba(255,255,255,0.2);
-  }
+    font-size:17px;
+    font-weight:900;
 
-  .btn:hover { transform: scale(1.05); }
-  .btn:active { transform: scale(0.98); }
+    padding:16px 30px;
 
-  .btn-start {
-    background: linear-gradient(135deg, #c9748a, #a0507a);
-    color: #fff;
-    font-size: 1rem;
-  }
+    border-radius:50px;
 
-  .quote {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 1.1rem;
-    color: #ffc2d4;
-    margin: 1.2rem 0;
-    line-height: 1.7;
-  }
+    background:linear-gradient(135deg,#ff4d6d,#ff758f);
 
-  .petals-wrap {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 5;
-  }
+    box-shadow:
+    0 10px 25px rgba(255,77,109,.35);
 
-  .petal {
-    position: absolute;
-    top: -20px;
-    font-size: 1.2rem;
-    animation: fall linear forwards;
-    opacity: 0.8;
-  }
+    transition:.2s;
+}
 
-  @keyframes fall {
-    0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
-    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-  }
+#overlay button:active{
+    transform:scale(.96);
+}
 
-  .progress-dots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 1.8rem;
-  }
+/* ================= CARD ================= */
 
-  .dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: rgba(255,194,212,0.25);
-    transition: background 0.4s;
-  }
-  .dot.active { background: #ffc2d4; }
+.card{
+    position:relative;
+    z-index:10;
 
-  .big-heart {
-    font-size: 5rem;
-    animation: pulse 1.5s ease-in-out infinite;
-  }
+    width:88%;
+    max-width:320px;
 
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.12); }
-  }
+    padding-top:58px;
 
-  .no-btn-wrap { display: inline-block; transition: transform 0.2s; }
+    display:none;
+
+    transform:translateY(-12px);
+}
+
+/* GIF BULAT */
+.avatar{
+    width:108px;
+    height:108px;
+
+    position:absolute;
+
+    top:0;
+    left:50%;
+
+    transform:translate(-50%,-45%);
+
+    border-radius:50%;
+
+    border:4px solid rgba(255,255,255,.92);
+
+    background:center/cover no-repeat;
+
+    box-shadow:
+    0 0 18px rgba(255,255,255,.18),
+    0 0 28px rgba(255,77,109,.16),
+    0 8px 18px rgba(0,0,0,.28);
+
+    z-index:20;
+
+    transition:.5s ease;
+}
+
+/* KOTAK KATA */
+.text-box{
+    position:relative;
+
+    background:url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg') center/cover;
+
+    border-radius:28px;
+
+    padding:74px 18px 24px;
+
+    overflow:hidden;
+
+    border:1.5px solid rgba(255,255,255,0.18);
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.28);
+}
+
+/* blur elegan */
+.text-box::before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:rgba(0,0,0,0.18);
+
+    backdrop-filter:blur(6px);
+
+    border-radius:28px;
+
+    z-index:0;
+}
+
+/* glow tipis */
+.text-box::after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+    linear-gradient(
+        180deg,
+        rgba(255,255,255,0.05),
+        transparent 40%
+    );
+
+    border-radius:28px;
+
+    pointer-events:none;
+}
+
+/* sparkle */
+.spark{
+    position:absolute;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:white;
+    opacity:.7;
+    animation:blink 2s linear infinite;
+    z-index:5;
+}
+
+.spark:nth-child(2){
+    top:18%;
+    left:10%;
+}
+
+.spark:nth-child(3){
+    top:18%;
+    right:12%;
+    animation-delay:1s;
+}
+
+.spark:nth-child(4){
+    bottom:18%;
+    left:14%;
+    animation-delay:2s;
+}
+
+.spark:nth-child(5){
+    bottom:12%;
+    right:18%;
+    animation-delay:1.5s;
+}
+
+@keyframes blink{
+    0%,100%{
+        opacity:.2;
+        transform:scale(.6);
+    }
+    50%{
+        opacity:.9;
+        transform:scale(1.3);
+    }
+}
+
+/* TEXT DIPERBAIKI */
+.text{
+    position:relative;
+    z-index:2;
+
+    font-size:19px;
+
+    line-height:1.6;
+
+    min-height:110px;
+
+    font-weight:900;
+
+    letter-spacing:.2px;
+
+    text-align:center;
+
+    text-shadow:
+    0 2px 8px rgba(0,0,0,.55);
+}
+
+/* TOMBOL */
+.btn-wrapper{
+    margin-top:14px;
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+
+    opacity:0;
+
+    transition:.4s;
+}
+
+button{
+    border:none;
+
+    cursor:pointer;
+
+    padding:13px 5px;
+
+    font-size:15px;
+
+    font-weight:900;
+
+    border-radius:18px;
+
+    transition:.2s;
+}
+
+button:active{
+    transform:scale(.95);
+}
+
+#yes{
+    background:linear-gradient(135deg,#ffffff,#ffe7ee);
+
+    color:#ff4d6d;
+
+    box-shadow:
+    0 6px 18px rgba(255,255,255,.18);
+}
+
+#no{
+    background:linear-gradient(135deg,#ff3c5f,#ff6b81);
+
+    color:white;
+
+    position:relative;
+
+    box-shadow:
+    0 6px 18px rgba(255,77,109,.25);
+}
+
+/* vibrate */
+.vibrate-mode{
+    animation:vibrate .15s linear infinite;
+}
+
+@keyframes vibrate{
+    0%{
+        transform:translateY(-12px);
+    }
+    25%{
+        transform:translate(-3px,3px) translateY(-12px);
+    }
+    50%{
+        transform:translate(3px,-3px) translateY(-12px);
+    }
+    100%{
+        transform:translateY(-12px);
+    }
+}
+
+/* hati */
+.heart{
+    position:fixed;
+    bottom:-50px;
+
+    font-size:22px;
+
+    color:rgba(255,77,109,.7);
+
+    pointer-events:none;
+
+    z-index:2;
+
+    animation:flyUp 4s linear forwards;
+}
+
+@keyframes flyUp{
+    0%{
+        transform:translateY(0) scale(1);
+        opacity:0;
+    }
+
+    15%{
+        opacity:1;
+    }
+
+    100%{
+        transform:translateY(-110vh) scale(1.8) rotate(45deg);
+        opacity:0;
+    }
+}
+
 </style>
 </head>
+
 <body>
 
-<canvas id="stars"></canvas>
-<div class="petals-wrap" id="petals"></div>
+<div id="overlay">
+    <div class="surat-avatar"></div>
+    <button onclick="mulai()">BUKA PESAN DARI RUSDY 💌</button>
+</div>
 
-<div class="container">
+<div class="card" id="mainCard">
 
-  <!-- Phase 0: input nama -->
-  <div class="phase active" id="phase-0">
-    <div class="heart-wrap">
-      <svg class="heart-svg" viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M50 85 C50 85 5 55 5 28 C5 14 15 5 28 5 C37 5 45 11 50 18 C55 11 63 5 72 5 C85 5 95 14 95 28 C95 55 50 85 50 85Z" fill="#c9748a" opacity="0.85"/>
-      </svg>
-    </div>
-    <h1>Hei, ada sesuatu yang<br><em>ingin aku katakan...</em></h1>
-    <p>Sebelum mulai, boleh aku tahu nama kamu?</p>
-    <div class="name-input-wrap">
-      <input type="text" id="name-input" placeholder="Nama kamu..." maxlength="30" />
-    </div>
-    <button class="btn btn-start" onclick="startJourney()">Mulai ✦</button>
-  </div>
+    <!-- gif bulat -->
+    <div class="avatar" id="catGif"></div>
 
-  <!-- Phase 1 -->
-  <div class="phase" id="phase-1">
-    <div class="progress-dots">
-      <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
-    </div>
-    <div class="heart-wrap">
-      <svg class="heart-svg" viewBox="0 0 100 90" fill="none">
-        <path d="M50 85 C50 85 5 55 5 28 C5 14 15 5 28 5 C37 5 45 11 50 18 C55 11 63 5 72 5 C85 5 95 14 95 28 C95 55 50 85 50 85Z" fill="#c9748a" opacity="0.85"/>
-      </svg>
-    </div>
-    <h1 id="h1-p1">Hai, <em id="name-display"></em>...</h1>
-    <p>Ada perasaan yang sudah lama aku simpan.<br>Setiap hari aku mencoba mengabaikannya,<br>tapi tidak bisa.</p>
-    <p>Aku ingin jujur, meskipun hati ini sedikit gemetar.</p>
-    <button class="btn btn-start" onclick="goPhase(2)">Lanjutkan →</button>
-  </div>
+    <!-- sparkle -->
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
 
-  <!-- Phase 2 -->
-  <div class="phase" id="phase-2">
-    <div class="progress-dots">
-      <div class="dot active"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div>
+    <!-- box text -->
+    <div class="text-box">
+        <div class="text" id="text"></div>
     </div>
-    <p class="quote">"Sejak pertama kali aku mengenalmu,<br>ada sesuatu yang berbeda dari yang lain."</p>
-    <p>Caramu bicara, caramu tertawa,<br>bahkan diam-diammu pun membuatku<br>ingin terus ada di dekatmu.</p>
-    <p>Kamu bukan sekadar seseorang yang datang dan pergi.<br>Kamu <em style="color:#ffc2d4">membekas</em>.</p>
-    <button class="btn btn-start" onclick="goPhase(3)">Lanjutkan →</button>
-  </div>
 
-  <!-- Phase 3: pertanyaan -->
-  <div class="phase" id="phase-3">
-    <div class="progress-dots">
-      <div class="dot active"></div><div class="dot active"></div><div class="dot active"></div><div class="dot"></div>
+    <!-- tombol -->
+    <div class="btn-wrapper" id="btnGroup">
+        <button id="yes">Iya dimaapin😇</button>
+        <button id="no">Emooh😏!</button>
     </div>
-    <h1>Jadi, <em id="name-display-3"></em>...</h1>
-    <p>Maukah kamu memberiku kesempatan<br>untuk menjadi orang yang selalu ada untukmu?</p>
-    <p class="quote">"Mau jadi <em>pacarku</em>?"</p>
-    <div>
-      <button class="btn btn-yes" onclick="sayYes()">💗 Mau banget</button>
-      <span class="no-btn-wrap" id="no-wrap">
-        <button class="btn btn-no" id="no-btn" onmouseover="runAway()" onclick="runAway()">Tidak...</button>
-      </span>
-    </div>
-  </div>
-
-  <!-- Phase 4: yes! -->
-  <div class="phase" id="phase-4">
-    <div class="progress-dots">
-      <div class="dot active"></div><div class="dot active"></div><div class="dot active"></div><div class="dot active"></div>
-    </div>
-    <div class="big-heart">💗</div>
-    <h1 style="margin-top:1.2rem">Terima kasih, <em id="name-display-4"></em>!</h1>
-    <p>Aku janji akan menjadi seseorang<br>yang layak untuk kamu pilih setiap harinya.</p>
-    <p class="quote">"Kamu yang pertama, dan semoga<br>kamu yang terakhir."</p>
-    <p style="color:#ffc2d4; font-size:0.9rem">— dengan sepenuh hati 🌸</p>
-  </div>
 
 </div>
 
 <script>
-const canvas = document.getElementById('stars');
-const ctx = canvas.getContext('2d');
-let stars = [];
 
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
+const tracks = [
+"https://raw.githubusercontent.com/rusdyXBT/pripasi/main/play/ciio.mp3",
+"https://raw.githubusercontent.com/rusdyXBT/pripasi/main/play/mas.mp3"
+];
 
-function initStars() {
-  stars = [];
-  for (let i = 0; i < 130; i++) {
-    stars.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 1.2 + 0.2,
-      a: Math.random(),
-      speed: Math.random() * 0.005 + 0.002
+let currentTrack = 0;
+
+const music = new Audio(tracks[currentTrack]);
+
+music.onended = function(){
+
+    currentTrack = (currentTrack + 1) % tracks.length;
+
+    music.src = tracks[currentTrack];
+
+    music.play();
+};
+
+const textEl = document.getElementById("text");
+const btnGroup = document.getElementById("btnGroup");
+const catGifEl = document.getElementById("catGif");
+const noBtn = document.getElementById("no");
+const mainCard = document.getElementById("mainCard");
+
+const normalGifs = [
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-bubu-dudu.gif",
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-dance.gif",
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/bubu-dancing-dance.gif",
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/cat.gif",
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/happy-dance.gif"
+];
+
+const finalDanceGifs = [
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/haleys-ouo.gif",
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/stella-hsr-cute-dance-stella-hsr.gif",
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/tanzen-hase-hyper-hase-sehr-gut.gif",
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/vision-sloth.gif",
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/senang/happy-dance.gif"
+];
+
+const backgroundList = [
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg",
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/desktop-wallpaper-pin-oleh-w-yaya-di-peach-et-goma-%E2%9D%A4-seni-kucing-ilustrasi-hewan-seni-thumbnail.jpg",
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187a4696.jpeg",
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187b55ee.jpeg"
+];
+
+const texts = [
+"MINAL AIDIN WALPAIDIN MON MAAP LAHIR BATIN 🙏",
+"MAAPKAN RUSDY KALAW ADA SALAH 🤗",
+"MEMANG RUSDY SUKA MEMAKI DAN MEMBULI 🤡",
+"TETAPI NTU SEMUWA MEMANG HOBY 🗿",
+"INTINYAH MAAPKAN RUSDY JIR LAH SLEBEW... 🤤",
+"BEDOSA JIKA TIDAK DI MAAPKAN 🤗",
+"MOHON MAAP SEKALI LAGI, JIKA LAHIRMU DITAKDIRKAN UNTUKU, MAKA BATINKU SIAP SELAMANYA MENJADI MILIKMU. Aww...Aww...slebew. 🤤",
+];
+
+const angryTexts = [
+"PARAH ANY!!! 💢",
+"KOG MASI PENCET ITU ANY! 😤",
+"AH MALAS MENANGGAPI! 😫",
+"KLIK IYAH AJA KENAPA SIH ANY? 👊",
+"APA SUSAHNYA KLIK MAAPKAN ANY ! 🥺",
+"DOSA WEI LEBARAN INI😡"
+];
+
+const angryGifs = [
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-rTRYbFx38K.gif",
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-YNbTiWGdcr.gif",
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-xKnUJBPzZf.gif",
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/mala/fetchpik.com-QCaiGlMeJg.gif",
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/angry-angry-emoji.gif",
+"https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/anime-aaaa.gif"
+];
+
+let step = 0;
+let angryIdx = 0;
+let isTyping = false;
+
+function mulai(){
+
+    document.getElementById("overlay").style.display = "none";
+
+    mainCard.style.display = "block";
+
+    music.play().catch(() => {});
+
+    catGifEl.style.backgroundImage = `url('${normalGifs[0]}')`;
+
+    typeWriter(texts[0], textEl, () => {
+
+        btnGroup.style.opacity = "1";
+
     });
-  }
 }
 
-function drawStars() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  stars.forEach(s => {
-    s.a += s.speed;
-    const alpha = 0.3 + 0.5 * Math.abs(Math.sin(s.a));
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255, 220, 240, ${alpha})`;
-    ctx.fill();
-  });
-  requestAnimationFrame(drawStars);
+function typeWriter(text, element, callback){
+
+    if(isTyping) return;
+
+    isTyping = true;
+
+    let i = 0;
+
+    element.textContent = "";
+
+    btnGroup.style.opacity = "0";
+
+    function type(){
+
+        if(i < text.length){
+
+            element.textContent += text.charAt(i);
+
+            i++;
+
+            setTimeout(type, 70);
+
+        }else{
+
+            isTyping = false;
+
+            if(callback) setTimeout(callback, 300);
+        }
+    }
+
+    type();
 }
 
-resizeCanvas();
-initStars();
-drawStars();
-window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
+function createHeart(){
 
-let userName = '';
-let noCount = 0;
+    const h = document.createElement("div");
 
-function startJourney() {
-  const inp = document.getElementById('name-input').value.trim();
-  userName = inp || 'Kamu';
-  document.getElementById('name-display').textContent = userName;
-  goPhase(1);
+    h.innerHTML = "❤️";
+
+    h.className = "heart";
+
+    h.style.left = Math.random() * 100 + "vw";
+
+    h.style.animationDuration =
+    Math.random() * 2 + 3 + "s";
+
+    document.body.appendChild(h);
+
+    setTimeout(() => h.remove(), 4500);
 }
 
-function goPhase(n) {
-  document.querySelectorAll('.phase').forEach(p => {
-    p.classList.remove('active');
-    p.style.display = 'none';
-  });
-  const el = document.getElementById('phase-' + n);
-  el.style.display = 'block';
-  setTimeout(() => el.classList.add('active'), 10);
-  if (n === 3) document.getElementById('name-display-3').textContent = userName;
-  if (n === 4) {
-    document.getElementById('name-display-4').textContent = userName;
-    spawnPetals();
-  }
-}
+document.getElementById("yes").onclick = () => {
 
-function sayYes() {
-  goPhase(4);
-  spawnPetals();
-  spawnPetals();
-}
+    if(isTyping) return;
 
-function runAway() {
-  noCount++;
-  const wrap = document.getElementById('no-wrap');
-  const maxX = window.innerWidth * 0.35;
-  const maxY = 80;
-  const rx = (Math.random() - 0.5) * maxX;
-  const ry = (Math.random() - 0.5) * maxY;
-  wrap.style.transform = `translate(${rx}px, ${ry}px)`;
-  if (noCount >= 5) {
-    document.getElementById('no-btn').textContent = 'Tidak bisa 😅';
-    document.getElementById('no-btn').disabled = true;
-  }
-}
+    mainCard.classList.remove("vibrate-mode");
 
-function spawnPetals() {
-  const container = document.getElementById('petals');
-  const emojis = ['🌸', '💗', '✨', '🌺', '💕', '⭐', '🌷'];
-  for (let i = 0; i < 18; i++) {
-    setTimeout(() => {
-      const p = document.createElement('div');
-      p.className = 'petal';
-      p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-      p.style.left = Math.random() * 100 + 'vw';
-      p.style.animationDuration = (2.5 + Math.random() * 3) + 's';
-      p.style.animationDelay = (Math.random() * 1.5) + 's';
-      p.style.fontSize = (1 + Math.random() * 1) + 'rem';
-      container.appendChild(p);
-      setTimeout(() => p.remove(), 6000);
-    }, i * 100);
-  }
-}
+    noBtn.style.position = "relative";
+    noBtn.style.left = "0";
+    noBtn.style.top = "0";
 
-document.getElementById('name-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') startJourney();
-});
+    step++;
+
+    for(let i=0;i<10;i++){
+
+        setTimeout(createHeart, i * 150);
+    }
+
+    if(step < texts.length){
+
+        document.body.style.backgroundImage =
+        `url('${backgroundList[step % backgroundList.length]}')`;
+
+        document.querySelector(".text-box").style.backgroundImage =
+        `url('${backgroundList[step % backgroundList.length]}')`;
+
+        catGifEl.style.backgroundImage =
+        `url('${normalGifs[step % normalGifs.length]}')`;
+
+        typeWriter(texts[step], textEl, () => {
+
+            btnGroup.style.opacity = "1";
+
+        });
+
+    }else{
+
+        btnGroup.style.display = "none";
+
+        textEl.textContent =
+        "MAKASIH YA SUDAH DIMAAPKAN! 🥰🙏";
+
+        setInterval(createHeart, 250);
+
+        let fIdx = 0;
+
+        setInterval(() => {
+
+            catGifEl.style.backgroundImage =
+            `url('${finalDanceGifs[fIdx % finalDanceGifs.length]}')`;
+
+            fIdx++;
+
+        }, 4000);
+    }
+};
+
+noBtn.onclick = () => {
+
+    if(navigator.vibrate){
+
+        navigator.vibrate([150,50,150]);
+    }
+
+    mainCard.classList.add("vibrate-mode");
+
+    catGifEl.style.backgroundImage =
+    `url('${angryGifs[angryIdx % angryGifs.length]}')`;
+
+    textEl.textContent =
+    angryTexts[angryIdx % angryTexts.length];
+
+    angryIdx++;
+
+    noBtn.style.position = "absolute";
+
+    const maxX =
+    mainCard.clientWidth - noBtn.clientWidth - 20;
+
+    const maxY =
+    mainCard.clientHeight - noBtn.clientHeight - 20;
+
+    noBtn.style.left =
+    Math.random() * maxX + "px";
+
+    noBtn.style.top =
+    Math.random() * maxY + "px";
+};
+
 </script>
+
 </body>
 </html>
