@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset='UTF-8'/>
+    <meta content='width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=5' name='viewport'/>
+    <title>Untuk Kamu, Semangatku ❤️</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --ukuran-teks: 1.1rem;
+            --warna-aksen: #ffb3c1; 
+            --gaya-font: 'Nunito Sans', sans-serif;
+            --gaya-font-judul: 'Dancing Script', cursive;
+        }
+        
+        body { 
+            background-color: #000; 
+            font-family: var(--gaya-font); 
+            margin: 0; 
+            color: white;
+            overflow: hidden;
+        }
+
+        #bodyblur { 
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+            z-index: -1; 
+        }
+        #bodyblur img { 
+            width: 100%; height: 100%; object-fit: cover; opacity: 0.6; 
+            filter: brightness(0.5) blur(2px);
+        }
+
+        #Content { 
+            display: flex; flex-direction: column; align-items: center; 
+            justify-content: center; min-height: 100vh; padding: 20px;
+        }
+
+        .glass {
+            background: rgba(0, 0, 0, 0.4); 
+            backdrop-filter: blur(10px);
+            border-radius: 30px; 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 35px 25px; 
+            text-align: center; 
+            width: 90%; 
+            max-width: 450px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        .lovein { font-size: 60px; color: #ff4d6d; cursor: pointer; transition: 0.3s; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+        #loading-container { display: none; margin: 20px 0; }
+        .progress-box { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; margin-top: 15px; }
+        .progress-bar { width: 100%; height: 100%; background: #ff4d6d; animation: shrink 7s linear forwards; }
+        @keyframes shrink { from { width: 100%; } to { width: 0%; } }
+
+        #game-container { display: none; }
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
+        .card { height: 60px; perspective: 1000px; cursor: pointer; }
+        .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .card.flipped .card-inner { transform: rotateY(180deg); }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-size: 24px; }
+        .card-front { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); }
+        .card-back { background: #ff4d6d; transform: rotateY(180deg); }
+
+        #bq { display: none; margin-top: 20px; min-height: 120px; }
+        #kalimat { font-size: var(--ukuran-teks); font-weight: 700; line-height: 1.6; }
+
+        #Tombol { display: none; margin-top: 25px; }
+        #By { background: #ff4d6d; color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: 0.3s; display: inline-block; }
+
+        /* Footer Watermark Style */
+        .footer {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 1px;
+        }
+
+        .fa-heart-falling { color: #ff4d6d; position: fixed; top: -20px; animation: fall linear forwards; pointer-events: none; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <audio src="https://ik.imagekit.io/srfdvvkga/A%20Thousand%20Years.mp3" id="linkmp3"></audio>
+    <div id="bodyblur"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSatPUiEFZbMl0REK6RDyqB2R4qXn5grFtZ6vVEV4eJJBzyK1wSJ8V8yhE&s=10" id="wallpaper"/></div>
+
+    <div id="Content">
+        <div class="glass">
+            <div id="loveIn" onclick="mulai()">
+                <i class="fa-solid fa-heart lovein"></i>
+                <p style="margin-top: 20px; font-weight: bold;">Klik hati ini untukmu...</p>
+            </div>
+
+            <div id="loading-container">
+                <p style="font-style: italic;">Sabar ya, lagi kirim pelukan...</p>
+                <div class="progress-box"><div class="progress-bar"></div></div>
+            </div>
+
+            <div id="game-container">
+                <p style="font-weight: bold;">Cari pasangan emoji dulu ya!</p>
+                <div class="grid" id="grid"></div>
+            </div>
+
+            <div id="bq">
+                <p id="kalimat"></p>
+                <div id="Tombol">
+                    <a href="#" id="By" onclick="balas()">💌 Balas Pesan</a>
+                </div>
+            </div>
+
+            <div class="footer">
+                dibuat dengan 🤍 oleh Farel Alfareza
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('linkmp3');
+        const kalimatElement = document.getElementById('kalimat');
+        
+        const kumpulanPesan = [
+            "Hai sayang...",
+            "Aku tau belakangan ini duniamu terasa berat.",
+            "Banyak hal yang menguras pikiran dan tenagamu.",
+            "Tapi tolong ingat ini baik-baik...",
+            "Kamu sudah melakukan yang terbaik, sungguh.",
+            "Gak apa-apa kalau mau istirahat sebentar.",
+            "Gak harus selalu terlihat kuat di depanku.",
+            "Nangis aja kalau itu buat kamu tenang.",
+            "Aku akan selalu ada di sini buat dengerin kamu.",
+            "Masalahmu adalah masalahku juga.",
+            "Kita hadapi ini pelan-pelan, satu per satu.",
+            "Jangan pernah merasa sendirian ya?",
+            "Aku bangga banget punya kamu.",
+            "Kamu itu kuat, hebat, dan berharga.",
+            "I love you more than you know. ❤️"
+        ];
+
+        function mulai() {
+            audio.play();
+            document.getElementById('loveIn').style.display = "none";
+            document.getElementById('loading-container').style.display = "block";
+
+            setTimeout(() => {
+                document.getElementById('loading-container').style.display = "none";
+                initGame();
+            }, 7000);
+        }
+
+        const emojis = ['🫂', '✨', '🤍', '🌙', '⭐', '🌸', '🫂', '✨', '🤍', '🌙', '⭐', '🌸'];
+        let flippedCards = [];
+        let matchedCount = 0;
+
+        function initGame() {
+            document.getElementById('game-container').style.display = "block";
+            const grid = document.getElementById('grid');
+            const shuffled = emojis.sort(() => Math.random() - 0.5);
+
+            shuffled.forEach((emoji) => {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                card.dataset.emoji = emoji;
+                card.innerHTML = `<div class="card-inner"><div class="card-front">?</div><div class="card-back">${emoji}</div></div>`;
+                card.addEventListener('click', flipCard);
+                grid.appendChild(card);
+            });
+        }
+
+        function flipCard() {
+            if (flippedCards.length < 2 && !this.classList.contains('flipped')) {
+                this.classList.add('flipped');
+                flippedCards.push(this);
+                if (flippedCards.length === 2) setTimeout(checkMatch, 700);
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            if (card1.dataset.emoji === card2.dataset.emoji) {
+                matchedCount += 2;
+                if (matchedCount === emojis.length) {
+                    setTimeout(() => {
+                        document.getElementById('game-container').style.display = "none";
+                        document.getElementById('bq').style.display = "block";
+                        mulaiAnimasiTeks();
+                    }, 500);
+                }
+            } else {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+            }
+            flippedCards = [];
+        }
+
+        function mulaiAnimasiTeks() {
+            let instance = new TypeIt("#kalimat", {
+                speed: 60,
+                deleteSpeed: 40,
+                waitUntilVisible: true,
+                cursor: true,
+            });
+
+            kumpulanPesan.forEach((text, index) => {
+                instance.type(text).pause(1500);
+                if (index < kumpulanPesan.length - 1) {
+                    instance.delete();
+                }
+            });
+
+            instance.exec(() => {
+                document.getElementById('Tombol').style.display = "block";
+                setInterval(createHeart, 400);
+            }).go();
+        }
+
+        function createHeart() {
+            const heart = document.createElement("i");
+            heart.className = "fa-solid fa-heart fa-heart-falling";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        function balas() {
+            window.location.href = "https://wa.me/?text=Makasih+ya+Farel+udah+selalu+ada+buat+aku...+Sayang+kamu+banget+❤️";
+        }
+    </script>
+</body>
+</html>
