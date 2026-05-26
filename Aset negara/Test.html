@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
 <title>aset negara 🔐</title>
@@ -24,14 +24,34 @@
 body{
     background:url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg') no-repeat center center fixed;
     background-size:cover;
+
     height:100vh;
+
     display:flex;
     justify-content:center;
     align-items:center;
+
     overflow:hidden;
+
     color:white;
+
     position:relative;
-    transition:1s ease;
+
+    transition:
+    background-image 1.8s ease,
+    background-color 1.8s ease;
+
+    animation:bgZoom 18s ease-in-out infinite alternate;
+}
+
+/* auto zoom background */
+@keyframes bgZoom{
+    0%{
+        background-size:100%;
+    }
+    100%{
+        background-size:110%;
+    }
 }
 
 /* blur tipis */
@@ -39,23 +59,42 @@ body::before{
     content:"";
     position:absolute;
     inset:0;
+
     background:rgba(0,0,0,0.12);
+
     backdrop-filter:blur(2px);
+
     z-index:1;
 }
 
-/* glow lembut */
+/* glow background */
 body::after{
     content:"";
     position:absolute;
-    width:420px;
-    height:420px;
+
+    width:480px;
+    height:480px;
+
     border-radius:50%;
+
     background:radial-gradient(circle,
-    rgba(255,77,109,.10),
+    rgba(255,77,109,.16),
     transparent 70%);
-    filter:blur(20px);
+
+    filter:blur(28px);
+
     z-index:1;
+
+    animation:glowMove 8s ease-in-out infinite alternate;
+}
+
+@keyframes glowMove{
+    0%{
+        transform:translate(-30px,-20px);
+    }
+    100%{
+        transform:translate(30px,20px);
+    }
 }
 
 /* ================= OVERLAY ================= */
@@ -63,15 +102,18 @@ body::after{
 #overlay{
     position:fixed;
     inset:0;
+
     background:rgba(0,0,0,0.82);
+
     display:flex;
     justify-content:center;
     align-items:center;
     flex-direction:column;
+
     z-index:100;
 }
 
-/* SURAT */
+/* surat */
 .surat-avatar{
     width:140px;
     height:140px;
@@ -103,6 +145,7 @@ body::after{
 #overlay button{
     border:none;
     color:white;
+
     cursor:pointer;
 
     font-size:17px;
@@ -117,7 +160,7 @@ body::after{
     box-shadow:
     0 10px 25px rgba(255,77,109,.35);
 
-    transition:.2s;
+    transition:.25s;
 }
 
 #overlay button:active{
@@ -140,7 +183,7 @@ body::after{
     transform:translateY(-10px);
 }
 
-/* GIF BULAT DIPERBESAR */
+/* gif */
 .avatar{
     width:128px;
     height:128px;
@@ -168,7 +211,7 @@ body::after{
     transition:.5s ease;
 }
 
-/* KOTAK KATA */
+/* kotak */
 .text-box{
     position:relative;
 
@@ -186,7 +229,7 @@ body::after{
     0 10px 30px rgba(0,0,0,.28);
 }
 
-/* blur elegan */
+/* blur */
 .text-box::before{
     content:"";
     position:absolute;
@@ -201,71 +244,42 @@ body::after{
     z-index:0;
 }
 
-/* glow tipis */
+/* glass reflection */
 .text-box::after{
     content:"";
-    position:absolute;
-    inset:0;
 
-    background:
-    linear-gradient(
-        180deg,
-        rgba(255,255,255,0.05),
-        transparent 40%
+    position:absolute;
+
+    top:-120%;
+    left:-60%;
+
+    width:70%;
+    height:250%;
+
+    background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.16),
+    transparent
     );
 
-    border-radius:30px;
+    transform:rotate(25deg);
 
-    pointer-events:none;
+    animation:glassMove 7s linear infinite;
+
+    z-index:1;
 }
 
-/* sparkle */
-.spark{
-    position:absolute;
-    width:5px;
-    height:5px;
-    border-radius:50%;
-    background:white;
-    opacity:.7;
-    animation:blink 2s linear infinite;
-    z-index:5;
-}
-
-.spark:nth-child(2){
-    top:18%;
-    left:10%;
-}
-
-.spark:nth-child(3){
-    top:18%;
-    right:12%;
-    animation-delay:1s;
-}
-
-.spark:nth-child(4){
-    bottom:18%;
-    left:14%;
-    animation-delay:2s;
-}
-
-.spark:nth-child(5){
-    bottom:12%;
-    right:18%;
-    animation-delay:1.5s;
-}
-
-@keyframes blink{
-    0%,100%{
-        opacity:.2;
-        transform:scale(.6);
+@keyframes glassMove{
+    0%{
+        left:-80%;
     }
-    50%{
-        opacity:.9;
-        transform:scale(1.3);
+    100%{
+        left:160%;
     }
 }
 
-/* TEXT */
+/* text */
 .text{
     position:relative;
     z-index:2;
@@ -286,12 +300,31 @@ body::after{
     0 2px 8px rgba(0,0,0,.55);
 }
 
-/* TOMBOL */
+/* typing cursor */
+.typing::after{
+    content:"|";
+
+    animation:blinkCursor .7s infinite;
+
+    margin-left:2px;
+}
+
+@keyframes blinkCursor{
+    0%,50%{
+        opacity:1;
+    }
+    51%,100%{
+        opacity:0;
+    }
+}
+
+/* tombol */
 .btn-wrapper{
     margin-top:14px;
 
     display:grid;
     grid-template-columns:1fr 1fr;
+
     gap:12px;
 
     opacity:0;
@@ -359,34 +392,40 @@ button:active{
     }
 }
 
-/* hati */
-.heart{
+/* bunga jatuh */
+.flower{
     position:fixed;
-    bottom:-50px;
 
-    font-size:22px;
+    top:-20px;
 
-    color:rgba(255,77,109,.7);
+    font-size:20px;
 
     pointer-events:none;
 
     z-index:2;
 
-    animation:flyUp 4s linear forwards;
+    animation:flowerFall linear forwards;
 }
 
-@keyframes flyUp{
+@keyframes flowerFall{
     0%{
-        transform:translateY(0) scale(1);
+        transform:
+        translateY(0)
+        rotate(0deg);
+
         opacity:0;
     }
 
-    15%{
+    10%{
         opacity:1;
     }
 
     100%{
-        transform:translateY(-110vh) scale(1.8) rotate(45deg);
+        transform:
+        translateY(110vh)
+        translateX(50px)
+        rotate(360deg);
+
         opacity:0;
     }
 }
@@ -405,13 +444,8 @@ button:active{
 
     <div class="avatar" id="catGif"></div>
 
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-
     <div class="text-box">
-        <div class="text" id="text"></div>
+        <div class="text typing" id="text"></div>
     </div>
 
     <div class="btn-wrapper" id="btnGroup">
@@ -470,6 +504,13 @@ const backgroundList = [
 "https://raw.githubusercontent.com/rusdyXBT/Gifx/main/images_19d187b55ee.jpeg"
 ];
 
+const glowColors = [
+"rgba(255,77,109,.16)",
+"rgba(255,180,120,.16)",
+"rgba(120,180,255,.16)",
+"rgba(180,120,255,.16)"
+];
+
 const texts = [
 "MINAL AIDIN WALPAIDIN MON MAAP LAHIR BATIN 🙏",
 "MAAPKAN RUSDY KALAW ADA SALAH 🤗",
@@ -502,6 +543,36 @@ let step = 0;
 let angryIdx = 0;
 let isTyping = false;
 
+/* bunga jatuh */
+function createFlower(){
+
+    const flower = document.createElement("div");
+
+    flower.className = "flower";
+
+    const flowers = ["🌸","🌺","💮","🌷","✨"];
+
+    flower.innerHTML =
+    flowers[Math.floor(Math.random()*flowers.length)];
+
+    flower.style.left =
+    Math.random() * 100 + "vw";
+
+    flower.style.animationDuration =
+    (Math.random()*4 + 5) + "s";
+
+    flower.style.fontSize =
+    (Math.random()*12 + 16) + "px";
+
+    document.body.appendChild(flower);
+
+    setTimeout(()=>{
+        flower.remove();
+    },9000);
+}
+
+setInterval(createFlower,700);
+
 function mulai(){
 
     document.getElementById("overlay").style.display = "none";
@@ -510,7 +581,8 @@ function mulai(){
 
     music.play().catch(() => {});
 
-    catGifEl.style.backgroundImage = `url('${normalGifs[0]}')`;
+    catGifEl.style.backgroundImage =
+    `url('${normalGifs[0]}')`;
 
     typeWriter(texts[0], textEl, () => {
 
@@ -524,6 +596,8 @@ function typeWriter(text, element, callback){
     if(isTyping) return;
 
     isTyping = true;
+
+    element.classList.add("typing");
 
     let i = 0;
 
@@ -545,29 +619,13 @@ function typeWriter(text, element, callback){
 
             isTyping = false;
 
-            if(callback) setTimeout(callback, 300);
+            element.classList.remove("typing");
+
+            if(callback) setTimeout(callback,300);
         }
     }
 
     type();
-}
-
-function createHeart(){
-
-    const h = document.createElement("div");
-
-    h.innerHTML = "❤️";
-
-    h.className = "heart";
-
-    h.style.left = Math.random() * 100 + "vw";
-
-    h.style.animationDuration =
-    Math.random() * 2 + 3 + "s";
-
-    document.body.appendChild(h);
-
-    setTimeout(() => h.remove(), 4500);
 }
 
 document.getElementById("yes").onclick = () => {
@@ -582,11 +640,6 @@ document.getElementById("yes").onclick = () => {
 
     step++;
 
-    for(let i=0;i<10;i++){
-
-        setTimeout(createHeart, i * 150);
-    }
-
     if(step < texts.length){
 
         document.body.style.backgroundImage =
@@ -594,6 +647,11 @@ document.getElementById("yes").onclick = () => {
 
         document.querySelector(".text-box").style.backgroundImage =
         `url('${backgroundList[step % backgroundList.length]}')`;
+
+        document.body.style.setProperty(
+        "--glowColor",
+        glowColors[step % glowColors.length]
+        );
 
         catGifEl.style.backgroundImage =
         `url('${normalGifs[step % normalGifs.length]}')`;
@@ -611,8 +669,6 @@ document.getElementById("yes").onclick = () => {
         textEl.textContent =
         "MAKASIH YA SUDAH DIMAAPKAN! 🥰🙏";
 
-        setInterval(createHeart, 250);
-
         let fIdx = 0;
 
         setInterval(() => {
@@ -622,7 +678,7 @@ document.getElementById("yes").onclick = () => {
 
             fIdx++;
 
-        }, 4000);
+        },4000);
     }
 };
 
