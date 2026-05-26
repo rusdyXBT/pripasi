@@ -34,7 +34,7 @@ body{
     transition:1s ease;
 }
 
-/* blur tipis */
+/* blur tipis background */
 body::before{
     content:"";
     position:absolute;
@@ -44,7 +44,7 @@ body::before{
     z-index:1;
 }
 
-/* glow halus */
+/* glow lembut */
 body::after{
     content:"";
     position:absolute;
@@ -70,16 +70,23 @@ body::after{
     z-index:100;
 }
 
-#overlay .avatar{
-    width:135px;
-    height:135px;
-    border-radius:28px;
-    border:4px solid rgba(255,255,255,.8);
-    margin-bottom:25px;
+/* surat */
+.surat-avatar{
+    width:140px;
+    height:140px;
+
+    margin-bottom:22px;
+
+    border-radius:22px;
+
+    border:4px solid rgba(255,255,255,.88);
+
     background:url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/Niw/love-letter-send-love.gif') center/cover;
+
     box-shadow:
-    0 0 25px rgba(255,255,255,.25),
-    0 0 40px rgba(255,77,109,.25);
+    0 0 20px rgba(255,255,255,.20),
+    0 0 35px rgba(255,77,109,.18);
+
     animation:floaty 3s ease-in-out infinite;
 }
 
@@ -101,7 +108,10 @@ body::after{
     padding:16px 30px;
     border-radius:50px;
     background:linear-gradient(135deg,#ff4d6d,#ff758f);
-    box-shadow:0 10px 25px rgba(255,77,109,.35);
+
+    box-shadow:
+    0 10px 25px rgba(255,77,109,.35);
+
     transition:.2s;
 }
 
@@ -109,7 +119,7 @@ body::after{
     transform:scale(.96);
 }
 
-/* CARD */
+/* card utama */
 .card{
     position:relative;
     z-index:10;
@@ -117,28 +127,61 @@ body::after{
     width:88%;
     max-width:315px;
 
-    padding:72px 16px 22px;
-
-    border-radius:30px;
-
-    overflow:visible;
-
-    text-align:center;
-
-    border:1.5px solid rgba(255,255,255,0.20);
+    padding-top:58px;
 
     display:none;
 
-    background:url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg') center/cover;
+    transform:translateY(-12px);
+}
+
+/* gif bulat */
+.avatar{
+    width:108px;
+    height:108px;
+
+    position:absolute;
+
+    top:0;
+    left:50%;
+
+    transform:translate(-50%,-45%);
+
+    border-radius:50%;
+
+    border:4px solid rgba(255,255,255,.92);
+
+    background:center/cover no-repeat;
 
     box-shadow:
-    0 10px 30px rgba(0,0,0,.32);
+    0 0 18px rgba(255,255,255,.18),
+    0 0 28px rgba(255,77,109,.16),
+    0 8px 18px rgba(0,0,0,.28);
 
-    transform:translateY(-18px);
+    z-index:20;
+
+    transition:.5s ease;
+}
+
+/* kotak text */
+.text-box{
+    position:relative;
+
+    background:url('https://raw.githubusercontent.com/rusdyXBT/Gifx/main/2a82ced80deb5273d117f7fe168045b7.jpg') center/cover;
+
+    border-radius:28px;
+
+    padding:72px 16px 22px;
+
+    overflow:hidden;
+
+    border:1.5px solid rgba(255,255,255,0.20);
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.28);
 }
 
 /* blur elegan */
-.card::before{
+.text-box::before{
     content:"";
     position:absolute;
     inset:0;
@@ -150,19 +193,18 @@ body::after{
         rgba(255,255,255,0.02)
     );
 
-    backdrop-filter:blur(6px);
+    backdrop-filter:blur(7px);
 
-    border-radius:30px;
+    border-radius:28px;
 
-    z-index:-1;
+    z-index:0;
 }
 
 /* glow tipis */
-.card::after{
+.text-box::after{
     content:"";
     position:absolute;
     inset:0;
-    border-radius:30px;
 
     background:
     linear-gradient(
@@ -170,6 +212,8 @@ body::after{
         rgba(255,255,255,0.06),
         transparent 40%
     );
+
+    border-radius:28px;
 
     pointer-events:none;
 }
@@ -183,26 +227,27 @@ body::after{
     background:white;
     opacity:.7;
     animation:blink 2s linear infinite;
-}
-
-.spark:nth-child(1){
-    top:14%;
-    left:10%;
+    z-index:5;
 }
 
 .spark:nth-child(2){
+    top:18%;
+    left:10%;
+}
+
+.spark:nth-child(3){
     top:18%;
     right:12%;
     animation-delay:1s;
 }
 
-.spark:nth-child(3){
+.spark:nth-child(4){
     bottom:18%;
     left:14%;
     animation-delay:2s;
 }
 
-.spark:nth-child(4){
+.spark:nth-child(5){
     bottom:12%;
     right:18%;
     animation-delay:1.5s;
@@ -219,58 +264,15 @@ body::after{
     }
 }
 
-.vibrate-mode{
-    animation:vibrate .15s linear infinite;
-}
-
-@keyframes vibrate{
-    0%{
-        transform:translateY(-18px);
-    }
-    25%{
-        transform:translate(-3px,3px) translateY(-18px);
-    }
-    50%{
-        transform:translate(3px,-3px) translateY(-18px);
-    }
-    100%{
-        transform:translateY(-18px);
-    }
-}
-
-/* GIF DI LUAR CARD */
-.avatar{
-    width:112px;
-    height:112px;
-
-    position:absolute;
-
-    top:-55px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    border-radius:26px;
-
-    border:3px solid rgba(255,255,255,.88);
-
-    background:center/cover no-repeat;
-
-    box-shadow:
-    0 0 18px rgba(255,255,255,.18),
-    0 0 28px rgba(255,77,109,.16),
-    0 8px 18px rgba(0,0,0,.28);
-
-    transition:.5s ease;
-}
-
+/* text */
 .text{
+    position:relative;
+    z-index:2;
+
     font-size:18px;
     line-height:1.55;
 
     min-height:95px;
-
-    margin-bottom:22px;
 
     font-weight:900;
 
@@ -280,7 +282,10 @@ body::after{
     0 2px 8px rgba(0,0,0,.55);
 }
 
+/* tombol */
 .btn-wrapper{
+    margin-top:14px;
+
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:12px;
@@ -301,7 +306,7 @@ button{
 
     font-weight:900;
 
-    border-radius:16px;
+    border-radius:18px;
 
     transition:.2s;
 }
@@ -312,20 +317,42 @@ button:active{
 
 #yes{
     background:linear-gradient(135deg,#ffffff,#ffe7ee);
+
     color:#ff4d6d;
 
     box-shadow:
-    0 6px 20px rgba(255,255,255,.2);
+    0 6px 18px rgba(255,255,255,.18);
 }
 
 #no{
     background:linear-gradient(135deg,#ff3c5f,#ff6b81);
+
     color:white;
 
     position:relative;
 
     box-shadow:
-    0 6px 20px rgba(255,77,109,.3);
+    0 6px 18px rgba(255,77,109,.25);
+}
+
+/* vibrate */
+.vibrate-mode{
+    animation:vibrate .15s linear infinite;
+}
+
+@keyframes vibrate{
+    0%{
+        transform:translateY(-12px);
+    }
+    25%{
+        transform:translate(-3px,3px) translateY(-12px);
+    }
+    50%{
+        transform:translate(3px,-3px) translateY(-12px);
+    }
+    100%{
+        transform:translateY(-12px);
+    }
 }
 
 /* hati */
@@ -366,21 +393,27 @@ button:active{
 <body>
 
 <div id="overlay">
-    <div class="avatar"></div>
+    <div class="avatar surat-avatar"></div>
     <button onclick="mulai()">BUKA PESAN DARI RUSDY 💌</button>
 </div>
 
 <div class="card" id="mainCard">
 
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-
+    <!-- gif bulat -->
     <div class="avatar" id="catGif"></div>
 
-    <div class="text" id="text"></div>
+    <!-- sparkle -->
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
 
+    <!-- box text -->
+    <div class="text-box">
+        <div class="text" id="text"></div>
+    </div>
+
+    <!-- tombol -->
     <div class="btn-wrapper" id="btnGroup">
         <button id="yes">Iya dimaapin😇</button>
         <button id="no">Emooh😏!</button>
@@ -559,7 +592,7 @@ document.getElementById("yes").onclick = () => {
         document.body.style.backgroundImage =
         `url('${backgroundList[step % backgroundList.length]}')`;
 
-        mainCard.style.backgroundImage =
+        document.querySelector(".text-box").style.backgroundImage =
         `url('${backgroundList[step % backgroundList.length]}')`;
 
         catGifEl.style.backgroundImage =
